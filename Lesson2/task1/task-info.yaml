@@ -1,0 +1,13 @@
+type: edu
+custom_name: 1. Select all rows
+files:
+- name: src/Task.kt
+  visible: false
+- name: test/Tests.kt
+  visible: false
+- name: src/Query1.sql
+  visible: true
+  placeholders:
+  - offset: 67
+    length: 8
+    placeholder_text: 2+2

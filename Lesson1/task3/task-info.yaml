@@ -1,0 +1,5 @@
+type: theory
+custom_name: 'T2: Search using spreadsheets or command-line tools'
+files:
+- name: src/Main.kt
+  visible: true

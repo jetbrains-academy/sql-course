@@ -1,0 +1,14 @@
+type: edu
+custom_name: 'Q2: Simple search in a small dataset'
+files:
+- name: src/Task.kt
+  visible: true
+  placeholders:
+  - offset: 15
+    length: 7
+    placeholder_text: Country name
+  - offset: 27
+    length: 3
+    placeholder_text: 0.0
+- name: test/Tests.kt
+  visible: false

@@ -1,0 +1,5 @@
+  custom_name: '2. Simple SQL queries'
+  type: framework
+  content:
+  - task1
+  - task2

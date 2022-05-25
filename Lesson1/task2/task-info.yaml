@@ -1,0 +1,19 @@
+type: choice
+custom_name: 'Q1: Searching in a tiny dataset'
+is_multiple_choice: false
+options:
+- text: Africa
+  is_correct: false
+- text: Americas
+  is_correct: false
+- text: Eastern Mediterranean
+  is_correct: false
+- text: Europe
+  is_correct: false
+- text: South-east Asia
+  is_correct: true
+- text: Western Pacific
+  is_correct: false
+files:
+- name: src/Main.kt
+  visible: true

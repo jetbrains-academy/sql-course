@@ -1,0 +1,14 @@
+type: marketplace
+title: DataBase 101
+language: English
+summary: |- 
+  This is a short introduction into the fundamentals of SQL query language.
+  
+  It covers the very basic SQL constructs, such as data types and operations, search filters, 
+  table joins, set operations, rows grouping and calculation of aggregated values. It is designed for
+  the absolute newbies with no prior knowledge of SQL but probably with some programming experience.
+programming_language: Kotlin
+content:
+- Lesson1
+- Lesson2
+- datasets

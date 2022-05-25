@@ -1,0 +1,22 @@
+type: edu
+custom_name: 2. Select all rows with filter
+files:
+- name: src/Task.kt
+  visible: false
+- name: src/Query.sql
+  visible: true
+  placeholders:
+  - offset: 52
+    length: 8
+    placeholder_text: 2+2
+    dependency:
+      lesson: Урок 2
+      task: task1
+      file: src/Query1.sql
+      placeholder: 1
+      is_visible: false
+  - offset: 79
+    length: 4
+    placeholder_text: "true"
+- name: test/Tests.kt
+  visible: false
