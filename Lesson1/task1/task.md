@@ -1,27 +1,34 @@
+# Search in a tiny dataset
+
 If you work with data, you most likely need to search it and process the search results. 
 No matter if you are a programmer or an accountant, there are lots of tasks
-which require careful processing of piles of data. 
+which require careful processing of piles of data.
 
+Sometimes your task can be solved with a simple `Search` (hit Ctrl+F) function in a text editor or a spreadsheet,
+or just with a quick eye scan.
 
-Sometimes your task
-can be solved with a simple Search function in a text editor or a spreadsheet,
-or just with an eye scan.
-
-Imagine that you are a road engineer, and you're looking for the countries wih the 
-lowest road traffic death rates, to learn how do they organize their road infrastructure.
-
-If you have a "table" with the road fatality rates data by geographical regions,
-you can easily find the rate in Europe, the highest and the lowest rates, 
-and so on. The table is small, so this is an easy task.  
+Suppose that you are a transport engineer, and you're mining the airport traffic data, measured 
+in the total number of landings and take-offs. If the amount of data is tiny, 
+you can easily find the most busy airport, the least busy one, the busiest airport in Asia, and so on.
 
 ----
-| Region                | Death rate per 100k inhabitants |
-|-----------------------|---------------------------------|
-| Africa                | 26.6                            |
-| Americas              | 15.6                            |
-| Eastern Mediterranean | 18.0                            |
-| Europe                | 9.3                             |
-| South-east Asia       | 20.7                            |
-| Western Pacific       | 16.9                            |
+| Airport                                | Code | Region        | Movements |
+|----------------------------------------|------|---------------|-----------|
+| Amsterdam Airport Schiphol             | AMS  | Europe        | 465521    |
+| Guangzhou Baiyun International Airport | CAN  | Asia          | 409674    |
+| Charles de Gaulle Airport              | CDG  | Europe        | 475776    |
+| Soekarno-Hatta International Airport   | CGK  | Asia          | 380129    |
+| Dubai International Airport            | DXB  | Asia          | 418220    |
+| Frankfurt Airport                      | FRA  | Europe        | 468153    |
+| Hong Kong International Airport        | HKG  | Asia          | 416900    |
+| Tokyo International Airport            | HND  | Asia          | 438542    |
+| Atatürk International Airport          | IST  | Europe        | 464865    |
+| London Heathrow Airport                | LHR  | Europe        | 474102    |
+| Benito Juárez International Airport    | MEX  | North America | 426761    |
+| Beijing Capital International Airport  | PEK  | Asia          | 590169    |
+| Shanghai Pudong International Airport  | PVG  | Asia          | 448213    |
+| Toronto Pearson International Airport  | YYZ  | North America | 443773    |
 
 ----
+
+[Let's do a quick search >>](course://Lesson1/task2)

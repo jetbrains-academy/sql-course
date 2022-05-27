@@ -1,11 +1,7 @@
-Look at the dataset in [this CSV file](file://Lesson1/task4/src/traffic_death_rates.csv). The first line of
-this file contains column names, and the remaining lines contain data about the death rates in traffic
-accidents in many countries all over the world.
+Look at the dataset in [this CSV file](course://datasets/small/airports.csv). The first line of
+this file is a header with the column names, and the remaining rows contain data about the 
+top 30 busiest airports across the world.
 
-Use a spreadsheet or command-line tools to find the European country with the highest
-death rate per 100k vehicles. _European country_ means _country with the value Europe in the `continent` column_
+Use a spreadsheet or command-line tools to find the most busy European airport.
 
-Type the country name and the death rate in the placeholders.
-
-
-[this CSV file](file://Lesson1/task1/task.md).
+Type the airport code and the number of movements in the placeholders.

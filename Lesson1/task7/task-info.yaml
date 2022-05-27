@@ -1,5 +1,5 @@
 type: theory
-custom_name: 'T1: Search in a tiny dataset'
+custom_name: 'T4: Meet SQL language'
 files:
 - name: src/Main.kt
   visible: true

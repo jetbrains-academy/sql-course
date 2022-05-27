@@ -4,8 +4,8 @@ import org.junit.Test
 class Test {
     @Test fun testSolution() {
         task4().let {
-            Assert.assertTrue("Country name looks wrong", "albania" == it.first.lowercase())
-            Assert.assertTrue("Death rate looks wrong", 107.2 == it.second)
+            Assert.assertTrue("Airport code looks wrong", "cdg" == it.first.lowercase())
+            Assert.assertTrue("Number of movements looks wrong", 475776 == it.second)
         }
     }
 }

@@ -1,0 +1,9 @@
+type: edu
+custom_name: 'Q3: Writing search queries in Kotlin'
+files:
+- name: src/Task.kt
+  visible: true
+- name: src/airports.csv
+  visible: false
+- name: test/Tests.kt
+  visible: false

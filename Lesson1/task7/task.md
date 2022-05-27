@@ -1,0 +1,41 @@
+You can still use a general-purpose language even if you don't know in advance all search tasks which your application 
+needs to perform. Just write and compile new programs on-demand. However, it is a very inefficient waste 
+of one of the most expensive resources: software engineer's time. General purpose languages, unfortunately,
+are not good at dealing with table-structured data.
+
+There are many other reasons why using your home-brewed storage and querying system, 
+such as reading and writing CSV files with a general purpose language is not a great idea, but in this 
+course we will focus only on the query language. We want our queries to be easy to write, read 
+and maintain and to be very expressive to allow for performing complex search tasks over table-structured data.
+
+Well, we are lucky! Such language exists, and it has been widely used in many software systems for 
+some 40+ years. This language is SQL, which stands for Structured Query Language.
+
+Let's throw in a quick example of a query written in SQL:
+
+```sql
+
+SELECT code FROM Airports WHERE country = 'US'
+```
+This query finds codes of all airports located in US. It assumes that somewhere there is a table named `Airports` 
+with columns `code` and `country`, and the processor which executes this query knows how to access that table.
+
+SQL usually associates with complex relational database management systems, which
+run on powerful servers in big enterprises. They store and manage table data in their binary format, and provide SQL 
+interface for queries. However, there are many other programs which can execute queries written in SQL or SQL-like
+language. For instance, there is a program `trdsql` which can execute SQL queries over CSV files. An embeddable 
+SQL database SQLite can be found in nearly every web browser or Android phone. SQL is used in 
+Google's BigQuery data warehouse system and -- surprise! -- it is built into Google Sheets too. Yes, you 
+can write SQL-like queries directly in Google Sheets.
+
+[animated gif showing the use of SQL in Google Sheets]
+
+Summarizing, SQL and other similar languages are everywhere, and for nearly every software engineer knowledge 
+of SQL is a great plus. Even if you're an accountant, and you do not write code in your
+normal work, but need to process hundreds or thousands of records, chances are that with SQL you will do
+it faster.
+
+
+
+
+ 

@@ -1,1 +1,1 @@
-fun task4() = "country" to 0.0
+fun task4() = "QQQ" to 0

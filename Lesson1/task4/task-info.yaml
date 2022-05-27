@@ -1,14 +1,14 @@
 type: edu
-custom_name: 'Q2: Simple search in a small dataset'
+custom_name: 'Q2: Search in a small dataset using spreadsheets or command-line tools'
 files:
 - name: src/Task.kt
   visible: true
   placeholders:
   - offset: 15
-    length: 7
-    placeholder_text: Country name
-  - offset: 27
     length: 3
-    placeholder_text: 0.0
+    placeholder_text: Airport code
+  - offset: 23
+    length: 1
+    placeholder_text: 0
 - name: test/Tests.kt
   visible: false
