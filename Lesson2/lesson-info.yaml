@@ -1,5 +1,5 @@
-  custom_name: '2. Simple SQL queries'
-  type: framework
-  content:
-  - task1
-  - task2
+custom_name: 2. Simple search in one table
+content:
+- task0
+- task1
+- task2

@@ -1,0 +1,5 @@
+type: theory
+custom_name: 'T1: Using SQL as a calculator'
+files:
+- name: src/Task.kt
+  visible: true

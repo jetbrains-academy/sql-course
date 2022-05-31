@@ -30,10 +30,10 @@ can write SQL-like queries directly in Google Sheets.
 
 [animated gif showing the use of SQL in Google Sheets]
 
-Summarizing, SQL and other similar languages are everywhere, and for nearly every software engineer knowledge 
-of SQL is a great plus. Even if you're an accountant, and you do not write code in your
-normal work, but need to process hundreds or thousands of records, chances are that with SQL you will do
-it faster.
+Summarizing, SQL and other similar languages are everywhere, and knowledge 
+of SQL is a great plus for nearly every software engineer. If you're not a software engineer,
+and you do not write code in your normal work, but need to process hundreds or thousands of 
+rows in tables, chances are that with SQL you will do it faster.
 
 
 
