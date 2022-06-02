@@ -11,7 +11,7 @@ files:
     placeholder_text: 2+2
     dependency:
       lesson: Урок 2
-      task: task1
+      task: task11
       file: src/Query1.sql
       placeholder: 1
       is_visible: false

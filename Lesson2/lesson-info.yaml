@@ -1,5 +1,6 @@
-custom_name: 2. Simple search in one table
+custom_name: 2. Using SQL as a calculator
 content:
 - task0
-- task1
 - task2
+- task11
+- task12
