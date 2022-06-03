@@ -4,19 +4,18 @@ Aside from numeric operations, SQL can also operate with other data types. In th
 will learn about the operations with character data, or "strings", as they are usually called 
 in the modern general-purpose programming languages.
 
-There are a few families of
-character data types, but we will get closer to them later. In this lesson we will focus on 
-character literals and expressions.
+There are a few families of the character data types, but we will dive into these details later. 
+In this lesson we will focus on character literals and expressions.
 
-There are some surprises for the programmers with the background in Java/C++/Python and similar languages.
-First, string literals in SQL are always quoted with single quotes:
+Programmers with the background in Java/C++/Python and similar languages will probably be 
+somewhat surprised that string literals in SQL are always quoted with single quotes:
 
 ```sql 
 SELECT 'Hello';
 ```
 
 Double quotes may also be used in queries, but for other purposes. We will get back to them later.
-If you try to enclose a string literal in double quotes, you may face a weird error:
+If you enclose a string literal in double quotes, most likely you will get a weird error:
 
 ```sql 
 SELECT "Hello";
