@@ -1,0 +1,9 @@
+type: edu
+custom_name: 'Q1: Practice with simple expressions'
+files:
+- name: src/Task.kt
+  visible: false
+- name: test/Tests.kt
+  visible: false
+- name: src/Query.sql
+  visible: true

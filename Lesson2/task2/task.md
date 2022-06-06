@@ -52,3 +52,5 @@ Some operators which are not so common in general-purpose languages are widely u
   range `[range-start, range-end]`
 * `<value> IN (<value1>, ..., <valueN>)` returns `true` if the `value` equals to any of the values 
   in the comma-delimited list in the parentheses.
+
+We will learn some other useful boolean operators in the lesson about filtering. 
