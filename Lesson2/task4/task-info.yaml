@@ -7,3 +7,5 @@ files:
   visible: false
 - name: src/Query.sql
   visible: true
+- name: src/Solutions.sql
+  visible: false
