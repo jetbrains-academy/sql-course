@@ -14,5 +14,5 @@ which you can use with the [SQLite console client](https://www.sqlite.org/cli.ht
 
 ----
 
-We will work with the data of some imaginary Space travel company which carries passengers and cargo
-between planets in a galaxy far, far away. 
+We will work with the data of some imaginary space travel company called _Marsoflot_, 
+which carries passengers and cargo between planets in a galaxy far, far away. 

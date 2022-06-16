@@ -1,5 +1,5 @@
 type: theory
-custom_name: 'T1: Select all rows'
+custom_name: 'T2: Filter out some rows'
 files:
 - name: src/Main.kt
   visible: true

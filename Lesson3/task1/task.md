@@ -6,7 +6,8 @@ The most simple SQL query which selects data from a table looks as follows:
 SELECT * FROM Planet
 ```
 
-It selects all rows and all columns from the table named `Planet`. A star symbol `*` stands for 
+In addition to `SELECT` clause, we see `FROM` clause which, in its simplest form, consists of a 
+single table name. This query selects all rows and all columns from the table named `Planet`. A star symbol `*` stands for 
 "all columns", while all rows are selected just because there is no filter in the query.
 
 Such queries may appear dumb, but they are used in many applications indeed, 
