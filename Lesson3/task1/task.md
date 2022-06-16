@@ -28,7 +28,7 @@ We can write expressions which use the values from columns. Let's look at this:
 SELECT 'Planet ' || name FROM Planet
 ```
 
-You may think that the engine loops over all rows of the table `Planet` and for each row
+You may think that the database engine loops over all rows of the table `Planet` and for each row
 inserts the value of the attribute `name` from that row into the expression 
 `'Planet' || name` and writes the result as the output row.
 
