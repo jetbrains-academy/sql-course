@@ -40,4 +40,4 @@ SELECT CONCAT('Hello, ', 'World!');
 
 There is a number of other functions for working with strings.
 The exact list of them depends on the SQL engine, but the most common functions, 
-such as `LOWER`, `UPPER`, and `SUBSTRING` are supported by the majority of engines.
+such as `LOWER`, `UPPER`, and `SUBSTRING`, are supported by the majority of engines.
