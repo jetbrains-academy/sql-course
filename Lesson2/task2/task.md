@@ -13,14 +13,14 @@ Using comparison operators, we can compare values of the same type.
 
 The equality operator in SQL is single `=` (which again may surprise programmers who are used to 
 `==` and even `===` operators in other languages), and the inequality symmbol is `<>`, 
-like in old good Pascal:
+like in good old Pascal:
 
 ```sql
 SELECT 2+2=4, 'war'<>'peace', true=false
 ```
 
 For many data types, e.g., numeric and character types, the total ordering relationship is 
-defined, and their values can be compared with the less-than and similar operators `<`, `<=`, `>`, `>=`:
+defined, and their values can be compared with the _less-than_ and similar operators `<`, `<=`, `>`, `>=`:
 
 ```sql
 SELECT 3*3 < 10, 'foo' > 'bar', 3.14 >= 3.140
@@ -49,7 +49,7 @@ SELECT false AND NULL = false;
 Some other operators, which are not so common in general-purpose languages, are also widely used in SQL: 
 
 * `<value> BETWEEN <range-start> AND <range-end>` returns `true` if the `value` is in the closed
-  range `[range-start, range-end]`
+  range `[range-start, range-end],`
 * `<value> IN (<value1>, ..., <valueN>)` returns `true` if the `value` is equal to any of the values 
   in the comma-delimited list in the parentheses.
 
