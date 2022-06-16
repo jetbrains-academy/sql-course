@@ -23,7 +23,7 @@ is an integer number, `3.14` is a decimal number, `+` is the addition operator, 
 
 There is a number of built-in 
 standard mathematical functions in SQL. Their full list depends on the SQL engine, that is, on the software 
-which executes the query; however, the most common functions, such as `ABS`, `SQRT`, and `LOG` are 
+which executes the query; however, the most common functions, such as `ABS`, `SQRT`, and `LOG`, are 
 available in most, if not all, of the engines. 
 
 It is possible to calculate many expressions in a single query, separating them by commas:
