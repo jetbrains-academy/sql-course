@@ -12,10 +12,10 @@ FROM Planet
 WHERE id=1
 ```
 
-The query above scans over the `Planet` table and find the rows where the value of `id` column
+The query above scans over the `Planet` table and finds the rows where the value of `id` column
 is 1. The `WHERE` clause consists of a logical expression which returns a boolean value. 
-The expressions may be very complex and use many sophisticated SQL constructs, but very often
-it is just a combination of arithmetical and logical operators which operate with the column values.
+The expressions may be very complex and may use many sophisticated SQL constructs, but very often
+it is just a combination of mathematical and logical operators which operate with the column values.
 
 Let's look at more complex example:
 ```sql
@@ -51,9 +51,9 @@ Suppose the table looks as follows:
 
 ----
 
-What if one of Marsoflot clients is looking for a place to spend their summer vacation and wants to exclude the planets
-which are certainly inhabited from the search (because the client doesn't like the crowded beaten paths). 
-Will this query return everything that is needed?
+What if one of Marsoflot clients is looking for a place to spend their summer vacation off the crowded beaten paths and 
+wants to exclude from the search those planets which are certainly inhabited? 
+Will this query return the exhaustive results?
 
 ```sql
 SELECT name FROM Planet WHERE NOT is_inhabited
@@ -63,7 +63,7 @@ SELECT name FROM Planet WHERE NOT is_inhabited
 
 Not exactly. There is a row with _Lava_ planet in the results, but _Tibela_ is missing, because negated `NULL` remains 
 `NULL`, and the result of `WHERE` expression is unknown. There are other, more subtle cases when a result set, which
-would have been non-empty otherwise, may become empty in presence of unexpected nulls in the `WHERE` expression. 
+would have been non-empty otherwise, may become empty in presence of unexpected `NULL` values processed by the `WHERE` clause. 
 We will look at such queries in one of the next steps.
 
 
