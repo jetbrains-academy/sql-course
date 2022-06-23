@@ -1,5 +1,5 @@
 type: theory
-custom_name: 'T2: Filter out some rows'
+custom_name: 'T2: simple data filtering'
 files:
 - name: src/Main.kt
   visible: true

@@ -1,5 +1,5 @@
 type: edu
-custom_name: 'Q1: Exercises'
+custom_name: 'Ex: simple expressions'
 files:
 - name: src/Task.kt
   visible: false

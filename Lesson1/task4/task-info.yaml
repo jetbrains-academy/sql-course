@@ -1,5 +1,5 @@
 type: edu
-custom_name: 'Q2: Search in a small dataset using spreadsheets or command-line tools'
+custom_name: 'Ex: Search in a small dataset using spreadsheets or command-line tools'
 files:
 - name: src/Task.kt
   visible: true

@@ -1,5 +1,5 @@
 type: choice
-custom_name: 'Q1: Search in a tiny dataset'
+custom_name: 'Ex: Search in a tiny dataset'
 is_multiple_choice: false
 options:
 - text: Africa

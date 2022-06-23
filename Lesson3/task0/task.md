@@ -1,4 +1,4 @@
-# Select data from a table
+# Selecting data from a table
 
 In this lesson we will learn how to select certain rows and columns from a single table.
 The main focus will be on data filtering in `WHERE` clause.

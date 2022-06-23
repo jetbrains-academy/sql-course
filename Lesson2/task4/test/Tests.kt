@@ -10,6 +10,7 @@ class Test {
     }
 
     @Test fun testSolution() {
+        showComposeUi()
         val results = mutableListOf<ScoredSolution>()
         db.forEachQueryInFile("/Query.sql") { db, idx, query ->
             when (idx) {

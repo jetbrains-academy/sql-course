@@ -1,5 +1,5 @@
 type: theory
-custom_name: 'T1: Select everything'
+custom_name: What is in thie lesson
 files:
 - name: src/Main.kt
   visible: true

@@ -1,5 +1,5 @@
 type: edu
-custom_name: 'Q3: Writing search queries in Kotlin'
+custom_name: 'Ex: Writing search queries in Kotlin'
 files:
 - name: src/Task.kt
   visible: true
