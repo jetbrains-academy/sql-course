@@ -1,0 +1,5 @@
+type: theory
+custom_name: 'T1: aggregate functions and scalar subqueries'
+files:
+- name: src/Main.kt
+  visible: true

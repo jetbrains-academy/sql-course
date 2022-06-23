@@ -1,25 +1,11 @@
-# Joining tables
+# Grouping data
 
-In relational database systems there is usually more than one table, and very often when searching we need
-for each row from one table find all rows from another table which meet some criteria, and combine 
-the matching pairs of rows. For instance, if we have a table with planets
+In this lesson we will learn how to calculate a scalar aggregate value for a list of rows. For instance, count the 
+number of rows, or find a maximum value in a column.
 
-----
-Planets
+Then we will see how can we group the results of filtering, and calculate aggregate values separately for each group.
+For instance, we will see how to calculate the maximum planet radius for each group of planet with the same climate.
 
-----
-
-and a table with the flight history records
-
-----
-Flights
-
-----
-
-we may want to find for each planet row all flight rows with the matching `planet_id` and combine the attributes of 
-each matching pair of planet and flight. This way we will find for each planet all flights to that planet.
-
-This lesson introduces the family of `JOIN` operations which are designed for such tasks.
 
 The queries in this lesson assume that there is a data source where all the required tables are stored.
 Exercise tasks will automatically create the data source, tables and add some data, and will

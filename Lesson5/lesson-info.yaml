@@ -1,3 +1,5 @@
-{
-  custom_name: '5. Grouping data'
-}
+custom_name: 5. Aggregates and data grouping
+content:
+- task0
+- task1
+- task2
