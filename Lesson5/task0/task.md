@@ -1,6 +1,6 @@
 # Grouping data
 
-In this lesson we will learn how to calculate a scalar aggregate value for a list of rows. For instance, count the 
+In this lesson first we will learn how to calculate a scalar aggregate value for a list of rows. For instance, count the 
 number of rows, or find a maximum value in a column.
 
 Then we will see how can we group the results of filtering, and calculate aggregate values separately for each group.

@@ -1,8 +1,8 @@
-## Filter some rows from a table
+## Simple data filtering
 
 Queries which select everything from a table are useful, but more often we need to filter out most
 of the data and leave only those rows which meet some criteria. In SQL we can do it with the 
-help of `WHERE` clause. Let's look at the simple example:
+help of `WHERE` clause. Let's look at this simple example:
 
 ```sql
 -- Unless your query is very simple, it makes sense to format it with linebreaks and indents.
@@ -28,7 +28,7 @@ The expression above evaluates to `true` if the value of attribute `id` is 1, or
 or if the value of `name` attribute is `'Disa'`. Logically, the database engine executes query as follows:
 
 1. It scans through all the rows of the table specified in `FROM` clause 
-2. For each single row it evaluates the `WHERE` expression, inserting the attribute values from the current row into the 
+2. For every row it evaluates the `WHERE` expression, inserting the attribute values from the current row into the 
    expression as necessary.
 3. If the expression evaluates to `true`, the whole current row goes to the `SELECT` clause which may
 process it further, as we saw in the previous lesson.
@@ -38,7 +38,7 @@ It may evaluate to `false`, which obviously means that the row shall be excluded
 But it may as well return `unknown`, or `NULL`, and in this case the row is excluded from the output either. 
 
 Let's assume that besides `id` and `name` there is a boolean column `is_inhabited` in the table `Planet`, 
-and its value is `NULL` if we don't know for sure if the planet is inhabited or not. 
+and its value is `NULL` if we don't know for sure if a planet is inhabited or not. 
 Suppose the table looks as follows:
 
 ----
@@ -59,11 +59,14 @@ Will this query return the exhaustive results?
 SELECT name FROM Planet WHERE NOT is_inhabited
 ```
 
-[demo showing the results of running this query]
+[TODO: demo showing the results of running this query]
 
-Not exactly. There is a row with _Lava_ planet in the results, but _Tibela_ is missing, because negated `NULL` remains 
+Not exactly. It will return those planets which are certainly not inhabited, but _Tibela_, which is not known to be inhabited,
+but not known to be uninhabited either, will be missing, because negated `NULL` remains 
 `NULL`, and the result of `WHERE` expression is unknown. There are other, more subtle cases when a result set, which
-would have been non-empty otherwise, may become empty in presence of unexpected `NULL` values processed by the `WHERE` clause. 
+would have been non-empty otherwise, may become empty in presence of unexpected `NULL` values processed by `WHERE` clause. 
 We will look at such queries in one of the next steps.
+
+[TODO: put a link to a query with NOT IN expression]
 
 
