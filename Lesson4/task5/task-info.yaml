@@ -1,0 +1,5 @@
+type: theory
+custom_name: 'T3: outer joins'
+files:
+- name: src/Main.kt
+  visible: true

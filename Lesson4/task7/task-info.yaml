@@ -1,0 +1,5 @@
+type: theory
+custom_name: 'T4: join chains and filters'
+files:
+- name: src/Main.kt
+  visible: true

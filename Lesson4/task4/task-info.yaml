@@ -1,0 +1,7 @@
+type: edu
+custom_name: 'Ex: inner joins without JOIN'
+files:
+- name: src/Task.kt
+  visible: true
+- name: test/Tests.kt
+  visible: false
