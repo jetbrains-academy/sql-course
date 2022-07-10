@@ -1,5 +1,5 @@
 type: theory
-custom_name: 'T2: inner joins without JOIN keyword'
+custom_name: 'T2: Other ways to make inner join'
 files:
 - name: src/Main.kt
   visible: true

@@ -1,48 +1,51 @@
+## Other ways to make inner joins
 
-This is a task description file.
-Its content will be displayed to a learner
-in the **Task Description** window.
+Aside from the explicit `JOIN` operators, there are other ways to join tables in SQL. 
 
-It supports both Markdown and HTML.
-To toggle the format, you can rename **task.md**
-to **task.html**, or vice versa.
-The default task description format can be changed
-in **Preferences | Tools | Education**,
-but this will not affect any existing task description files.
+### Cross-join and filters
 
-The following features are available in
-**task.md/task.html** which are specific to the EduTools plugin:
+Let's recall what we do when we join two tables: we consider all the pairs of rows and leave only those where some condition,
+e.g. equality of some attributes, is met. The set of all pairs is a cartesian product of the sets or rows, and in SQL 
+there is an operator `CROSS JOIN` which builds a cartesian product. For instance, this query:
 
-- Hints can be added anywhere in the task text.
-Type "hint" and press Tab.
-Hints should be added to an empty line in the task text.
-In hints you can use both HTML and Markdown.
-<div class="hint">
+```sql
+SELECT * FROM Planet CROSS JOIN Flight
+```
 
-Text of your hint
+will build a cartesian product of rows fom `Planet` with rows from `Flight`.
+Cartesian product per se is not very useful, especially when the number of rows in the tables is big, because the count of rows in 
+its result is the multiplication of the count of rows in the operands. However, if we add a filter which leaves only those 
+rows where our join condition is met, we get a join in the result. The following query is absolutely equivalent to 
+inner join of `Planet` and `Flight` using `planet_id`: 
 
-</div>
+```sql
+SELECT * FROM Planet CROSS JOIN Flight
+WHERE Planet.planet_id=Flight.planet_id
+```
 
-- You may need to refer your learners to a particular lesson,
-task, or file. To achieve this, you can use the in-course links.
-Specify the path using the `[link_text](course://lesson1/task1/file1)` format.
+`CROSS JOIN` can be replaced with a simple comma. Yes, comma in SQL is an operator (except when it is not):
 
-- You can insert shortcuts in the task description.
-While **task.html/task.md** is open, right-click anywhere
-on the **Editor** tab and choose the **Insert shortcut** option
-from the context menu.
-For example: &shortcut:FileStructurePopup;.
+```sql
+SELECT * FROM Planet, Flight
+WHERE Planet.planet_id=Flight.planet_id
+```
 
-- Insert the &percnt;`IDE_NAME`&percnt; macro,
-which will be replaced by the actual IDE name.
-For example, **%IDE_NAME%**.
+Such way of writing joins used to be popular before the explicit `JOIN` operator came into the standard and was 
+implemented in the major SQL engines.
 
-- Insert PSI elements, by using links like
-`[element_description](psi_element://link.to.element)`.
-To get such a link, right-click the class or method
-and select **Copy Reference**.
-Then press &shortcut:EditorPaste; to insert the link where appropriate.
-For example, a [link to the "contains" method](psi_element://java.lang.String#contains).
+### IN operator makes a join too
 
-- You can add link to file using **full path** like this:
-  `[file_link](file://lesson1/task1/file.txt)`.
+What if we want to find the dates of flights to uninhabited planets? We can write this query using joins:
+
+```sql
+SELECT flight_date FROM Flight JOIN Planet WHERE Planet.is_inhabited = FALSE
+```
+
+but if we recall subqueries in `WHERE` clause and `IN` operator, we may rewrite this query as follows:
+
+```sql
+SELECT flight_date FROM Flight
+WHERE planet_id IN (SELECT id FROM Planet WHERE is_inhabited = FALSE)
+```
+
+
