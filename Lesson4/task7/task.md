@@ -1,10 +1,10 @@
 ## Join chains
-We can join the results of one join with a third table and continue joining as needed. Let's assume that we have a 
+We can join the results of two tables join with a third table and continue joining as needed. Let's assume that we have a 
 table `Spacecraft` in our database 
 
 **Spacecraft**
 
-| spacecraft_id | name      | capacity |
+| id            | name      | capacity |
 |---------------|-----------|----------|
 | 1             | Falcon 22 | 5        |
 | 2             | Falcon 25 | 3        |
@@ -17,33 +17,34 @@ Let's look at the result of joining planets and flights:
 
 ```sql
 SELECT * 
-FROM Planet JOIN Flight USING(planet_id)
+FROM Planet JOIN Flight ON Planet.id=Flight.planet_id
 ```
 
-| P.name | P.planet_id | P.is_inhabited | F.num | F.planet_id | F.flight_date | F.spacecraft_id |
-|--------|-------------|----------------|-------|-------------|---------------|-----------------|
-| Disa   | 1           | true           | MF201 | 1           | 2122-04-12    | 1               |
-| Reva   | 3           | true           | MF147 | 3           | 2122-05-01    | 3               |
-| Reva   | 3           | true           | MF149 | 3           | 2122-05-08    | 2               |
-| Disa   | 1           | true           | MF201 | 1           | 2122-05-12    | 1               |
+| P.name | P.id | P.is_inhabited | F.num | F.planet_id | F.flight_date | F.spacecraft_id |
+|--------|------|----------------|-------|-------------|---------------|-----------------|
+| Disa   | 1    | true           | MF201 | 1           | 2122-04-12    | 1               |
+| Reva   | 3    | true           | MF147 | 3           | 2122-05-01    | 3               |
+| Reva   | 3    | true           | MF149 | 3           | 2122-05-08    | 2               |
+| Disa   | 1    | true           | MF201 | 1           | 2122-05-12    | 1               |
 
 It is essentially a table, with columns and rows, and we can join it with `Spacecraft` table:
 
 ```sql
 SELECT *
-FROM Planet JOIN Flight USING(planet_id) JOIN Spacecraft USING(spacecraft_id)
+FROM Planet JOIN Flight     ON Planet.id=Flight.planet_id 
+            JOIN Spacecraft ON Flight.spacecraft_id=Spacecraft.id
 ```
 
 and get a result like this
 
-| P.name | P.planet_id | P.is_inhabited | F.num | F.planet_id | F.flight_date | F.spacecraft_id | S.spacecraft_id | S.name    | S.capacity |
-|--------|-------------|----------------|-------|-------------|---------------|-----------------|-----------------|-----------|------------|
-| Disa   | 1           | true           | MF201 | 1           | 2122-04-12    | 1               | 1               | Falcon 22 | 5          |
-| Reva   | 3           | true           | MF147 | 3           | 2122-05-01    | 3               | 3               | Falcon 28 | 7          |
-| Reva   | 3           | true           | MF149 | 3           | 2122-05-08    | 2               | 2               | Falcon 25 | 3          |
-| Disa   | 1           | true           | MF201 | 1           | 2122-05-12    | 1               | 1               | Falcon 22 | 5          | 
+| P.name | P.id | P.is_inhabited | F.num | F.planet_id | F.flight_date | F.spacecraft_id | S.id | S.name    | S.capacity |
+|--------|------|----------------|-------|-------------|---------------|-----------------|------|-----------|------------|
+| Disa   | 1    | true           | MF201 | 1           | 2122-04-12    | 1               | 1    | Falcon 22 | 5          |
+| Reva   | 3    | true           | MF147 | 3           | 2122-05-01    | 3               | 3    | Falcon 28 | 7          |
+| Reva   | 3    | true           | MF149 | 3           | 2122-05-08    | 2               | 2    | Falcon 25 | 3          |
+| Disa   | 1    | true           | MF201 | 1           | 2122-05-12    | 1               | 1    | Falcon 22 | 5          | 
 
-We join different connected facts from different tables into a single row, and we can read the result like this: 
+Notice that we join different connected facts from different tables into a single row, and we can read the result like this: 
 "Falcon 22, which can carry up to 5 astronauts, started its flight to inhabited planet Disa on 2122-04-12"
 
 ## Filtering the results of joins
@@ -56,7 +57,8 @@ previously joined tables:
 ```sql
 -- This query will find the names of planets and the flight date of the flights performed by 'Falcon 25'
 SELECT Planet.name AS planet_name, flight_date, capacity
-FROM Planet JOIN Flight USING(planet_id) JOIN Spacecraft USING(spacecraft_id)
+FROM Planet JOIN Flight     ON Planet.id=Flight.planet_id
+            JOIN Spacecraft ON Flight.spacecraft_id=Spacecraft.id
 WHERE Spacecraft.name = 'Falcon 25'
 ```
 
@@ -65,6 +67,10 @@ We can use table aliases to make this shorter:
 
 ```sql
 SELECT P.name AS planet_name, flight_date, capacity
-FROM Planet P JOIN Flight F USING(planet_id) JOIN Spacecraft S USING(spacecraft_id)
+FROM Planet P JOIN Flight F     ON P.id=F.planet_id
+              JOIN Spacecraft S ON F.spacecraft_id=S.id
 WHERE S.name = 'Falcon 25'
 ```
+
+Basically, writing simple search queries comes to determining the tables which need to be joined and adding 
+search filters.

@@ -1,5 +1,5 @@
 type: edu
-custom_name: 'Ex: inner joins without JOIN'
+custom_name: 'Ex: Make a join not using a join'
 files:
 - name: src/Task.kt
   visible: true

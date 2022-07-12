@@ -12,7 +12,7 @@ there is an operator `CROSS JOIN` which builds a cartesian product. For instance
 SELECT * FROM Planet CROSS JOIN Flight
 ```
 
-will build a cartesian product of rows fom `Planet` with rows from `Flight`.
+will build a cartesian product of rows from `Planet` with rows from `Flight`.
 Cartesian product per se is not very useful, especially when the number of rows in the tables is big, because the count of rows in 
 its result is the multiplication of the counts of rows in the operands. However, if we add a filter which leaves only those 
 rows where our join condition is met, we get a join in the result. The following query is absolutely equivalent to 
@@ -61,17 +61,18 @@ WHERE P.id=F.planet_id
 
 ### What way is better?
 
-So, we have a few equivalent ways of writing a query, and one may ask which way is better. The short answer is: 
-use explicit join and filters, but there are some aspects to consider:
+So, we have a few ways of writing a query, which are equivalent from the result perspective. One may ask if there are any
+significant differences between them and which way is better. 
+The short answer is: use explicit join and filters, but there are some aspects to consider.
 
-1. *Code readability and maintainability*. This is the most important aspect, because you write your code for humans. 
+1. *Code readability and maintainability*. This is the most significant aspect, because you write your code for humans. 
 A computer doesn't care how clearly you expressed your intents in code. However, it is important that those who read your 
 code in the future are able to understand what did you mean. 
 
 From this perspective, if you do a join, use `JOIN`, because it makes the intention clear. Comparing 
 to cross-join, where technical join conditions are mixed with important filters in a long `WHERE` clause, `JOIN` allows to 
-split them, making clear where is a filter and where is a join. Look at these two queries which both find the planets which
-were visited by big spacecrafts built on the shipyards located on the planets with hot climate:
+split them apart, making it clear where is a filter and where is a join. Look at the following two queries which both 
+find the planets visited by big spacecrafts built on the shipyards located on the planets with hot climate:
 
 ```sql
 SELECT P.name
@@ -87,17 +88,17 @@ WHERE P2.climate = 'hot' AND S.capacity > 10
 ```sql
 SELECT P.name
 FROM Planet P, Flight F, Spacecraft S, Shipyard Y, Planet P2
--- Here join conditions and a filter are mixed, and it is difficult to distinguish the search filter from 
--- the join conditions
+-- Here join conditions and filters are mixed, and it is difficult to distinguish between them
 WHERE P.id=F.planet_id 
-  AND S.shipyard_id=S.id 
+  AND S.shipyard_id=Y.id 
   AND P2.climate = 'hot' 
   AND P2.id=Y.planet_id 
   AND S.id=F.spacecraft_id
   AND S.capacity > 10
 ```
 
-Besides, outer joins can't be easily expressed with cross-joins and filters. 
+Besides, outer joins can't be easily expressed with cross-joins and filters. Using a cartesian product, you can find a match
+of two pairs, but you can't be certain if some particular row has no match with any of the opposite rows. 
 
 Subqueries and `IN` operator may sometimes make a query more understandable, but usually they just add more nested structures which 
 makes code less readable. Let's look at the same query written using nested subqueries:
@@ -114,12 +115,13 @@ SELECT name FROM Planet WHERE id IN (
     )
 ```
 
-There are four levels of nesting and the search filter conditions are apart from each other, and it is difficult to read.
-Besides, in the top-level select we are restricted to selecting the attributes of `Planet` table only. We can't select, e.g.,
+This code is difficult to read because there are four levels of nesting and the search filter conditions are apart from 
+each other. Besides, in the top-level select we are restricted to selecting the attributes of `Planet` table only. We can't select, e.g.,
 a flight date along with the planet name, or a spacecraft capacity value.
 
-2. *Performance*. In lots of cases a modern database engine will execute all these queries literally identically, 
-no matter if you use an explicit join, `IN` or `CROSS JOIN`, and will use a join algorithm in all cases. This means,
+2. *Performance*. In lots of cases a modern database engine will execute all these queries literally identically. 
+No matter if you use an explicit join, `IN` or `CROSS JOIN`, the engine will use a join algorithm in all cases. This means,
 that their performance is likely to be the same. However, it depends on the quality of database query optimization system and some
-other factors, such as table sizes and statistics. In general, it is impossible to claim that any of these ways is better than others from
-performance perspective.
+other factors, such as table sizes and statistics. In general, it is impossible to claim a-priori that any of these ways is better than others from
+performance perspective. 
+
