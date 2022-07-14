@@ -1,6 +1,6 @@
 ## Join chains
-We can join the results of two tables join with a third table and continue joining as needed. Let's assume that we have a 
-table `Spacecraft` in our database 
+We can join the results of joining two tables with a third table and continue joining as needed. 
+Let's assume that we have a table `Spacecraft` in our database 
 
 **Spacecraft**
 
@@ -35,7 +35,7 @@ FROM Planet JOIN Flight     ON Planet.id=Flight.planet_id
             JOIN Spacecraft ON Flight.spacecraft_id=Spacecraft.id
 ```
 
-and get a result like this
+The result will look as follows:
 
 | P.name | P.id | P.is_inhabited | F.num | F.planet_id | F.flight_date | F.spacecraft_id | S.id | S.name    | S.capacity |
 |--------|------|----------------|-------|-------------|---------------|-----------------|------|-----------|------------|
@@ -44,7 +44,8 @@ and get a result like this
 | Reva   | 3    | true           | MF149 | 3           | 2122-05-08    | 2               | 2    | Falcon 25 | 3          |
 | Disa   | 1    | true           | MF201 | 1           | 2122-05-12    | 1               | 1    | Falcon 22 | 5          | 
 
-Notice that we join different connected facts from different tables into a single row, and we can read the result like this: 
+Every row in the result joins different connected facts from different tables. 
+We can read the contents of every row like this: 
 "Falcon 22, which can carry up to 5 astronauts, started its flight to inhabited planet Disa on 2122-04-12"
 
 ## Filtering the results of joins
