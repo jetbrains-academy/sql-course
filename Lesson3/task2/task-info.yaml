@@ -1,5 +1,5 @@
 type: theory
 custom_name: 'T2: simple data filtering'
 files:
-- name: src/Main.kt
+- name: SQL 101 - Task 3.2 - data filtering.drawio.png
   visible: true

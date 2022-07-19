@@ -1,18 +1,19 @@
-## Other ways to make inner joins
+## Other ways to do inner joins
 
 Aside from the explicit `JOIN` operators, there are other ways to join tables in SQL. 
 
 ### Cross-join and filters
 
-Let's recall what we do when we join two tables: we consider all the pairs of rows and leave only those where some condition,
-e.g. equality of some attributes, is met. The set of all pairs is a cartesian product of the sets or rows, and in SQL 
-there is an operator `CROSS JOIN` which builds a cartesian product. For instance, this query:
+Let's recall what we do when we join two tables. 
+We consider all the pairs of rows and leave only those where some condition, e.g. equality of some attributes, is met. 
+The set of all pairs is a cartesian product of the sets or rows, and in SQL there is an operator `CROSS JOIN` 
+which builds a cartesian product. 
+For instance, this query will build a cartesian product of rows from `Planet` with rows from `Flight`:
 
 ```sql
 SELECT * FROM Planet CROSS JOIN Flight
 ```
 
-will build a cartesian product of rows from `Planet` with rows from `Flight`.
 Cartesian product per se is not very useful, especially when the number of rows in the tables is big, because the count of rows in 
 its result is the multiplication of the counts of rows in the operands. However, if we add a filter which leaves only those 
 rows where our join condition is met, we get a join in the result. The following query is absolutely equivalent to 
@@ -23,7 +24,7 @@ SELECT * FROM Planet CROSS JOIN Flight
 WHERE Planet.id=Flight.planet_id
 ```
 
-`CROSS JOIN` can be replaced with a simple comma. Yes, comma in SQL is an operator (except when it is not):
+`CROSS JOIN` can be replaced with a simple comma. Yes, comma in the `FROM` clause is an operator:
 
 ```sql
 SELECT * FROM Planet, Flight
@@ -49,7 +50,7 @@ WHERE planet_id IN (SELECT id FROM Planet WHERE is_inhabited = FALSE)
 ```
 
 The subquery returns a list of identifiers of uninhabited planets, and the outer query tests for each row from `Flight` 
-if its `planet_id` value is in the list, which is essentially the same as inner join with filter.
+if its `planet_id` value is in the list, which is in this case equivalent to using inner join with filter
 
 We might as well write this query using a cross join and filter:
 
@@ -71,7 +72,7 @@ code in the future are able to understand what did you mean.
 
 From this perspective, if you do a join, use `JOIN`, because it makes the intention clear. Comparing 
 to cross-join, where technical join conditions are mixed with important filters in a long `WHERE` clause, `JOIN` allows to 
-split them apart, making it clear where is a filter and where is a join. Look at the following two queries which both 
+split them apart, making it clear where is a filter and where is a join condition. Look at the following two queries which both 
 find the planets visited by big spacecrafts built on the shipyards located on the planets with hot climate:
 
 ```sql
@@ -116,12 +117,12 @@ SELECT name FROM Planet WHERE id IN (
 ```
 
 This code is difficult to read because there are four levels of nesting and the search filter conditions are apart from 
-each other. Besides, in the top-level select we are restricted to selecting the attributes of `Planet` table only. We can't select, e.g.,
-a flight date along with the planet name, or a spacecraft capacity value.
+each other. Besides, in the top-level select we are restricted to selecting the attributes of `Planet` table only. 
+We can't select, e.g., a flight date along with the planet name, or a spacecraft capacity value.
 
 2. *Performance*. In lots of cases a modern database engine will execute all these queries literally identically. 
-No matter if you use an explicit join, `IN` or `CROSS JOIN`, the engine will use a join algorithm in all cases. This means,
-that their performance is likely to be the same. However, it depends on the quality of database query optimization system and some
-other factors, such as table sizes and statistics. In general, it is impossible to claim a-priori that any of these ways is better than others from
-performance perspective. 
-
+No matter if you use an explicit join, `IN` or `CROSS JOIN`, the engine will use a join algorithm in all cases. 
+This means, that their performance is likely to be the same. 
+However, it depends on the quality of database query optimization system and some other factors, 
+such as table sizes and statistics. 
+In general, it is impossible to claim a-priori that any of these ways is more efficient than others.

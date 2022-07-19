@@ -94,11 +94,11 @@ but natural join in this query will nevertheless use these columns in addition t
 SELECT * FROM Flight NATURAL JOIN Planet
 
 -- will be equivalent to this
-SELECT * FROM Flight INNER JOIN Planet 
 SELECT * FROM Flight F JOIN Planet P ON F.planet_id=P.planet_id AND F.people_count=P.people_count
 ```
 
-and most likely we will always get an empty result.
+and most likely we will always get an empty result, because the number of the flight crew members is unlikely to be equal
+to the number of people living on the destination planet.
 
 ----
 

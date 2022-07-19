@@ -1,6 +1,6 @@
 # Joining tables
 
-Usually there is more than one table in relational databases, and very often when searching we need
+Usually there is more than one table in a relational database, and very often when searching we need
 for each row from one table find all rows from another table which meet some criteria, and combine 
 the matching pairs of rows. For instance, if we have a table with planets
 
@@ -16,7 +16,8 @@ the matching pairs of rows. For instance, if we have a table with planets
 
 ----
 
-and a table with the flight history records
+and a table with the flight history records, where `planet_id` attribute value is the identifier of a planet 
+which was the flight destination:
 
 ----
 **Flights**

@@ -19,7 +19,7 @@ The result of an outer join is a superset of an inner join, that is, it is alway
 call "outer part". The set of rows in the outer part depends on the outer join type. 
 
 `LEFT OUTER JOIN` adds those rows from its left operand which did not join with any row from the right operand. It adds 
-every not matched row just once and fills the values of columns from the right operand with NULLs. If we write  
+every unmatched row just once and fills the values of columns from the right operand with NULLs. If we write  
 
 ```sql
 SELECT *
@@ -38,7 +38,15 @@ flights. The result will look as follows:
 | Lava   | 2           | false          | NULL  | NULL        | NULL          |
 | Tibela | 4           | NULL           | NULL  | NULL        | NULL          |
 
-Notice that left outer join is not commutative, and its result is likely to be different if we swap the operands.
+Notice that left outer join is not commutative, and its result is likely to be different if we swap the operands:
+
+```sql
+-- The result of this outer join will be the same as inner join, because there are no rows in Flight which have no 
+-- matching row in Planet.
+SELECT *
+FROM Flight LEFT OUTER JOIN Planet ON id=planet_id
+```
+
 
 Right outer join does the same thing, except that its outer part is built from the right operand rows with no matches 
 on the left side. Basically, `T LEFT JOIN R` is the same as `R RIGHT JOIN T` with the same join condition. Right join 

@@ -44,10 +44,10 @@ Suppose the table looks as follows:
 ----
 | name   | id  | is_inhabited |
 |--------|-----|--------------|
-| Disa   | 1   | true         |
+| Disa   | 4   | true         |
 | Lava   | 2   | false        |
 | Reva   | 3   | true         |
-| Tibela | 4   | NULL         |
+| Tibela | 1   | NULL         |
 
 ----
 
