@@ -14,7 +14,7 @@ standard functions which are supported by all relational databases:
 | AVG      | Finds the average of values in the input list                   |
 
 Aggregate functions can be used in `SELECT` clause (and also in some other clauses) and it is important to understand
-the logical model of calculating them, that it, how do they work from the user perspective.
+the logical model of calculating them, that is, how do they work from the user perspective.
 
 First, let's look how do we build the list of input values. While it is tempting to write something like `SELECT SUM(1, 2, 3)`,
 hoping to get the sum `1+2+3`, in reality things are more complicated. 
@@ -45,14 +45,15 @@ SELECT COUNT(name) FROM Planet;
 SELECT COUNT(42) FROM Planet;
 ```
 
-Yes, even if the expression is just a constant, the same constant for any row in the `FROM-WHERE` output, `COUNT` will 
-count it as many times, as it appears. However, there are some subtle 
+Yes, even if the expression is just a constant, with the same value for any row in the `FROM-WHERE` output, `COUNT` will 
+count it as many times as it appears. One may think that it doesn't matter what expression is used in `COUNT`, 
+however, there are some subtle details which we should be aware of.  
 
 ## Handling of NULL values
 
 What if there are `NULL` values in the aggregate function input? It may happen if a table column is nullable, 
-and there are `NULL` values indeed, or if the expression evaluates to `NULL` because of some other other reasons. 
-What if there are _only_ `NULL` values in the input?
+and there are `NULL` values indeed, or if the expression evaluates to `NULL` because of some other reasons. 
+What if there are _only_ `NULL` values in the input? What if the input is empty?
 
 All aggregate functions, including `COUNT`, ignore `NULL` values in the input list. If there are `NULL` values in `Planet.climate`
 column, the following queries will return different results:
@@ -77,4 +78,116 @@ All aggregate functions except for `COUNT` return `NULL` if all input values are
 
 By default, the aggregate function input is a list, which allows for duplicates. However, sometimes we may want to 
 remove duplicates and calculate distinct values only. 
+
+Imagine that we want to count all planets visited by a spacecraft "Pegasus" and calculate an average radius, 
+where "visited planet" means "there was at least one flight to that planet". 
+Those queries below looks nice, right?
+
+```sql
+-- "Count" the planets visited by Pegasus
+SELECT COUNT(*)
+FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spaceraft S ON S.id=F.spacecraft_id
+WHERE S.name='Pegasus'
+
+-- Calculate the average radius of planets visited by Pegasus
+SELECT AVG(P.radius)
+FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spaceraft S ON S.id=F.spacecraft_id
+WHERE S.name='Pegasus'
+```
+[TODO: animated GIF showing the results of running queries above]
+
+Unfortunately, their results are wrong, unless there is a happy coincidence. 
+The output of joining planets, flights and spacecrafts is a table where the 
+same planet may appear many times, as many as there were flights to that planet. 
+Aggregate functions will count the flights made by Pegasus, not the planets, and will find the average value across 
+flights, which is not the same as the average radius of the visited planets.
+
+The good news is that we can easily fix this issue. Adding a keyword `DISTINCT` before the aggregate function expression 
+will make it counting only distinct values. 
+
+[TODO: animated GIF showing the results of running COUNT(DISTINCT *)]
+
+Ooops, it is not _that_ easy. `*` is not an expression. If we want distinct values, we need to write the expression which
+produces the values. Now we should be careful, and choose the expression wisely. For instance, `COUNT(DISTINCT 42)` will 
+always return `1`, no matter how many rows and different planets are in the result. Let's count the planet identifiers:
+
+```sql
+-- "Count" the planets visited by Pegasus
+SELECT COUNT(P.id)
+FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spaceraft S ON S.id=F.spacecraft_id
+WHERE S.name='Pegasus'
+```
+
+[TODO: animated GIF]
+
+Okay, it certainly looks better. Why don't we use the same approach to calculating the average radius? 
+
+```sql
+SELECT AVG(DISTINCT P.radius)
+FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spaceraft S ON S.id=F.spacecraft_id
+WHERE S.name='Pegasus'
+```
+
+Is this query correct? Well, the answer is "it depends". We aggregate distinct values of "radius" attribute. This will work
+if different planets always have different radius, but can we be sure that it is really the case? What if just by coincidence
+two different planets happen to have the same radius? In this case we will feed it to AVG only once and the result will
+obviously be wrong.
+
+[TODO: animated gif showing the issue]
+
+Unless we have a guarantee that planet radius values are always different for different planets, we need some other way 
+to solve the problem, and we will consider them in the next lesson.
+
+## Restrictions on SELECT clause
+
+If you're using at least one aggregate function in a `SELECT` clause, you can't use any other expression, unless it is an aggregate 
+function as well:
+
+```sql
+-- This works
+SELECT MAX(radius), MIN(radius) FROM Planet
+
+-- This doesn't work
+SELECT id, name, MAX(radius) FROM Planet
+```
+
+The reason sits in the SQL standard, which says that in presence of aggregate functions in the `SELECT` clause, the result
+shall contain 1 row, unless there are groups, which we will discuss later. If the result is just 1 row with the aggregate 
+function values, the database engine can't add there any "bare" non-aggregated column values, because there is no rule to chose 
+one out of N values in all table rows.
+
+However, there are valid use cases where 
+an aggregate function is used along with bare column values -- for instance, if we want to output all planet rows with all
+their columns _and_ an additional column with the maximum radius across all planets -- and there are a few ways to 
+achieve such results which we will discuss later.  
+
+## Scalar subqueries
+
+A query which returns a single aggregated value is called a scalar query. A nice feature of a scalar query is that its return 
+value can be used almost anywhere, where a simple scalar expression is valid. 
+
+For instance, we can easily find the value of the maximum radius:
+
+```sql
+SELECT MAX(radius) FROM Planet
+```
+
+but how we can find the planet with this radius? It is easy using a scalar subquery in `WHERE` clause. Just compare the maximum 
+with the current row `radius` attribute:
+
+```sql
+SELECT * FROM Planet WHERE radius = (SELECT MAX(radius) FROM Planet)
+```
+
+It is also possible to use scalar subqueries in `SELECT` clause, and this way to solve the problem mentioned above -- 
+output all rows and columns from `Planet` with the additional column with the maximum radius:
+
+```sql
+SELECT id, name, radius, climate, (SELECT MAX(radius) FROM Planet) AS max_radius
+FROM Planet
+```
+
+However, this approach shall be used with care, because database engines may fail to execute such queries efficiently.
+
+
 
