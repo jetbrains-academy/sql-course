@@ -1,8 +1,8 @@
 # Joining tables
 
-Usually there is more than one table in a relational database, and very often when searching we need
-for each row from one table find all rows from another table which meet some criteria, and combine 
-the matching pairs of rows. For instance, if we have a table with planets
+Usually, there is more than one table in a relational database. Very often when searching, we need
+to find for each row from one table all rows from another table that meet certain criteria and then combine 
+the matching pairs of rows. For instance, let's say we have a table with planets:
 
 ----
 **Planets**
@@ -16,8 +16,8 @@ the matching pairs of rows. For instance, if we have a table with planets
 
 ----
 
-and a table with the flight history records, where `planet_id` attribute value is the identifier of a planet 
-which was the flight destination:
+We also have a table with flight history records, where the `planet_id` attribute value is the identifier of a planet 
+indicated as the flight destination:
 
 ----
 **Flights**
@@ -31,8 +31,8 @@ which was the flight destination:
 
 ----
 
-we may want to find for each planet row all matching flight rows such that `Planet.id = Flight.planet_id` and combine the attributes of 
-each matching pair of planet and flight. This way we will find for each planet all flights to that planet. The expected 
+We may want to find for each planet row all matching flight rows such that `Planet.id = Flight.planet_id` and combine the attributes of 
+each matching pair of planet and flight values. This way, for each planet, we will find all flights destined to it. The expected 
 result will look as follows:
 
 | P.name | P.id | P.is_inhabited | F.num | F.planet_id | F.flight_date |
@@ -42,10 +42,10 @@ result will look as follows:
 | Reva   | 3    | true           | MF149 | 3           | 2122-05-08    |
 | Disa   | 1    | true           | MF201 | 1           | 2122-05-12    |
 
-We added table aliases `P` and `F` in the column names to distinguish between the columns from `Planet` and `Flight`
-tables correspondingly. We have four rows in the result, because for every flight we have one and only one planet which is
-the flight destination. Notice that we have no flight records to _Lava_ and _Tibela_ in our database, so they are
+We added table aliases `P` and `F` in the column names to distinguish between the columns from the `Planet` and `Flight`
+tables correspondingly. We have four rows in the result because for each flight we have one and only one planet which is
+the flight destination. Notice that we have no flight records for _Lava_ and _Tibela_ in our database, so they are
 missing in the result.
 
-Such tasks are very common when querying relational data, and there is a family of `JOIN` operations in SQL 
+Such tasks are very common when querying relational data, and there is a family of `JOIN` operations in SQL, 
 which are designed for that.

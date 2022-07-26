@@ -1,15 +1,15 @@
 ## INNER JOIN operator
 
 The standard way of finding pairs of matching rows from two tables in SQL is the operator called `INNER JOIN`, which
-shall be used in `FROM` clause. 
-It has a few variations, which all search for pairs matching some condition and differ only in a way how the match
+can be used in a `FROM` clause. 
+It has a few variations, which all search for pairs matching a certain condition and differ only in the way the match
 condition is formulated.
 
 ### JOIN ... ON
 
-The most common and widely used syntax of join operator includes keywords `INNER JOIN` and `ON`.
+The most common and widely used syntax of the join operator includes the keywords `INNER JOIN` and `ON`.
 The keywords `INNER JOIN` come between the names of the tables being joined, while the join condition, which
-defines whether two rows join or not, follows the pair of tables after `ON` keyword: 
+defines whether two rows join or not, follows the pair of tables after the `ON` keyword: 
 
 ```sql
 SELECT * 
@@ -30,23 +30,23 @@ be identical:
 SELECT * FROM Flight JOIN Planet ON Planet.id = Flight.planet_id
 ```
 
-Pay attention that commutativity is the property of inner join, but some other operators from the family of joins are
+Pay attention to the fact that commutativity is the property of inner join, while some other operators from the JOIN family are
 not commutative.
 
 We can use conditions other than equalities. What if we want to find for each flight all flights made at
-the earlier dates, if there are any? We can easily do it like this:
+earlier dates, if there were any? We can easily do it like this:
 
 ```sql
 SELECT * 
 FROM Flight AS F1 JOIN Flight AS F2 ON F1.flight_date > F2.flight_date
 ```
 
-Logically this will work the same way as in case of equality: for each row `f1` from `Flight` table we will find all rows from the same
-`Flight` table, such that their flight date is less than the flight date of `f1`. Notice that we used table aliases
-`F1` and `F2` to distinguish between two logical "copies" of `Flight` table.
+Logically, this will work the same way as in the case of equality: for each row `f1` from the `Flight` table we will find all rows from the same
+`Flight` table such that their flight date is earlier than the flight date of `f1`. Notice that we used table aliases
+`F1` and `F2` to distinguish between two logical "copies" of the `Flight` table.
 
-We can use any expression in a join condition, as soon as it returns a boolean value. For instance, if we want  
-for each planet find all planets with the same climate and smaller radius, we can do it as follows:
+In the join condition, we can use any expression as soon as it returns a boolean value. For instance, if we want  
+for each planet to find all planets with the same climate and a smaller radius, we can do it as follows:
 
 ```sql
 SELECT * 
@@ -58,9 +58,9 @@ will not join.
 
 ### JOIN ... USING
 
-If a join condition is an equality of columns and joining columns have the same name,
-we can use `JOIN..USING` variation. Let's assume that we renamed `Planet.id` to `Planet.planet_id`. With the keyword `USING`
-instead of `ON` we can just write the name of the join column:
+If the join condition is the equality of columns and the joining columns have the same name,
+we can use the `JOIN..USING` variation. Let's assume that we renamed `Planet.id` to `Planet.planet_id`. With the keyword `USING`
+instead of `ON`, we can just write the name of the join column:
 
 ```sql
 -- This join query:
@@ -74,19 +74,19 @@ FROM Planet JOIN Flight USING(planet_id)
 
 ### NATURAL JOIN
 
-One more variation, which joins by equality of values in the columns with the same names, is so-called _natural join_:
+One more variation, which joins based on the equality of values in columns with the same names, is so-called _natural join_:
 
 ```sql
 SELECT * FROM Flight NATURAL JOIN Planet
 ```
 
-This is equivalent to `USING` keyword which enumerates all columns with the same names from the joined tables. This 
-may render useful in some cases when we don't know the set of join columns in advance. However, one shall be careful 
-when using `NATURAL JOIN` because it may suddenly start producing wrong results if joining tables get columns with 
-the same name and type, but different semantics. Imagine, for instance, that we added a column named `people_count` to 
-both `Flight` and `Planet` tables, assuming that it would mean "the number of a flight crew members" in the former and 
+This is equivalent to the `USING` keyword, which returns all columns with the same name from the joined tables. This 
+may render useful in some cases when we don't know the set of join columns in advance. However, one needs to be careful 
+when using `NATURAL JOIN` because it may suddenly start producing wrong results if the joining tables have columns with 
+the same name and data type but with different semantics. Imagine, for instance, that we added a column named `people_count` to 
+both `Flight` and `Planet` tables, assuming that it would mean "the number of flight crew members" in the former and 
 "the number of people living on a planet" in the latter. 
-Their semantics is different, and the sets of possible values are likely to be different as well,
+Their semantics are different, and the sets of possible values are likely to be different as well,
 but natural join in this query will nevertheless use these columns in addition to `planet_id`:
 
 ```sql
@@ -97,10 +97,10 @@ SELECT * FROM Flight NATURAL JOIN Planet
 SELECT * FROM Flight F JOIN Planet P ON F.planet_id=P.planet_id AND F.people_count=P.people_count
 ```
 
-and most likely we will always get an empty result, because the number of the flight crew members is unlikely to be equal
+Most likely, we will always get an empty result because the number of flight crew members is unlikely to be equal
 to the number of people living on the destination planet.
 
 ----
 
-Some inner join variations are not supported by some database engines, in particular, `NATURAL JOIN` and `JOIN...USING`
-is not supported by Microsoft SQL Server. However, `JOIN...ON` syntax is likely to be supported by any engine.
+Some inner join variations are not supported by crtain database engines; in particular, `NATURAL JOIN` and `JOIN...USING`
+are not supported by Microsoft SQL Server. However, the `JOIN...ON` syntax is likely to be supported by any engine.
