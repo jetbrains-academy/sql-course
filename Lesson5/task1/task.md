@@ -1,4 +1,4 @@
-## Aggregate functions
+## Aggregate functions and scalar subqueries
 
 An aggregate function takes a list of values and returns a single aggregate value for that list. For instance, 
 an aggregate value may be the number of elements in the list, or the maximum value, if it makes sense, or the sum
@@ -49,7 +49,7 @@ Yes, even if the expression is just a constant, with the same value for any row 
 count it as many times as it appears. One may think that it doesn't matter what expression is used in `COUNT`, 
 however, there are some subtle details which we should be aware of.  
 
-## Handling of NULL values
+### Handling of NULL values
 
 What if there are `NULL` values in the aggregate function input? It may happen if a table column is nullable, 
 and there are `NULL` values indeed, or if the expression evaluates to `NULL` because of some other reasons. 
@@ -74,7 +74,7 @@ All aggregate functions except for `COUNT` return `NULL` if all input values are
 `COUNT` is the only one standard aggregate function which never returns `NULL`. If the input is empty or if all input values are 
 `NULL`, `COUNT` will return `0`.
 
-## Handling of distinct values
+### Handling of distinct values
 
 By default, the aggregate function input is a list, which allows for duplicates. However, sometimes we may want to 
 remove duplicates and calculate distinct values only. 
@@ -138,7 +138,7 @@ obviously be wrong.
 Unless we have a guarantee that planet radius values are always different for different planets, we need some other way 
 to solve the problem, and we will consider them in the next lesson.
 
-## Restrictions on SELECT clause
+### Restrictions on SELECT clause
 
 If you're using at least one aggregate function in a `SELECT` clause, you can't use any other expression, unless it is an aggregate 
 function as well:
@@ -161,7 +161,7 @@ an aggregate function is used along with bare column values -- for instance, if 
 their columns _and_ an additional column with the maximum radius across all planets -- and there are a few ways to 
 achieve such results which we will discuss later.  
 
-## Scalar subqueries
+### Scalar subqueries
 
 A query which returns a single aggregated value is called a scalar query. A nice feature of a scalar query is that its return 
 value can be used almost anywhere, where a simple scalar expression is valid. 

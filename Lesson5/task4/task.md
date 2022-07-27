@@ -1,48 +1,75 @@
+## Aggregate functions and rows grouping
 
-This is a task description file.
-Its content will be displayed to a learner
-in the **Task Description** window.
+Remember how did we find a maximum radius of planets with mild climate?
 
-It supports both Markdown and HTML.
-To toggle the format, you can rename **task.md**
-to **task.html**, or vice versa.
-The default task description format can be changed
-in **Preferences | Tools | Education**,
-but this will not affect any existing task description files.
+```sql
+-- This will find the maximum radius across planets with mild climate
+SELECT MAX(radius) FROM Planet WHERE climate = 'mild';
+```
 
-The following features are available in
-**task.md/task.html** which are specific to the EduTools plugin:
+What if we want to find a maximum radius value for each climate, no matter how many distinct climate values are there?
+At this point people who know the concept of loops in general-purpose programming languages start thinking about 
+something like this:
 
-- Hints can be added anywhere in the task text.
-Type "hint" and press Tab.
-Hints should be added to an empty line in the task text.
-In hints you can use both HTML and Markdown.
-<div class="hint">
+```
+-- This is a pseudocode
+for $climate in "SELECT climate FROM Planet":
+    SELECT MAX(radius) FROM Planet WHERE climate=$climate
+```
 
-Text of your hint
+Although it is technically possible to emulate such loops in SQL query, and surely possible in the application code, 
+in SQL we solve such problems in a different way.
 
-</div>
+Let's talk about `GROUP BY` clause. It is a keyword `GROUP BY` followed by one or more comma-separated expressions, 
+and lexically it follows the `WHERE` clause, if there is one in a query, or `FROM` clause if there is no `WHERE`. 
+In the majority of cases those expressions are just column names, although any expression is allowed. For now, we 
+will consider the case when there is just one expression which is a column name, and then generalize the idea. We will call 
+the column which is used in `GROUP BY` a _grouping column_.
 
-- You may need to refer your learners to a particular lesson,
-task, or file. To achieve this, you can use the in-course links.
-Specify the path using the `[link_text](course://lesson1/task1/file1)` format.
+So, what happens if we write something like this:
 
-- You can insert shortcuts in the task description.
-While **task.html/task.md** is open, right-click anywhere
-on the **Editor** tab and choose the **Insert shortcut** option
-from the context menu.
-For example: &shortcut:FileStructurePopup;.
+```sql
+SELECT [something] -- <<== intentionally unclear  
+FROM Planet WHERE is_inhabited
+GROUP BY climate
+```
 
-- Insert the &percnt;`IDE_NAME`&percnt; macro,
-which will be replaced by the actual IDE name.
-For example, **%IDE_NAME%**.
+First, the database engine will build the output of `FROM-WHERE` as usual, which in this particular case will leave 
+only inhabited planets, and then will feed the output to `GROUP BY`. Grouping will consider very row and evaluate the
+expression, which in this particular case is just the value of the grouping column `climate`. 
+The rows with the same value of `climate` go into the same group. 
+When scanning of the whole output is complete, we get a few groups, one for each value of `climate`.
+The groups do not intersect with each other, that is, they partition the output of `FROM-WHERE`.
 
-- Insert PSI elements, by using links like
-`[element_description](psi_element://link.to.element)`.
-To get such a link, right-click the class or method
-and select **Copy Reference**.
-Then press &shortcut:EditorPaste; to insert the link where appropriate.
-For example, a [link to the "contains" method](psi_element://java.lang.String#contains).
+The subsequent evaluation of `SELECT` clause will output exactly one row per group. In this group we can select the value
+of the grouping column, and the values of aggregate functions, which now build their input 
+separately for each group. We can't select anything else. Let's look at some valid and not valid queries:
 
-- You can add link to file using **full path** like this:
-  `[file_link](file://lesson1/task1/file.txt)`.
+```sql
+-- This query is OK
+SELECT MAX(radius)  
+FROM Planet WHERE is_inhabited
+GROUP BY climate
+
+-- This query is OK
+SELECT climate, MAX(radius), COUNT(*)
+FROM Planet WHERE is_inhabited
+GROUP BY climate
+
+-- This query is not OK
+SELECT id, -- << == this is not a grouping column and not an aggregate function 
+       climate, MAX(radius), COUNT(*)
+FROM Planet WHERE is_inhabited
+GROUP BY climate
+```
+
+Why we can't select the value of a non-grouping and non-aggregated column? Well, the database engine must create exactly one row 
+per group, as instructed by the standard, and the values in that row are supposed to be deterministic 
+(unless we use non-deterministic functions in `SELECT`). The value of a grouping column is certainly the same for all rows from the
+same group, as well as the value of deterministic aggregate functions. The values of any non-grouping column may or may not
+be the same in all rows from the group. For a database engine, it is safe to assume that the values of non-grouping columns
+are different, unless the engine can prove the opposite. Some engines are more optimistic though and allow for using
+non-grouping columns in `SELECT` from grouped table, hoping that programmers won't shoot their own foot, and select arbitrary 
+values for non-grouping columns.
+
+
