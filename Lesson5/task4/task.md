@@ -164,15 +164,17 @@ What if we need to output the names of spacecrafts along with their ids? A naive
 not a grouping column:
 
 ```sql
--- This will not work on most database engines
+-- This will not work on most database engines because name is not a grouping column and not an aggregate function.
 SELECT S.id, S.name, COUNT(F.spacecraft_id)
 FROM Spacecraft S LEFT JOIN Flight F ON S.id=F.spacecraft_id
 GROUP BY S.id
 ```
 
 However, this is the case when we are certain that the values of `Spacecraft.name` column are the same in all rows 
-within the same group. We are certain because `Spacecraft.id` column is the grouping column, and we know that if two 
-spacecraft rows have the same value of id then they have the same name value. This knowledge allows for a couple of tricks.
+within the same group. We are certain because we know that if two 
+spacecraft rows have the same value of id then they have the same name value, and `Spacecraft.id` column is the grouping column. 
+This means that all rows within the same group have the same id and thus the same name.
+This knowledge allows for a couple of tricks.
 
 ```sql
 -- This will work: we added name to the grouping columns
@@ -180,9 +182,25 @@ SELECT S.id, S.name, COUNT(F.spacecraft_id)
 FROM Spacecraft S LEFT JOIN Flight F ON S.id=F.spacecraft_id
 GROUP BY S.id, S.name
 
--- This will work as well: we applied an aggregate function to name. Since we know that all names in the group are the 
--- same, the maximum value will also be the same.
+-- This will work as well: we applied an aggregate function to name column. 
+-- Since we know that all names in the group are the same, the maximum value will also be the same.
 SELECT S.id, MAX(S.name), COUNT(F.spacecraft_id)
 FROM Spacecraft S LEFT JOIN Flight F ON S.id=F.spacecraft_id
 GROUP BY S.id
 ```
+
+Can we just always add a non-grouping column into `GROUP BY` clause? For instance, if we want the following query to run
+without errors, can we append `id` to `climate` in `GROUP BY`?
+
+```sql
+-- This query is not OK
+SELECT id, -- << == this is not a grouping column and not an aggregate function
+climate, MAX(radius)
+FROM Planet WHERE is_inhabited
+GROUP BY climate
+```
+
+If we do this -- `GROUP BY climate, id` -- the query will run without errors, but most likely it will output not what we expect.
+Since `id` is an identifier, and there are no planets with the same value of `id`, adding `id` to the grouping columns
+makes all groups comprising just one row. Such query is basically equivalent to `SELECT * FROM Planet`.
+
