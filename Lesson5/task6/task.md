@@ -1,48 +1,70 @@
+## Aggregate functions, groups and filters
 
-This is a task description file.
-Its content will be displayed to a learner
-in the **Task Description** window.
+Aside from filters in `WHERE` clause, which as we know are applied before grouping takes place, SQL allows for other filters
+which are applied during or after the work of `GROUP BY` and aggregate functions.
 
-It supports both Markdown and HTML.
-To toggle the format, you can rename **task.md**
-to **task.html**, or vice versa.
-The default task description format can be changed
-in **Preferences | Tools | Education**,
-but this will not affect any existing task description files.
+### Selective aggregates
 
-The following features are available in
-**task.md/task.html** which are specific to the EduTools plugin:
+When the grouping is done, we can additionally filter the rows which are fed to each of the aggregate functions used in 
+a query:
 
-- Hints can be added anywhere in the task text.
-Type "hint" and press Tab.
-Hints should be added to an empty line in the task text.
-In hints you can use both HTML and Markdown.
-<div class="hint">
+```sql
+SELECT P.id, 
+       COUNT(*)                        AS total_flights, 
+       COUNT(*) FILTER (S.capacity>5)  AS big_capacity_flights,
+       COUNT(*) FILTER (S.capacity<=5) AS small_capacity_flights,
+FROM Flight F JOIN Spacecraft S ON S.id=F.spacecraft_id
+              JOIN Planet P     ON P.id=F.planet_id
+WHERE P.climate='mild'
+GROUP BY P.id
+```
 
-Text of your hint
+In the example above, we apply filter in `WHERE` clause which leaves only flights to the planets with mild climate,
+then group by planet id, and within each group calculate three aggregates. All three aggregate functions are `COUNT`,
+however their values are different because of the additional filters defined by `FILTER` keyword and filtering expression.
 
-</div>
+The filtering expression may use what is allowed in `WHERE` clause, with some restrictions.
 
-- You may need to refer your learners to a particular lesson,
-task, or file. To achieve this, you can use the in-course links.
-Specify the path using the `[link_text](course://lesson1/task1/file1)` format.
+Unfortunately, although `FILTER` is an optional part of SQL standard since 2003, it is barely supported by the 
+database engines. Basically, out of the most popular databases, only PostgreSQL and SQLite support it out of the box. 
+However, `FILTER` is easy to emulate using case-expressions which are supported by nearly every database engine. 
 
-- You can insert shortcuts in the task description.
-While **task.html/task.md** is open, right-click anywhere
-on the **Editor** tab and choose the **Insert shortcut** option
-from the context menu.
-For example: &shortcut:FileStructurePopup;.
+Case expressions are similar to ternary expressions in C++ or Java, and when-expressions in Kotlin. We can write a 
+case-expression inside the aggregate function, and return the value to be aggregated if the condition returns `true` 
+and `NULL` otherwise. As we remember, aggregate functions skip `NULL` values, so returning `NULL` from case-expression 
+effectively filters out the input row. Our query can be rewritten using case-expressions as follows:
 
-- Insert the &percnt;`IDE_NAME`&percnt; macro,
-which will be replaced by the actual IDE name.
-For example, **%IDE_NAME%**.
+```sql
+SELECT P.id, 
+       COUNT(*)                                            AS total_flights, 
+       COUNT(CASE WHEN S.capacity>5 THEN 1 ELSE NULL END)  AS big_capacity_flights,
+       COUNT(CASE WHEN S.capacity<=5 THEN 1 ELSE NULL END) AS small_capacity_flights,
+FROM Flight F JOIN Spacecraft S ON S.id=F.spacecraft_id
+              JOIN Planet P     ON P.id=F.planet_id
+WHERE P.climate='mild'
+GROUP BY P.id
+```
 
-- Insert PSI elements, by using links like
-`[element_description](psi_element://link.to.element)`.
-To get such a link, right-click the class or method
-and select **Copy Reference**.
-Then press &shortcut:EditorPaste; to insert the link where appropriate.
-For example, a [link to the "contains" method](psi_element://java.lang.String#contains).
+### Filtering the whole group
 
-- You can add link to file using **full path** like this:
-  `[file_link](file://lesson1/task1/file.txt)`.
+Sometimes we want to drop the whole group if it doesn't match some criteria. For instance, what if we want to 
+find planets with mild climate and the total count of flights not less than 20? We can do it with `HAVING` clause:
+
+```sql
+SELECT P.id, P.name, COUNT(*)
+FROM Flight F JOIN Spacecraft S ON S.id=F.spacecraft_id
+              JOIN Planet P     ON P.id=F.planet_id
+WHERE P.climate='mild'
+GROUP BY P.id, P.name
+HAVING COUNT(*) >= 20
+```
+
+Lexically it comes in a query after `GROUP BY` clause and is evaluated at the same time with `GROUP BY`. It takes a
+boolean expression which is applied to the entire group.
+If the expression returns `true` for a group, that group goes further to `SELECT`, otherwise the group is filtered out.
+
+Since the expression applies to the entire group, it has the same restrictions as those in `SELECT` clause: we can use 
+only the values of the grouping columns and aggregate functions.
+
+
+
