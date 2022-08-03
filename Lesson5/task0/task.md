@@ -1,9 +1,9 @@
-# Aggregate values and data grouping
+# Aggregates and data grouping
 
 Now we can write queries which join a few tables and apply search filter. That's a good start! Now let's proceed 
 to more complex tasks.
 
-In this lesson first we will learn how to calculate a scalar aggregate value for a list of rows. For instance, count the 
+In this lesson we will first learn how to calculate a scalar aggregate value for a list of rows. For instance, count the 
 number of rows, or find a maximum value in a column.
 
 Then we will see how we can group the results of filtering, and calculate aggregate values separately for each group.

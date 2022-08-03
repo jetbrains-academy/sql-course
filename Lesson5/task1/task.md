@@ -13,17 +13,17 @@ standard functions which are supported by all relational databases:
 | SUM      | Finds the sum of values in the input list                       |
 | AVG      | Finds the average of values in the input list                   |
 
-Aggregate functions can be used in `SELECT` clause (and also in some other clauses) and it is important to understand
+Aggregate functions can be used in `SELECT` and some other clauses, and it is important to understand
 the logical model of calculating them, that is, how do they work from the user perspective.
 
 First, let's look how do we build the list of input values. While it is tempting to write something like `SELECT SUM(1, 2, 3)`,
 hoping to get the sum `1+2+3`, in reality things are more complicated. 
 
-Aggregate functions in SQL are parameterized with expressions which build the input list of values. The expressions are 
-just like those which are used in `SELECT` clause. They may include column names, and very often they include nothing else
-but the column name. When a database engine executes a query with aggregate functions, it first builds all joins in the `FROM`
+An aggregate functions in SQL is parameterized with an expression which builds the input list of values. That expressions are 
+just like those which are used in `SELECT` clause. They may include column names, and very often there is nothing else
+but the column name. When a database engine executes a query, it first builds all joins in the `FROM`
 clause, then filters the result using `WHERE` clause, and after that feeds the result to the aggregate functions. Expressions
-written in the aggregate functions are evaluated for each row, and the input list is built from the values produced by 
+written in the aggregate functions are evaluated for each row, and the aggregation input list is built from the values produced by 
 the expressions.
 
 For instance, if we want to find the maximum radius of all planets, or planets with mild climate, we can do it like this:
@@ -45,7 +45,7 @@ SELECT COUNT(name) FROM Planet;
 SELECT COUNT(42) FROM Planet;
 ```
 
-Yes, even if the expression is just a constant, with the same value for any row in the `FROM-WHERE` output, `COUNT` will 
+Even if the expression is just a constant, with the same value for any row in the `FROM-WHERE` output, `COUNT` will 
 count it as many times as it appears. One may think that it doesn't matter what expression is used in `COUNT`, 
 however, there are some subtle details which we should be aware of.  
 
@@ -68,7 +68,7 @@ SELECT COUNT(42) FROM Planet;
 ```
 
 There is a special syntax `COUNT(*)` which means "just count the rows". It is helpful if count the rows is really what
-you meant to do (it may not be so, as we will see below). 
+you meant to do. However, it may not be so, as we will see below. 
 
 All aggregate functions except for `COUNT` return `NULL` if all input values are `NULL` or if the input is empty. 
 `COUNT` is the only one standard aggregate function which never returns `NULL`. If the input is empty or if all input values are 
@@ -79,8 +79,8 @@ All aggregate functions except for `COUNT` return `NULL` if all input values are
 By default, the aggregate function input is a list, which allows for duplicates. However, sometimes we may want to 
 remove duplicates and calculate distinct values only. 
 
-Imagine that we want to count all planets visited by a spacecraft "Pegasus" and calculate an average radius, 
-where "visited planet" means "there was at least one flight to that planet". 
+Imagine that we want to count all planets visited by a spacecraft "Pegasus" and calculate their average radius. Here 
+"visited planet" means "there was at least one flight to that planet". 
 Those queries below looks nice, right?
 
 ```sql
@@ -98,7 +98,7 @@ WHERE S.name='Pegasus'
 
 Unfortunately, their results are wrong, unless there is a happy coincidence. 
 The output of joining planets, flights and spacecrafts is a table where the 
-same planet may appear many times, as many as there were flights to that planet. 
+same planet may appear many times, as many times as there were flights to that planet. 
 Aggregate functions will count the flights made by Pegasus, not the planets, and will find the average value across 
 flights, which is not the same as the average radius of the visited planets.
 
@@ -112,8 +112,8 @@ produces the values. Now we should be careful, and choose the expression wisely.
 always return `1`, no matter how many rows and different planets are in the result. Let's count the planet identifiers:
 
 ```sql
--- "Count" the planets visited by Pegasus
-SELECT COUNT(P.id)
+-- Really count the planets visited by Pegasus
+SELECT COUNT(DISTINCT P.id)
 FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spaceraft S ON S.id=F.spacecraft_id
 WHERE S.name='Pegasus'
 ```

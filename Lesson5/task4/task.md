@@ -20,30 +20,30 @@ for $climate in "SELECT climate FROM Planet":
 Although it is technically possible to emulate such loops in SQL query, and surely possible in the application code, 
 in SQL we solve such problems in a different way.
 
-Let's talk about `GROUP BY` clause. It is a keyword `GROUP BY` followed by one or more comma-separated expressions, 
-and lexically it follows the `WHERE` clause, if there is one in a query, or `FROM` clause if there is no `WHERE`. 
-In the majority of cases those expressions are just column names, although any expression is allowed. For now, we 
-will consider the case when there is just one expression which is a column name, and then generalize the idea. We will call 
-the column which is used in `GROUP BY` a _grouping column_.
+Let's talk about `GROUP BY` clause. It is a keyword `GROUP BY` followed by one or more comma-separated expressions. 
+Lexically it follows the `WHERE` clause, if there is one in a query, or `FROM` clause if there is no `WHERE`. 
+In the majority of cases the expressions in `GROUP BY` are just column names, although technically any expression is allowed. 
+For now, we will consider the case when there is just one expression which is a column name, and then generalize the idea. 
+We will call the column which is used in `GROUP BY` a _grouping column_.
 
 So, what happens if we write something like this:
 
 ```sql
-SELECT [something] -- <<== intentionally unclear  
+SELECT <something> -- <<== intentionally unclear  
 FROM Planet WHERE is_inhabited
 GROUP BY climate
 ```
 
 First, the database engine will build the output of `FROM-WHERE` as usual, which in this particular case will leave 
-only inhabited planets, and then will feed the output to `GROUP BY`. Grouping will consider very row and evaluate the
-expression, which in this particular case is just the value of the grouping column `climate`. 
+only inhabited planets, and then will feed the output to `GROUP BY`. Grouping will evaluate the
+expression, which in this particular case is just the value of the grouping column `climate`, for every row. 
 The rows with the same value of `climate` go into the same group. 
 When scanning of the whole output is complete, we get a few groups, one for each value of `climate`.
 The groups do not intersect with each other, that is, they partition the output of `FROM-WHERE`.
 
-The subsequent evaluation of `SELECT` clause will output exactly one row per group. In this group we can select the value
+The subsequent evaluation of `SELECT` clause will output exactly one row per group. For each group we can select the value
 of the grouping column, and the values of aggregate functions, which now build their input 
-separately for each group. We can't select anything else. Let's look at some valid and not valid queries:
+from the rows constituting the group. We can't select anything else. Let's look at some valid and not valid queries:
 
 ```sql
 -- This query is OK
@@ -78,7 +78,7 @@ column is in a select list of a query with `GROUP BY` clause, they choose a valu
 
 We can use more than one grouping column in a `GROUP BY` clause, separating them with commas. 
 In this case all rows in the same group will have the same values in the same grouping columns. 
-Let's look at the `Flight` table. Depending on how we group, we can count different things:
+Let's look at the `Flight` table. Depending on how we group, we count different things:
 
 ```sql
 -- This counts the flights to each planet
@@ -114,31 +114,33 @@ GROUP BY radius >= 5000
 
 ### Tips and tricks
 
-If we look at one of the queries above:
+If we look closely at one of the queries above:
 
 ```sql
 -- This counts the flights made by each spacecraft
-SELECT spacecraft_id, COUNT(id) FROM Flight
+SELECT spacecraft_id, COUNT(id) AS flight_count FROM Flight
 GROUP BY spacecraft_id
 ```
 
-It actually doesn't do what it promises in the comment. It counts the flights made by those spacecrafts that had at least
-one flight. If some spacecraft made no flights, it will be missing. What if we want to output such spacecrafts as well,
-with 0 in the flight count column? There are many ways of doing this, but one of the canonical and widely used ways is
-using outer join with the all spacecraft table. Spacecrafts with no flights will be in the output of outer join 
-`Spacecraft LEFT JOIN Flight` with `NULL` values in `Flight` columns. 
+we'll see that actually won't do what it promises in the comment. 
+It counts the flights made by those spacecrafts that had at least one flight. 
+If some spacecraft made no flights, it will be missing. 
+What if we want to output such spacecrafts as well, with 0 in the `flight_count` column? 
+There are many ways of doing this, but one of the canonical and widely used ways is using outer join with the all spacecraft table. 
+Spacecrafts with no flights will be in the output of outer join `Spacecraft LEFT JOIN Flight` with `NULL` values in `Flight` columns. 
 Now we have to pay attention on how we group and what we count.
-Read the comments above the following queries, which are all supposed to count the number of flights made by each spacecraft: 
+The following queries are all supposed to count the number of flights made by each spacecraft, but some of them are not correct. 
+Read the comments to learn why: 
 
 ```sql
--- This query looks good, but in fact it is wrong, because the grouping column is Flight.spacecraft_id which is 
+-- This query looks good, but in fact it is not correct, because the grouping column is Flight.spacecraft_id which is 
 -- NULL for spacecrafts with no flights
-SELECT S.id, COUNT(*) 
+SELECT F.spacecraft_id, COUNT(*) 
 FROM Spacecraft S LEFT JOIN Flight F ON S.id=F.spacecraft_id
 GROUP BY F.spacecraft_id
 
 
--- This query looks better, but it is wrong as well, because we count (*) which is never 0, as there are no groups with 
+-- This query looks better, but it is wrong as well, because we use COUNT(*) which is never 0, as there are no groups with 
 -- zero rows.
 SELECT S.id, COUNT(*)
 FROM Spacecraft S LEFT JOIN Flight F ON S.id=F.spacecraft_id
@@ -152,7 +154,7 @@ FROM Spacecraft S LEFT JOIN Flight F ON S.id=F.spacecraft_id
 GROUP BY S.id
 
 -- Let's imagine that there is a nullable column "cargo_id" in the Flight table. Its value is NULL if there was no 
--- cargo on the flight, and not null otherwise. The query below is wrong, because COUNT will skip flights with no cargo.
+-- cargo on the flight, and not NULL otherwise. The query below is not correct, because COUNT will skip flights with no cargo.
 -- It will return 0 for spacecrafts with no flights, but it may return wrong value and even 0 for spacecrafts which
 -- did perform flights but did not carry any cargo.
 SELECT S.id, COUNT(F.cargo_id)
@@ -171,9 +173,9 @@ GROUP BY S.id
 ```
 
 However, this is the case when we are certain that the values of `Spacecraft.name` column are the same in all rows 
-within the same group. We are certain because we know that if two 
-spacecraft rows have the same value of id then they have the same name value, and `Spacecraft.id` column is the grouping column. 
-This means that all rows within the same group have the same id and thus the same name.
+within the same group. 
+We are certain because we know that if two spacecraft rows have the same value of `id` then they have the same `name` value. 
+`Spacecraft.id` column is the grouping column, and this means that all rows within the same group have the same id and thus the same name.
 This knowledge allows for a couple of tricks.
 
 ```sql
@@ -189,18 +191,21 @@ FROM Spacecraft S LEFT JOIN Flight F ON S.id=F.spacecraft_id
 GROUP BY S.id
 ```
 
-Can we just always add a non-grouping column into `GROUP BY` clause? For instance, if we want the following query to run
-without errors, can we append `id` to `climate` in `GROUP BY`?
+Can we just always add a non-grouping column into `GROUP BY` clause? 
+For instance, if we want to fix the following query, can we append `id` to `climate` in `GROUP BY`? 
+Let's not think why one would want to write such query -- there might be many reasons -- but just if our goal is 
+to make a database engine happy.
 
 ```sql
--- This query is not OK
+-- This query is not OK, and a database engine will report an error. 
 SELECT id, -- << == this is not a grouping column and not an aggregate function
 climate, MAX(radius)
 FROM Planet WHERE is_inhabited
 GROUP BY climate
 ```
 
-If we do this -- `GROUP BY climate, id` -- the query will run without errors, but most likely it will output not what we expect.
+If we just add `is` to the grouping columns -- `GROUP BY climate, id` -- the database engine will be happy, 
+but most likely it will output not what we expect.
 Since `id` is an identifier, and there are no planets with the same value of `id`, adding `id` to the grouping columns
 makes all groups comprising just one row. Such query is basically equivalent to `SELECT * FROM Planet`.
 
