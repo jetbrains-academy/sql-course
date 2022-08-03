@@ -1,13 +1,14 @@
 # Aggregates and data grouping
 
-Now we can write queries which join a few tables and apply search filter. That's a good start! Now let's proceed 
-to more complex tasks.
+We can write queries with joins and search filters, and that's a good start! 
+Now let's proceed to more complex tasks. 
+In this lesson we will learn SQL way of doing something similar to pivot tables in spreadsheets.
 
-In this lesson we will first learn how to calculate a scalar aggregate value for a list of rows. For instance, count the 
-number of rows, or find a maximum value in a column.
+We'll start with calculating a scalar aggregate value for a list of rows. 
+For instance, count the number of rows, or find a maximum value in a column.
 
 Then we will see how we can group the results of filtering, and calculate aggregate values separately for each group.
-For instance, we may group planets with the same climate and calculate the maximum planet radius for each group, or
+As an example, we may group planets with the same climate and calculate the maximum planet radius for each group, or
 group and count flights by month.  
 
 The queries in this lesson assume that there is a data source, where all the required tables are stored.
