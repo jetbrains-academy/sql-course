@@ -1,8 +1,8 @@
 # Joining tables
 
-Usually, there is more than one table in a relational database. Very often when searching, we need
-to find for each row from one table all rows from another table that meet certain criteria and then combine 
-the matching pairs of rows. For instance, let's say we have a table with planets:
+Usually, there is more than one table in a relational database, just like there is more than one data sheet in a complex 
+spreadsheet. There are good reasons why we need many tables. Leaving aside complicated theory, we often split 
+records of different types, and keep records about planets and flights in different tables:
 
 ----
 **Planets**
@@ -15,11 +15,6 @@ the matching pairs of rows. For instance, let's say we have a table with planets
 | Tibela | 4         | NULL         |
 
 ----
-
-We also have a table with flight history records, where the `planet_id` attribute value is the identifier of a planet 
-indicated as the flight destination:
-
-----
 **Flights**
 
 | num   | planet_id | flight_date |
@@ -29,11 +24,15 @@ indicated as the flight destination:
 | MF149 | 3         | 2122-05-08  |
 | MF201 | 1         | 2122-05-12  |
 
-----
+We use `planet_id` column to link a flight row with a planet row. If we kept everything in one table, we would 
+have to clone planet's data in each flight to that planet, and it could be error-prone and just annoying.
 
-We may want to find for each planet row all matching flight rows such that `Planet.id = Flight.planet_id` and combine the attributes of 
-each matching pair of planet and flight values. This way, for each planet, we will find all flights destined to it. The expected 
-result will look as follows:
+Splitting flights and planets makes our data more healthy, but now when searching, we need to find for each row from one 
+table all rows from another table that meet certain criteria and then combine the matching pairs of rows. 
+For instance, we may want to find for each planet row all matching flight rows such that `Planet.id = Flight.planet_id` 
+and combine the attributes of each matching pair of planet and flight values. 
+This way, for each planet, we will find all flights destined to it. 
+The expected result will look as follows:
 
 | P.name | P.id | P.is_inhabited | F.num | F.planet_id | F.flight_date |
 |--------|------|----------------|-------|-------------|---------------|
