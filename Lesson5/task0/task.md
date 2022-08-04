@@ -1,8 +1,7 @@
 # Aggregates and data grouping
 
-We can write queries with joins and search filters, and that's a good start! 
-Now let's proceed to more complex tasks. 
-In this lesson we will learn SQL way of doing something similar to pivot tables in spreadsheets.
+In the previous lessons we learned how to write queries with joins and search filters, and that's a good start! 
+Now let's proceed to more complex tasks, and talk about the SQL way of doing something similar to pivot tables in spreadsheets.
 
 We'll start with calculating a scalar aggregate value for a list of rows. 
 For instance, count the number of rows, or find a maximum value in a column.

@@ -16,14 +16,15 @@ standard functions which are supported by all relational databases:
 Aggregate functions can be used in `SELECT` and some other clauses, and it is important to understand
 the logical model of calculating them, that is, how do they work from the user perspective.
 
-First, let's look how do we build the list of input values. While it is tempting to write something like `SELECT SUM(1, 2, 3)`,
+First, let's look how we build the list of input values. While it is tempting to write something like `SELECT SUM(1, 2, 3)`,
 hoping to get the sum `1+2+3`, in reality things are more complicated. 
 
-An aggregate functions in SQL is parameterized with an expression which builds the input list of values. That expressions are 
-just like those which are used in `SELECT` clause. They may include column names, and very often there is nothing else
-but the column name. When a database engine executes a query, it first builds all joins in the `FROM`
-clause, then filters the result using `WHERE` clause, and after that feeds the result to the aggregate functions. Expressions
-written in the aggregate functions are evaluated for each row, and the aggregation input list is built from the values produced by 
+An aggregate functions in SQL is parameterized with an expression which builds the input list of values. 
+Aggregate function expressions are just like those which are used in `SELECT` clause. 
+They may include column names, and very often there is nothing else but the column name. 
+When a database engine executes a query, it first builds all joins in the `FROM` clause, then filters the result using `WHERE` clause, 
+and after that feeds the result to the aggregate functions. 
+Aggregate function expressions are evaluated for each row, and the aggregation input list is built from the values produced by 
 the expressions.
 
 For instance, if we want to find the maximum radius of all planets, or planets with mild climate, we can do it like this:
@@ -32,12 +33,13 @@ For instance, if we want to find the maximum radius of all planets, or planets w
 -- This will find the maximum across all planets.
 SELECT MAX(radius) FROM Planet;
 
--- This will find the maximum across planets with mild climate
-SELECT MAX(radius) FROM Planet WHERE climate = 'mild';
+-- This will find the average radius in miles across planets with mild climate
+SELECT AVG(radius/1.609) FROM Planet WHERE climate = 'mild';
 ```
 
-An interesting case is `COUNT` function. It just counts the values in the input, and very often it does not matter what
-is counted. The following queries will all return the same result in our database:
+An interesting case is `COUNT` function. 
+It just counts the values in the input, and very often it does not matter what is counted. 
+The following queries will all return the same result in our database:
 
 ```sql
 SELECT COUNT(id) FROM Planet;
@@ -46,8 +48,9 @@ SELECT COUNT(42) FROM Planet;
 ```
 
 Even if the expression is just a constant, with the same value for any row in the `FROM-WHERE` output, `COUNT` will 
-count it as many times as it appears. One may think that it doesn't matter what expression is used in `COUNT`, 
-however, there are some subtle details which we should be aware of.  
+count it as many times as it appears. 
+One may think that it doesn't matter what expression is used in `COUNT`, however, there are some subtle details which 
+we should be aware of. Keep on reading!  
 
 ### Handling of NULL values
 
@@ -55,8 +58,8 @@ What if there are `NULL` values in the aggregate function input? It may happen i
 and there are `NULL` values indeed, or if the expression evaluates to `NULL` because of some other reasons. 
 What if there are _only_ `NULL` values in the input? What if the input is empty?
 
-All aggregate functions, including `COUNT`, ignore `NULL` values in the input list. If there are `NULL` values in `Planet.climate`
-column, the following queries will return different results:
+All aggregate functions, including `COUNT`, ignore `NULL` values in the input list. 
+If there are `NULL` values in `Planet.climate` column, the following queries will return different results:
 
 ```sql
 -- This will return a number which is less than the number of rows, because in some rows the value of "climate" is NULL 
@@ -67,20 +70,21 @@ SELECT COUNT(climate) FROM Planet;
 SELECT COUNT(42) FROM Planet;
 ```
 
-There is a special syntax `COUNT(*)` which means "just count the rows". It is helpful if count the rows is really what
-you meant to do. However, it may not be so, as we will see below. 
+There is a special syntax `COUNT(*)` which means "just count the rows". 
+It is helpful if count the rows is really what you meant to do. 
+However, it may not be so, as we will see below. 
 
 All aggregate functions except for `COUNT` return `NULL` if all input values are `NULL` or if the input is empty. 
-`COUNT` is the only one standard aggregate function which never returns `NULL`. If the input is empty or if all input values are 
-`NULL`, `COUNT` will return `0`.
+`COUNT` is the only standard aggregate function which never returns `NULL`. 
+If the input is empty or if all input values are `NULL`, `COUNT` will return `0`.
 
 ### Handling of distinct values
 
-By default, the aggregate function input is a list, which allows for duplicates. However, sometimes we may want to 
-remove duplicates and calculate distinct values only. 
+By default, the aggregate function input is a list, which allows for duplicates. 
+However, sometimes we may want to remove duplicates and calculate distinct values only. 
 
-Imagine that we want to count all planets visited by a spacecraft "Pegasus" and calculate their average radius. Here 
-"visited planet" means "there was at least one flight to that planet". 
+Imagine that we want to count all planets visited by a spacecraft "Pegasus" and calculate their average radius. 
+Here "visited planet" means "there was at least one flight to that planet". 
 Those queries below looks nice, right?
 
 ```sql
@@ -107,9 +111,11 @@ will make it counting only distinct values.
 
 [TODO: animated GIF showing the results of running COUNT(DISTINCT *)]
 
-Ooops, it is not _that_ easy. `*` is not an expression. If we want distinct values, we need to write the expression which
-produces the values. Now we should be careful, and choose the expression wisely. For instance, `COUNT(DISTINCT 42)` will 
-always return `1`, no matter how many rows and different planets are in the result. Let's count the planet identifiers:
+Ooops, it is not _that_ easy. `*` is not an expression. 
+If we want distinct values, we need to write the expression which produces the values. 
+Now we should be careful, and choose the expression wisely. 
+For instance, `COUNT(DISTINCT 42)` will always return `1`, no matter how many rows and different planets are in the result. 
+Let's count the planet identifiers:
 
 ```sql
 -- Really count the planets visited by Pegasus
@@ -128,10 +134,10 @@ FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spaceraft S ON S.id=F.space
 WHERE S.name='Pegasus'
 ```
 
-Is this query correct? Well, the answer is "it depends". We aggregate distinct values of "radius" attribute. This will work
-if different planets always have different radius, but can we be sure that it is really the case? What if just by coincidence
-two different planets happen to have the same radius? In this case we will feed it to AVG only once and the result will
-obviously be wrong.
+Is this query correct? Well, the answer is "it depends". We aggregate distinct values of "radius" attribute. 
+This will work if different planets always have different radius, but can we be sure that it is really the case? 
+What if just by coincidence two different planets happen to have the same radius? 
+In this case we will feed it to `AVG` only once and the result will obviously be wrong.
 
 [TODO: animated gif showing the issue]
 
@@ -140,8 +146,8 @@ to solve the problem, and we will consider them in the next lesson.
 
 ### Restrictions on SELECT clause
 
-If you're using at least one aggregate function in a `SELECT` clause, you can't use any other expression, unless it is an aggregate 
-function as well:
+If you're using at least one aggregate function in the `SELECT` list, you can't use any other expression in that list, 
+unless it is an aggregate function as well:
 
 ```sql
 -- This works
@@ -152,19 +158,19 @@ SELECT id, name, MAX(radius) FROM Planet
 ```
 
 The reason sits in the SQL standard, which says that in presence of aggregate functions in the `SELECT` clause, the result
-shall contain 1 row, unless there are groups, which we will discuss later. If the result is just 1 row with the aggregate 
-function values, the database engine can't add there any "bare" non-aggregated column values, because there is no rule to chose 
-one out of N values in all table rows.
+shall contain 1 row, unless there are groups, which we will discuss later. 
+If the result is just a single row with the aggregate function values, the database engine can't add there any "bare" 
+non-aggregated column values, because there is no rule to chose one out of N values in all table rows.
 
-However, there are valid use cases where 
-an aggregate function is used along with bare column values -- for instance, if we want to output all planet rows with all
-their columns _and_ an additional column with the maximum radius across all planets -- and there are a few ways to 
-achieve such results which we will discuss later.  
+However, there are valid use cases where an aggregate function is used along with bare column values. 
+For instance, if we want to output all planet rows with all their columns _and_ an additional column with the maximum 
+radius across all planets. 
+There are a few ways to achieve such results which we will discuss later.  
 
 ### Scalar subqueries
 
-A query which returns a single aggregated value is called a scalar query. A nice feature of a scalar query is that its return 
-value can be used almost anywhere, where a simple scalar expression is valid. 
+A query which returns a single aggregated value is called a scalar query. 
+A nice feature of a scalar query is that its return value can be used almost anywhere, where a simple scalar expression is valid. 
 
 For instance, we can easily find the value of the maximum radius:
 

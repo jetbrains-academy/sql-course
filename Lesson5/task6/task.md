@@ -1,24 +1,24 @@
 ## Aggregate functions, groups and filters
 
-Aside from filters in `WHERE` clause, which as we know are applied before grouping takes place, SQL allows for other filters
+Aside from filters in `WHERE` clause, which as we know are applied before grouping takes place, SQL allows for other filters,
 which are applied during or after the work of `GROUP BY` and aggregate functions.
 
 ### Selective aggregates
 
-When the grouping is done, we can additionally filter the rows which are fed to each of the aggregate functions in a query:
+When the grouping is done, we can additionally filter the rows which are fed to each of the aggregate functions used in a query:
 
 ```sql
-SELECT P.id, 
-       COUNT(*)                        AS total_flights, 
-       COUNT(*) FILTER (S.capacity>5)  AS big_capacity_flights,
-       COUNT(*) FILTER (S.capacity<=5) AS small_capacity_flights,
-FROM Flight F JOIN Spacecraft S ON S.id=F.spacecraft_id
+SELECT P.id,                                                      --
+       COUNT(*)                        AS total_flights,          --
+       COUNT(*) FILTER (S.capacity>5)  AS big_capacity_flights,   --
+       COUNT(*) FILTER (S.capacity<=5) AS small_capacity_flights, --
+FROM Flight F JOIN Spacecraft S ON S.id=F.spacecraft_id           -- 1. FROM is executed first
               JOIN Planet P     ON P.id=F.planet_id
-WHERE P.climate='mild'
-GROUP BY P.id
+WHERE P.climate='mild'                                            -- 2. Filtering 
+GROUP BY P.id                                                     --
 ```
 
-In the example above, we apply filter in `WHERE` clause which leaves only flights to the planets with mild climate,
+In the example above, we apply filter in `WHERE` clause to consider only flights to the planets with mild climate,
 then group by planet id, and within each group calculate three aggregates. 
 All three aggregate functions are `COUNT`, however their values are different because of the additional filters defined 
 by `FILTER` keyword and filtering expression.
@@ -30,9 +30,23 @@ database engines.
 Basically, out of the most popular databases, only PostgreSQL and SQLite support it out of the box. 
 However, `FILTER` is easy to emulate using case-expressions which are supported by nearly every database engine. 
 
-Case expressions are similar to ternary expressions in C++ or Java, and when-expressions in Kotlin. 
-We can write a case-expression inside the aggregate function, and return the value to be aggregated if the condition 
-returns `true`, and `NULL` otherwise. 
+Case expressions are similar to ternary expressions in C++ or Java, and when-expressions in Kotlin. They look like this:
+
+```sql
+CASE 
+WHEN <condition1> THEN <result1>
+WHEN <condition2> THEN <result2>
+...
+ELSE <default_result>
+END
+```
+
+In case-expressions conditions are evaluated in the lexical order until the first which returns `true`. 
+If none of the conditions returns `true`, `default_result` is returned, if specified, otherwise the expression returns 
+`NULL`.
+
+We can use a case-expression with one `WHEN` branch as an aggregate function expression, 
+and return the value to be aggregated if the condition evaluates to `true`, and `NULL` otherwise. 
 As we remember, aggregate functions skip `NULL` values, so returning `NULL` from case-expression 
 effectively filters out the input row. Our query can be rewritten using case-expressions as follows:
 
