@@ -12,7 +12,7 @@ about this three-valued logic, but for now, let's assume that we work only with 
 Using comparison operators, we can compare values of the same type.
 
 The equality operator in SQL is single `=` (which again may surprise programmers who are used to 
-`==` and even `===` operators in other languages), and the inequality symmbol is `<>`, 
+`==` and even `===` operators in other languages), and the inequality symbol is `<>`, 
 like in good old Pascal:
 
 ```sql

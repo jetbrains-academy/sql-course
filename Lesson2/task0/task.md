@@ -43,7 +43,8 @@ at the end.
 ## Output column names
 
 All SQL queries output table-structured results. Even if a query consists of a single SELECT clause
-and a single expression, it is still a table with one row and one column. Every column has
+and a single expression, it is still a table with one row and one column 
+(however, such queries may be treated as scalar values, as we will see in the later lessons). Every column has
 a name and a data type, and columns produced by simple `SELECT`s are no exception. If a column
 name is not specified, it is chosen by the SQL engine. However, it is possible to specify output column
 names explicitly using the keyword `AS`:
