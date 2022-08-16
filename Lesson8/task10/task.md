@@ -1,48 +1,117 @@
 ## Subqueries in FROM clause
 
-We have seen that a result of joining two tables can be used in subsequent join operations, 
-and that a subquery results can be used in `WHERE` clause. Can we join the results of a subquery with other tables?
+We have seen that we can chain joins, so that a result of joining two tables is used in subsequent join operations.
+We also know that we can run subqueries in `WHERE` clause and use their results in `WHERE` expression. 
+Naturally, one may wonder if it is possible to join a subquery result with other tables.
+And yes, we can do it in SQL.
 
-Yes, we can define a subquery in `FROM` clause and then join the results of running the subquery with other tables 
-and subqueries. Let's look at the example. Imagine that we need to find all spacecrafts which started their flight 
-at the same date with big spacecrafts to the same planet. 
+In `FROM` clause we join so-called _table expressions_, that is, expressions that return tables. 
+A table name reference is a simple table expression, but more complex expressions are allowed as well, and in particular
+subqueries are table expressions. 
+
+Let's look at the example. Imagine that we need to find all spacecrafts that had at least two flights in the same year, 
+but different months, such that one of the flights was to some inhabited planet and another to uninhabited one.
 
 
 ```sql
-SELECT S.name, F.num
-    FROM Spacecraft S JOIN Flight F ON S.id = F.spacecraft_id JOIN (
+SELECT F.spacecraft_id 
+    FROM Flight F JOIN Planet P ON P.id = F.planet_id 
+    JOIN (
         --------------------------------------------------------------------------
-        -- This subquery returns flight date, flight number and flight destination
-        -- of big capacity spacecrafts
-        SELECT flight_date, num, planet_id 
+        -- This subquery returns a flight date, flight number and flight destination
+        -- of flights to inhabited planets.
+        SELECT spacecraft_id, flight_date, num, planet_id 
         FROM Flight F2 
-        JOIN Spacecraft S2 ON S2.id=F2.spacecraft_id
-        WHERE S2.capacity > 10
+        JOIN Planet P2 ON P2.id=F2.planet_id
+        WHERE P2.is_inhabited
         ---------------------------------------------------------------------------
-        -- It is joined again with Flight and Spacecraft, and we get flight numbers and names of other spacecrafts 
-        -- which started to the same planet at the same date.
-    ) AS T ON F.planet_id=T.planet_id AND F.flight_date = T.flight_date AND F.num <> T.num
+        -- It is joined again with Flight and Planet, and we get identifiers of the spacecrafts which 
+        -- travelled to uninhabited planets in the same year, but different month.
+    ) AS T ON (
+          -- Notice that we assigned a table alias `T` to the subquery above, 
+          -- and we refer to the subquery columns using `T.` prefix.
+          -- We are looking for the same spacecraft
+          F.spacecraft_id = T.spacecraft_id 
+          -- and flights in the same year 
+          AND EXTRACT(YEAR FROM T.flight_date) = EXTRACT(YEAR FROM F.flight_date)
+          -- but different months. Standard function EXTRACT returns a specified part from the datetime value.
+          AND EXTRACT(MONTH FROM T.flight_date) <> EXTRACT(MONTH FROM F.flight_date)
+    )
+    WHERE NOT P.is_inhabited
 ```
 
-Notice that we assigned a table alias `T` to the subquery, and referred to the subquery columns using `T.` prefix. 
-
-Can we write this query without using subqueries? Yes, in this particular case it is easy:
+ 
+In this particular case we could easily write this query without any subqueries:
 
 ```sql
-  SELECT flight_date, num, planet_id 
+  SELECT F.spacecraft_id
   FROM Flight F2 
-  JOIN Spacecraft S2 ON S2.id=F2.spacecraft_id
-  JOIN Flight F      ON F2.planet_id = F.planet_id AND F2.flight_date = F.flight_date AND F2.num <> F.num
-  JOIN Spacecraft S  ON S.id = F.spacecraft_id
-  WHERE S2.capacity > 10
+  JOIN Planet P2     ON P2.id=F2.planet_id
+  JOIN Flight F      ON (
+      F2.spacecraft_id = F.spacecraft_id 
+      AND EXTRACT(YEAR FROM F.flight_date) = EXTRACT(YEAR FROM F2.flight_date)
+      AND EXTRACT(MONTH FROM F.flight_date) <> EXTRACT(MONTH FROM F2.flight_date)
+  )
+  JOIN Planet P  ON P.id = F.planet_id
+  WHERE P2.is_inhabited AND NOT P.is_inhabited
 ```
 
-What's the point of using subqueries then? Well, first they may make a big query more readable, if we extract some complex
-or important part and add explanatory comments, as we did in the first example. Second, in many cases writing a complex 
-query without subqueries in `FROM` clause is either tricky, or inefficient, or just impossible. 
+However, sometimes it is either tricky, or inefficient or just impossible. A very common use case is when we need 
+to calculate aggregated values in some groups and then find the maximum or minimum of the calculated
+aggregated values. For instance, how do we find the greatest count of flights in the given year across all spacecrafts? 
+It is easy to count flights by spacecraft and year:
 
-Let's look at the example below. In this query we count the flights using different grouping sets -- by planet only and 
-by planet and spacecraft -- and we want to return both the aggregated values in the same row with a planet and a spacecraft.
+
+```sql
+SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+FROM Flight
+GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)
+```
+
+And having counted the flights for each spacecraft, we can find the maximum using the above query as a subquery:
+
+```sql
+SELECT MAX(flight_count) AS max_flight_count
+FROM (
+    SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+    FROM Flight
+    GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)
+) AS T 
+WHERE flight_year = 2084
+```
+
+An interesting follow-up task is to find that spacecraft which did the record and traveled `max_flight_count` times, that is,
+the [arg max](https://en.wikipedia.org/wiki/Arg_max).
+A classic way of solving this problem is as follows: let `T(spacecraft_id, flight_year, flight_count)` be a table with
+the counted flights for each spacecraft. We can find the arg max using this query:
+
+```sql
+SELECT * FROM T 
+WHERE flight_count = (SELECT MAX(flight_count) FROM T)
+```
+
+Now if we replace `T` with a query which counts the flights, we'll solve the problem:
+
+```sql
+SELECT * 
+FROM (
+    SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+    FROM Flight
+    GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)
+) AS T
+WHERE flight_count = (SELECT MAX(flight_count) FROM (
+    SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+    FROM Flight
+    GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)    
+))
+```
+
+This doesn't look quite elegant, because we cloned the body of query that calculates `T`, which makes maintenance more
+difficult and may (but may not as well, depending on the optimizer!) be a performance issue. We'll see how we can make it 
+better in the next step.
+
+Finally, one more use case for subqueries. In the query below we count the flights using different grouping sets -- by planet only and 
+by planet and spacecraft -- and we want to return both aggregated values in the same row with a planet and a spacecraft.
 We can't do it using a simple query with `GROUP BY`, so we have to use other means.
 One option is grouping by different grouping sets in different subqueries and joining them: 
 
@@ -74,6 +143,3 @@ JOIN Spacecraft S ON S.id=T2.spacecraft_id
 
 Worth mentioning that in the modern SQL there are other ways of solving this problem, such as using window functions. 
 However, sometimes subqueries are just easier to write and may be more efficient.
-
-
-
