@@ -2,7 +2,9 @@
 
 Queries which select everything from a table are useful, but more often we need to filter out most
 of the data and leave only those rows which meet certain criteria. In SQL, we can do that with the 
-help of the `WHERE` clause. Let's look at this simple example:
+help of the `WHERE` clause. 
+
+Let's look at this simple example:
 
 ```sql
 -- Unless your query is very simple, it makes sense to format it with linebreaks and indents.
@@ -25,7 +27,11 @@ WHERE id=1 OR id=2 OR name='Disa'
 ```
 
 The expression above evaluates to `true` if the value of the attribute `id` is 1, or if the value of `id` is 2,
-or if the value of the `name` attribute is `'Disa'`. Logically, the database engine executes the query as follows:
+or if the value of the `name` attribute is `'Disa'`. 
+
+----
+
+Logically, the database engine executes the query as follows:
 
 1. It scans through all the rows of the table specified in the `FROM` clause. 
 2. For every row, it evaluates the `WHERE` expression, inserting the attribute values from the current row into the 
@@ -41,7 +47,6 @@ Let's assume that besides `id` and `name`, there is a boolean column `is_inhabit
 and its value is `NULL` if we don't know for sure whether the planet is inhabited. 
 Suppose the table looks as follows:
 
-----
 | name   | id  | is_inhabited |
 |--------|-----|--------------|
 | Disa   | 4   | true         |
@@ -49,7 +54,6 @@ Suppose the table looks as follows:
 | Reva   | 3   | true         |
 | Tibela | 1   | NULL         |
 
-----
 
 What if one of Marsoflot clients is looking for a place to spend their summer vacation off the beaten paths and 
 wants to exclude from the search those planets which are certainly inhabited? 
@@ -58,6 +62,7 @@ Will the following query return exhaustive results?
 ```sql
 SELECT name FROM Planet WHERE NOT is_inhabited
 ```
+
 
 [TODO: demo showing the results of running this query]
 
