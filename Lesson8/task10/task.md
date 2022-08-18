@@ -103,10 +103,10 @@ WHERE flight_count = (SELECT MAX(flight_count) FROM (
     SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
     GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)    
-))
+)) AND flight_year = 2084
 ```
 
-This doesn't look quite elegant, because we cloned the body of query that calculates `T`, which makes maintenance more
+This is not a piece of cake though, because we cloned the body of query that calculates `T`, which makes maintenance more
 difficult and may (but may not as well, depending on the optimizer!) be a performance issue. We'll see how we can make it 
 better in the next step.
 
