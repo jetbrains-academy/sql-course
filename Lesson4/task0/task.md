@@ -2,7 +2,7 @@
 
 Usually, there is more than one table in a relational database, just like there is more than one data sheet in a complex 
 spreadsheet. There are good reasons why we need many tables. Leaving aside complicated theory, it is not recommended to 
-mix records of different types, wo we'll keep the records about planets and flights in different tables:
+mix records of different types, so we'll keep the records about planets and flights in different tables:
 
 ----
 **Planets**
