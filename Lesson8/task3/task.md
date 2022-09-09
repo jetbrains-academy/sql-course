@@ -18,7 +18,7 @@ WHERE flight_count = (SELECT MAX(flight_count) FROM (
 
 We had to write the same counting subquery twice to find the maximum and then to find the row with the maximum value. 
 This naturally raises concerns. First, shall we wish to modify the counting subquery, we have to do it twice.
-Second, will it be efficient, will the engine execute the counting subquery twice or not?
+Second, will it be efficient? Will the engine execute the counting subquery just once or twice?
 
 In the modern SQL, there is a good way to write a table expression just once and refer to it from different parts
 of a query. You may think of it as a function that returns a table and, probably, caches the result of calculations.
@@ -44,12 +44,12 @@ SELECT * FROM T WHERE flight_count = (SELECT MAX(flight_count) FROM T)
 We defined the counting subquery only once as CTE, and removed code duplication. 
 Will it be executed just once as well? The answer is "it depends". 
 It depends on the database engine and its particular version, it depends on how many times a CTE is referred in a query 
-and probably on other factors. Some database engines would always persist CTE outputs to the disk, some would calculate
+and probably on other factors. Some database engines would always persist CTE output to the disk, some would calculate
 them every time and both the former and the later strategies may cause both performance issues and performance gains.
 
 We can define more than one common table expressions, delimiting them with comma. Logically they are evaluated in lexical
 order, and CTEs which are declared later in the lexical order can use the output of CTEs declared earlier. For instance,
-we can define two CTEs which calculate aggregated values grouping by reducing set of fields:
+we can define two CTEs that calculate aggregated values grouping by reducing set of fields:
 
 
 ```sql
@@ -102,5 +102,8 @@ The latter query may execute a few times faster than the former even when runnin
 of advanced database engines, such as PostgreSQL 14, while for older versions the difference may reach a few orders of magnitude.
 
 This is by no means to say that common table expressions are inefficient. 
-It is just the matter of thinking in SQL, and using optimizer-friendly declarative way of composing queries, 
-rather than thinking in Pascal/C/BASIC style with imperative step-by-step instructions, that create so-called optimization fences.
+They are efficient if a query is written in optimizer-friendly declarative way and processes many tables en masse, 
+rather than being decomposed into "step-by-step instructions". 
+Such decompositions may look good to the eyes of programmers who use general purpose procedural, object-oriented 
+and even functional languages, but in fact they create so-called "optimization fences", that is, obstacles which a query 
+optimizer can't easily overcome.

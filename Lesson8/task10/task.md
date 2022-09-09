@@ -1,15 +1,14 @@
 ## Subqueries in FROM clause
 
-We have seen that we can chain joins, so that a result of joining two tables is used in subsequent join operations.
-We also know that we can run subqueries in `WHERE` clause and use their results in `WHERE` expression. 
-Naturally, one may wonder if it is possible to join a subquery result with other tables.
-And yes, we can do it in SQL.
+We know that every SQL query output is a table, and we have seen the usage of scalar and non-scalar subquery outputs 
+in `WHERE` and `SELECT`clauses. Can we write a subquery in `FROM` clause and join its output with other tables?
+Yes, sure!   
 
 In `FROM` clause we join so-called _table expressions_, that is, expressions that return tables. 
 A table name reference is a simple table expression, but more complex expressions are allowed as well, and in particular
 subqueries are table expressions. 
 
-Let's look at the example. Imagine that we need to find all spacecrafts that had at least two flights in the same year, 
+Let's look at the example. Imagine that we're looking for all spacecrafts that had at least two flights in the same year, 
 but different months, such that one of the flights was to some inhabited planet and another to uninhabited one.
 
 
@@ -68,7 +67,7 @@ FROM Flight
 GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)
 ```
 
-And having counted the flights for each spacecraft, we can find the maximum using the above query as a subquery:
+And having counted the flights for each spacecraft and year, we can find the maximum using the above query as a subquery:
 
 ```sql
 SELECT MAX(flight_count) AS max_flight_count
