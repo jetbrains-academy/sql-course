@@ -1,8 +1,8 @@
 # Joining tables
 
 Usually, there is more than one table in a relational database, just like there is more than one data sheet in a complex 
-spreadsheet. There are good reasons why we need many tables. Leaving aside complicated theory, we often split 
-records of different types, and keep records about planets and flights in different tables:
+spreadsheet. There are good reasons why we need many tables. Leaving aside complicated theory, it is not recommended to 
+mix records of different types, wo we'll keep records about planets and flights in different tables:
 
 ----
 **Planets**
@@ -24,8 +24,8 @@ records of different types, and keep records about planets and flights in differ
 | MF149 | 3         | 2122-05-08  |
 | MF201 | 1         | 2122-05-12  |
 
-We use `planet_id` column to link a flight row with a planet row. If we kept everything in one table, we would 
-have to clone planet's data in each flight to that planet, and it could be error-prone and just annoying.
+We use the `planet_id` column to link a flight row with a planet row. If we kept everything in one table, we would 
+have to clone planet's data in each flight to that planet, and that could be error-prone and just annoying.
 
 Splitting flights and planets makes our data more healthy, but now when searching, we need to find for each row from one 
 table all rows from another table that meet certain criteria and then combine the matching pairs of rows. 

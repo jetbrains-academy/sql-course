@@ -1,7 +1,7 @@
 # Selecting data from a table
 
-Okay, calculator is nice, but that's obviously not the main point of using SQL for data processing. 
-One of the important features of spreadsheets are filters, and in this lesson we will learn the SQL way of data filtering.
+Okay, the calculator is nice, but that's obviously not the main point of using SQL for data processing. 
+One of the important features of spreadsheets is filters, and in this lesson we will learn the SQL way of data filtering.
 
 The queries in this lesson assume that there is a data source, where all the required tables are stored. 
 Exercise tasks will automatically create a data source – tables and some data – and will
