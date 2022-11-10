@@ -1,5 +1,5 @@
 type: theory
-custom_name: 'T2: String expressions'
+custom_name: 'T1: SELECT clause and mathematical expressions'
 files:
-- name: src/Main.kt
+- name: src/Task.kt
   visible: true

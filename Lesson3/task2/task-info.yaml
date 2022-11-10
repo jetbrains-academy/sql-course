@@ -3,5 +3,5 @@ custom_name: 'T2: simple data filtering'
 files:
 - name: SQL 101 - Task 3.2 - data filtering.drawio.png
   visible: true
-- name: task.html
+- name: task.md
   visible: false

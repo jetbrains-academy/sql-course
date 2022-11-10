@@ -1,56 +1,43 @@
-## Boolean expressions
+## String expressions
 
-Boolean expressions, which return boolean values, are very important in SQL because 
-they are used for data filtering purposes.
+Aside from numerical data, SQL can also operate with other data types. In this step, we 
+will learn about the operations with character data, or "strings" as they are usually called 
+in modern general-purpose programming languages.
 
-There are three boolean values in SQL: `true`, `false`, and `NULL`, which stands for "unknown". Later we will talk more 
-about this three-valued logic, but for now, let's assume that we work only with `true` and `false`.
+There are a few families of character data types, but we will dive into these details later. 
+In this lesson, we will focus on character literals and expressions.
 
+Programmers with a background in Java/C++/Python and similar languages will probably be 
+somewhat surprised that string literals in SQL are always marked with single quotes:
 
-### Comparison operators
-
-Using comparison operators, we can compare values of the same type.
-
-The equality operator in SQL is single `=` (which again may surprise programmers who are used to 
-`==` and even `===` operators in other languages), and the inequality symbol is `<>`, 
-like in good old Pascal:
-
-```sql
-SELECT 2+2=4, 'war'<>'peace', true=false
+```sql 
+SELECT 'Hello';
 ```
 
-For many data types, e.g., numeric and character types, the total ordering relationship is 
-defined, and their values can be compared with the _less-than_ and similar operators `<`, `<=`, `>`, `>=`:
+Double quotes may also be used in queries, but for other purposes. We will get back to them later.
+If you enclose a string literal in double quotes, most likely you will get a weird error:
 
-```sql
-SELECT 3*3 < 10, 'foo' > 'bar', 3.14 >= 3.140
+```sql 
+SELECT "Hello";
 ```
 
-### Logical operators
+[demo showing the result of using double quotes]
 
-Traditional boolean operators `AND`, `OR`, and `NOT` work as expected for `true` and `false` operands.
-All the following queries will return `true`:
+In most modern programming languages and platforms, you would use `+` for concatenating two
+strings; however, in SQL, the string concatenation operator is `||`. 
 
-```sql
-SELECT 2+2=4 AND 'war'<>'peace';
-SELECT true OR false;
-SELECT NOT false;
+```sql 
+SELECT 'Hello, ' || 'World!';
 ```
 
-If one of the operands is `NULL`, the result of a boolean operator is also `NULL`, except for these cases: 
+But despite the fact that `||` has been
+in ANSI SQL standard for many years, not all SQL engines support it. There is also a function 
+`CONCAT`, which concatenates its arguments and is supported by nearly all SQL engines:
 
-```sql
-SELECT true OR NULL = true;
-SELECT false AND NULL = false;
+```sql 
+SELECT CONCAT('Hello, ', 'World!');
 ```
 
-### SQL-specific operators
-
-Some other operators, which are not so common in general-purpose languages, are also widely used in SQL: 
-
-* `<value> BETWEEN <range-start> AND <range-end>` returns `true` if the `value` is in the closed
-  range `[range-start, range-end],`
-* `<value> IN (<value1>, ..., <valueN>)` returns `true` if the `value` is equal to any of the values 
-  in the comma-delimited list in the parentheses.
-
-We will learn some other useful boolean operators in the lesson about filtering. 
+There is a number of other functions for working with strings.
+The exact list of them depends on the SQL engine, but the most common functions, 
+such as `LOWER`, `UPPER`, and `SUBSTRING`, are supported by the majority of engines.
