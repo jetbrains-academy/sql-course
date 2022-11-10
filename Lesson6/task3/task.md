@@ -44,12 +44,13 @@ SELECT * FROM T WHERE flight_count = (SELECT MAX(flight_count) FROM T)
 We defined the counting subquery as CTE only once and removed code duplication. 
 Will it be executed just once as well? The answer is "it depends". 
 It depends on the database engine and its particular version, it also depends on how many times the CTE is referred to in a query, 
-and probably on other factors. Some database engines would always persist in CTE output to the disk, some would calculate
-them every time, and both the former and the latter strategies may result in both performance issues and performance gains.
+and probably on other factors. Some database engines would always save output of each CTE to the disk, some would recalculate
+CTE every time it is used, and both the former and the latter strategies may result in both performance issues and performance gains.
 
 We can define more than one common table expression, delimiting them with a comma. Logically, they are evaluated in lexical
 order, and CTEs that are declared later in the lexical order can use the output of CTEs declared earlier. For instance,
-we can define two CTEs that calculate aggregated values grouping them by reducing the set of fields:
+if we need to calculate subtotals and grand total, we can define a few CTEs that calculate aggregated values grouping 
+data by sequentially contracting set of fields:
 
 
 ```sql
@@ -59,14 +60,16 @@ WITH T AS (
     FROM Flight
     GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)    
 ),
--- This CTE aggregates the counts calculated by the previous CTE, grouping by spacecraft only.
+-- This CTE calculates flight subtotals grouping by spacecraft only.
 S AS (
     SELECT spacecraft_id, SUM(flight_count) AS total_flight_count FROM T GROUP BY spacecraft_id
-)
+),
+-- This CTE calculates the grand total value of flights.
+R AS (SELECT SUM(total_flight_count) AS grand_total FROM S)
 -- Here starts the main query. It joins the outputs of the two CTEs so that in the result, in every row we
 -- get a spacecraft id, year, the count of flights of the spacecraft in that year and the total count of flights
 -- made by the spacecraft.
-SELECT * FROM T JOIN S USING(spacecraft_id)
+SELECT * FROM T JOIN S JOIN R USING(spacecraft_id)
 ```
 
 Common table expressions have a great power, and naturally, it comes with great responsibility. 
