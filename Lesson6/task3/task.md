@@ -1,6 +1,6 @@
 ## Common Table Expressions
 
-Remember the query which we wrote to find an arg max, a spacecraft which did the greatest count of flights? 
+Remember the query we wrote to find an arg max – a spacecraft that had the greatest count of flights? 
 
 ```sql
 SELECT * 
@@ -26,11 +26,11 @@ of a query. You may think of it as a function that returns a table and, probably
 ### Common Table Expressions
 
 So, a common table expression, abbreviated as CTE, is essentially a subquery with an alias, which lexically 
-goes before the "main" query and can be referred by the alias in the main query. 
-The syntax of defining a CTE is slightly more verbose than a subquery syntax: 
+goes before the "main" query and can be referred to by the alias in the main query. 
+The syntax of defining a CTE is slightly more verbose than the subquery syntax: 
 
 ```sql
--- Here goes a CTE, which can be referred as T in subsequent queries
+-- Here goes a CTE, which can be referred to as T in subsequent queries
 WITH T AS (
     SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
@@ -41,36 +41,39 @@ SELECT * FROM T WHERE flight_count = (SELECT MAX(flight_count) FROM T)
 ```
 
 
-We defined the counting subquery only once as CTE, and removed code duplication. 
+We defined the counting subquery as CTE only once and removed code duplication. 
 Will it be executed just once as well? The answer is "it depends". 
-It depends on the database engine and its particular version, it depends on how many times a CTE is referred in a query 
-and probably on other factors. Some database engines would always persist CTE output to the disk, some would calculate
-them every time and both the former and the later strategies may cause both performance issues and performance gains.
+It depends on the database engine and its particular version, it also depends on how many times the CTE is referred to in a query, 
+and probably on other factors. Some database engines would always save output of each CTE to the disk, some would recalculate
+CTE every time it is used, and both the former and the latter strategies may result in both performance issues and performance gains.
 
-We can define more than one common table expressions, delimiting them with comma. Logically they are evaluated in lexical
-order, and CTEs which are declared later in the lexical order can use the output of CTEs declared earlier. For instance,
-we can define two CTEs that calculate aggregated values grouping by reducing set of fields:
+We can define more than one common table expression, delimiting them with a comma. Logically, they are evaluated in lexical
+order, and CTEs that are declared later in the lexical order can use the output of CTEs declared earlier. For instance,
+if we need to calculate subtotals and grand total, we can define a few CTEs that calculate aggregated values grouping 
+data by sequentially contracting set of fields:
 
 
 ```sql
--- This CTE counts flights grouping by a spacecraft and year.
+-- This CTE counts flights grouping by the spacecraft and year.
 WITH T AS (
     SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
     GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)    
 ),
--- This CTE aggregates the counts calculated by the previous CTE, grouping by spacecraft only.
+-- This CTE calculates flight subtotals grouping by spacecraft only.
 S AS (
     SELECT spacecraft_id, SUM(flight_count) AS total_flight_count FROM T GROUP BY spacecraft_id
-)
--- Here starts the main query. It joins the outputs of two CTEs, so that in the result in every row we
+),
+-- This CTE calculates the grand total value of flights.
+R AS (SELECT SUM(total_flight_count) AS grand_total FROM S)
+-- Here starts the main query. It joins the outputs of the two CTEs so that in the result, in every row we
 -- get a spacecraft id, year, the count of flights of the spacecraft in that year and the total count of flights
 -- made by the spacecraft.
-SELECT * FROM T JOIN S USING(spacecraft_id)
+SELECT * FROM T JOIN S JOIN R USING(spacecraft_id)
 ```
 
-Common table expressions is a great power, and naturally it comes with great responsibility. 
-With CTEs it is easy to start writing bad SQL code, inefficient and difficult to understand. Consider this example: 
+Common table expressions have a great power, and naturally, it comes with great responsibility. 
+With CTEs, it is easy to start writing bad SQL code – inefficient and difficult to understand. Consider this example: 
 
 ```sql
 WITH A AS (
@@ -86,7 +89,7 @@ C AS (
 SELECT * FROM C
 ```
 
-This query just searches for flights made by `Falcon 9` to the planets with mild climate, and it can be easily 
+This query just searches for flights made by `Falcon 9` to the planets with a mild climate, and it can be easily 
 rewritten as follows: 
 
 ```sql
@@ -96,14 +99,14 @@ FROM Flight F JOIN Spacecraft S ON F.spacecraft_id=S.id
 WHERE P.climate='mild' AND S.name='Falcon 9'
 ```
 
-The rewritten query is shorter, is actually easier to understand for a relatively experienced SQL programmer and finally,
+The rewritten query is shorter, it is actually easier to understand for a relatively experienced SQL programmer, and finally,
 it is just more efficient. 
-The latter query may execute a few times faster than the former even when running on pretty modern versions 
-of advanced database engines, such as PostgreSQL 14, while for older versions the difference may reach a few orders of magnitude.
+The latter query may execute a few times faster than the former one even when running on pretty modern versions 
+of advanced database engines, such as PostgreSQL 14, while for older versions, the difference may reach a few orders of magnitude.
 
 This is by no means to say that common table expressions are inefficient. 
-They are efficient if a query is written in optimizer-friendly declarative way and processes many tables en masse, 
+They are efficient if a query is written in an optimizer-friendly declarative way and processes many tables en masse, 
 rather than being decomposed into "step-by-step instructions". 
-Such decompositions may look good to the eyes of programmers who use general purpose procedural, object-oriented 
-and even functional languages, but in fact they create so-called "optimization fences", that is, obstacles which a query 
+Such decompositions may look good to the eyes of programmers who use general purpose procedural, object-oriented, 
+and even functional languages, but in fact, they create so-called "optimization fences", that is, obstacles a query 
 optimizer can't easily overcome.
