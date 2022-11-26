@@ -1,6 +1,6 @@
 # Using SQL as a calculator
 
-In this task, we will write our first SQL code which calculates the values of some 
+In this task, we will write our first SQL code which calculates the value of some 
 expressions. These queries will not access or manipulate any tables.
 
 ## `SELECT` clause
