@@ -1,6 +1,10 @@
 import org.junit.Before
 import org.junit.Test
 import kotlin.math.sqrt
+import com.jetbrains.edu.sql101.createTestServer
+import org.junit.Assert
+import org.junit.Assert.assertTrue
+import java.net.URL
 
 class Test {
     lateinit var db: Db
@@ -9,8 +13,8 @@ class Test {
         db = Db("L2.T4")
     }
 
-    @Test fun testSolution() {
-        showComposeUi()
+    fun _testSolution() {
+        //showComposeUi()
         val results = mutableListOf<ScoredSolution>()
         db.forEachQueryInFile("/Query.sql") { db, idx, query ->
             when (idx) {
@@ -63,5 +67,15 @@ class Test {
         if (results.any { it.score == 0.0 }) {
             printAssessments(results)
         }
+    }
+
+    @Test
+    fun testStartTestServer() {
+
+        val server = createTestServer().start(wait = false)
+        println()
+        Assert.fail(URL("http://localhost:8080").openStream().reader().readText())
+        server.stop()
+        println("--------")
     }
 }

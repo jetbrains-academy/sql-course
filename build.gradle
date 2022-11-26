@@ -29,7 +29,7 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'kotlin'
 
-    sourceCompatibility = 1.8
+    sourceCompatibility = 11
 
     repositories {
         mavenCentral()
@@ -38,15 +38,15 @@ subprojects {
     dependencies {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
         implementation "com.h2database:h2:2.1.+"
-        testImplementation "com.nanohttpd:nanohttpd:2.2.0"
+        implementation files("$rootProject.projectDir/lib/sql-task-test-server-22.11.jar")
         testImplementation group: 'junit', name: 'junit', version: '4.12'
     }
 
     compileKotlin {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.jvmTarget = "11"
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.jvmTarget = "11"
     }
 
     sourceSets {
