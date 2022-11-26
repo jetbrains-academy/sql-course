@@ -1,0 +1,1 @@
+rootProject.name = "sql-task-test-server"
