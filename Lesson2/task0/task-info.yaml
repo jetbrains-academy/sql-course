@@ -1,0 +1,7 @@
+type: theory
+custom_name: Intro
+files:
+- name: task.md
+  visible: false
+- name: L2T0-intro.png
+  visible: true
