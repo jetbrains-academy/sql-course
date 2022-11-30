@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang=en>
+<head>
+    <meta charset=utf-8>
+    <title>Ex:Simple Expressions</title>
+</head>
+<body>
+<style lang="text/css">
+    h1 {
+        font-size: x-large;
+        border-bottom: solid 1px;
+    }
+    h2 {
+        font-size: larger;
+    }
+    .hide {
+        display: none;
+    }
+    #btn-show-text {
+        cursor: hand;
+        background-color: darkslateblue;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 3px;
+        font-weight: bold;
+    }
+    #grading-output {
+        background-color: whitesmoke;
+        color: dimgray;
+        padding: 1em;
+    }
+    #grading-state {
+        font-size: small;
+    }
+    #grading-results {
+        margin-top: 1em;
+    }
+    #grading-results thead th {
+        padding-bottom: 10px;
+        border-top: solid dimgray 2px;
+        border-bottom: solid dimgray 1px;
+    }
+    #grading-results tbody td {
+        padding: 5px 3px;
+    }
+    #grading-results tfoot {
+        border-top: solid dimgray 1px;
+        padding: 3px 0px;
+    }
+    #grading-results th,td {
+        border: none;
+        color: black;
+    }
+    #grading-results .status-ok {
+        background-color: forestgreen;
+        padding: 3px;
+    }
+    #grading-results .status-error {
+        background-color: darkred;
+        color: whitesmoke;
+        padding: 3px;
+    }
+    #grading-table .comments i {
+        font-size: smaller;
+    }
+    #grading-log {
+        font-size: smaller;
+    }
+
+</style>
+
+<h1>Exercise: writing simple expressions</h1>
+<div id="task-text">
+<p>
+    In this exercise you have to edit a few expressions and make them returning the
+    expected results. Read the task definitions in `Query.sql` file, edit the code below the tasks
+    and click the button `Check`.
+</p>
+<p>
+    Please pay attention that there are placeholders in queries 3-5. You need
+    to keep them in your solutions.
+</p>
+<p>
+    If some solution fails to pass a test, you will see the query with the expanded placeholders
+    in the check output. The check will pass if all solutions pass all the tests. </p>
+</div>
+<p></p><span id="btn-show-text" class="hide">Show text</span></p>
+<div id="grading-output" class="">
+    <table id="grading-results">
+        <thead><tr>
+        <th>Query</th><th>Check Result</th><th>Comments</th></tr>
+        </thead>
+        <tbody id="grading-table">
+            <tr></tr><td>0</td><td><span class="status-error">FAILED</span></td>
+            <td>
+                <div class="hide">
+                <code>SELECT * FROM foo</code><i><br>fasdfasdfasdf</i>
+                </div>
+            </td></tr>
+        </tbody>
+        <tfoot>
+            <tr><td colspan="2"><div id="grading-state">Not checked yet</div></td></tr>
+        </tfoot>
+    </table>
+
+    <div id="grading-log"></div>
+</div>
+</body>
+<script lang="js">
+    const STATE_IDLE = 0;
+    const STATE_STARTED = 1;
+    const STATE_GRADING = 2;
+    const STATE_DONE = 3;
+    const STATE_ERROR = 4;
+
+    const elText = document.getElementById("task-text");
+    const elBtnShowText = document.getElementById("btn-show-text");
+    const elState = document.getElementById("grading-state");
+    let state = 0;
+    function eventLoop() {
+        switch (state) {
+            case STATE_IDLE:
+                tryIdleToStarted();
+                break;
+            case STATE_STARTED:
+                elState.innerText = "Checks are running";
+                sendGradingRequest("Query");
+                break;
+            case STATE_GRADING:
+                tryGradingToDone();
+                break;
+            case STATE_DONE:
+                elState.innerText = "Checks completed";
+                tryDoneToIdle();
+                break;
+            case STATE_ERROR:
+                elState.innerText = "Something went wrong";
+                break;
+            default:
+                elState.innerText = "???";
+        }
+    }
+
+    function tryIdleToStarted() {
+        fetch("http://localhost:8080/").then(response => {
+           if (response.ok) {
+               state = STATE_STARTED;
+               document.getElementById("task-text").setAttribute("class", "hide");
+               document.getElementById("btn-show-text").setAttribute("class", "");
+               document.getElementById("grading-output").setAttribute("class", "");
+           }
+        }).catch(reason => {
+            //log("IDLE=>STARTED: " + reason);
+        }).finally(() => {
+            window.setTimeout(eventLoop, 200);
+        });
+    }
+    function sendGradingRequest(taskName) {
+        fetch("http://localhost:8080/grade/start", {
+            method: 'POST',
+            body: JSON.stringify({ "solutionFile": `/${taskName}.sql`, "assertFile": `/${taskName}.json` })
+        }).then(response => {
+            if (response.ok) {
+                state = STATE_GRADING;
+                elState.innerText = "Checking your queries...";
+            } else {
+                state = STATE_ERROR;
+            }
+        }).catch(reason => {
+            log("STARTED=>GRADING: " + reason);
+            state = STATE_ERROR;
+        }).finally(() => {
+            window.setTimeout(eventLoop, 200);
+        });
+    }
+
+    function tryGradingToDone() {
+        fetch('http://localhost:8080/grade/status?' + new URLSearchParams({
+            solutionFile: '/Query.sql',
+        })).then(
+            response => response.text()
+        ).then(responseText => {
+            let status = JSON.parse(responseText);
+            let resultText = "";
+            log(responseText);
+            status.grades.sort((a, b) => {a.queryNum - b.queryNum}).forEach(result => {
+                const isSuccess = result.scoredSolution.score == 1.0;
+                const statusClass = isSuccess ? "status-ok" : "status-error";
+                const statusText = isSuccess ? "OK" : "FAILED";
+                resultText += `<tr><td>${result.queryNum}</td><td><span class="${statusClass}">${statusText}</span></td>`;
+                if (!isSuccess) {
+                    resultText += `<td><div class="comments"><code>${result.scoredSolution.solution}</code><br><i>${result.scoredSolution.assessment}</i></div></td>`;
+                }
+                else {
+                    resultText += "<td></td>";
+                }
+                resultText += "</tr>";
+            });
+            document.getElementById('grading-table').innerHTML = `<tbody>${resultText}</tbody>`;
+            if (status.isCompleted) {
+                state = STATE_DONE;
+                elState.innerText = "Checks completed";
+            }
+        }).catch(reason => {
+            console.log("GRADING=>DONE: " + reason);
+        }).finally(() => {
+            window.setTimeout(eventLoop, 200);
+        });
+    }
+
+
+    function tryDoneToIdle() {
+        fetch("http://localhost:8080").catch(reason => {
+            //log("IDLE=>STARTED: " + reason);
+            state = STATE_IDLE;
+        }).finally(() => {
+            window.setTimeout(eventLoop, 2000);
+        });
+    }
+
+    function log(msg) {
+        document.getElementById("grading-log").innerText = msg;
+    }
+
+    window.setTimeout(eventLoop, 200);
+
+    elBtnShowText.onclick = (evt) => {
+        elText.setAttribute("class", "");
+        elBtnShowText.setAttribute("class", "hide");
+    }
+</script>
+</html>

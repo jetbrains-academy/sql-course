@@ -1,0 +1,123 @@
+{
+  "assertions": [
+    {
+      "queryNum": 1,
+      "expectedResult": "42"
+    },
+    {
+      "queryNum": 2,
+      "expectedResult": "Hello, SQL"
+    },
+    {
+      "queryNum": 3,
+      "expectedResult": "FALSE",
+      "placeholderValues": {
+        "0": {
+          "type": "decimal",
+          "value": 1.0
+        }
+      }
+    },
+    {
+      "queryNum": 3,
+      "expectedResult": "FALSE",
+      "placeholderValues": {
+        "0": {
+          "type": "string",
+          "value": "sqrt(122.0)+0.00001"
+        }
+      }
+    },
+    {
+      "queryNum": 3,
+      "expectedResult": "TRUE",
+      "placeholderValues": {
+        "0": {
+          "type": "decimal",
+          "value": 1.1
+        }
+      }
+    },
+    {
+      "queryNum": 3,
+      "expectedResult": "TRUE",
+      "placeholderValues": {
+        "0": {
+          "type": "string",
+          "value": "sqrt(122.0)"
+        }
+      }
+    },
+    {
+      "queryNum": 3,
+      "expectedResult": "TRUE",
+      "placeholderValues": {
+        "0": {
+          "type": "int",
+          "value": 5
+        }
+      }
+    },
+    {
+      "queryNum": 3,
+      "expectedResult": "FALSE",
+      "placeholderValues": {
+        "0": {
+          "type": "int",
+          "value": -5
+        }
+      }
+    },
+    {
+      "queryNum": 4,
+      "expectedResult": "TRUE",
+      "placeholderValues": {
+        "0": {
+          "type": "string",
+          "value": "The moon"
+        }
+      }
+    },
+    {
+      "queryNum": 4,
+      "expectedResult": "TRUE",
+      "placeholderValues": {
+        "0": {
+          "type": "string",
+          "value": "THE MOON"
+        }
+      }
+    },
+    {
+      "queryNum": 4,
+      "expectedResult": "FALSE",
+      "placeholderValues": {
+        "0": {
+          "type": "string",
+          "value": "The  moon"
+        }
+      }
+    },
+    {
+      "queryNum": 4,
+      "expectedResult": "FALSE",
+      "placeholderValues": {
+        "0": {
+          "type": "string",
+          "value": "foobar"
+        }
+      }
+    },
+    {
+      "queryNum": 4,
+      "expectedResult": "FALSE",
+      "placeholderValues": {
+        "0": {
+          "type": "string",
+          "value": ""
+        }
+      }
+    }
+  ]
+}
+

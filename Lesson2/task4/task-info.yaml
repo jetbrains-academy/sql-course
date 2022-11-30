@@ -1,5 +1,5 @@
 type: edu
-custom_name: 'Ex: simple expressions'
+custom_name: "Ex: simple expressions"
 files:
 - name: src/Task.kt
   visible: false
@@ -8,4 +8,6 @@ files:
 - name: src/Query.sql
   visible: true
 - name: src/Solutions.sql
+  visible: false
+- name: src/Query.json
   visible: false

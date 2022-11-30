@@ -15,10 +15,10 @@ SELECT {0} > 0 AS result
 
 -- ========== Query 4 ==========
 -- In the query below, edit the boolean expression so that instead of checking that
--- the value of the placeholder {0} is not an empty string it checked that it
--- equals to string 'The moon' regardless of the case.
+-- the value of the placeholder {0} IS NOT an empty string it checked that it
+-- EQUALS to string 'The moon' regardless of the case.
 -- Make sure to keep the placeholder in the solution.
-SELECT '{0}' <> ''
+SELECT '{0}' = 'The moon' AS result
 
 -- ========== Query 5 ==========
 -- In the query below, edit the boolean expression so that instead of checking that
