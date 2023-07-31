@@ -5,9 +5,9 @@ files:
   visible: false
 - name: test/Tests.kt
   visible: false
+- name: src/Query.json
+  visible: false
 - name: src/Query.sql
   visible: true
 - name: src/Solutions.sql
-  visible: false
-- name: src/Query.json
   visible: false

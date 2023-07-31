@@ -1,7 +1,5 @@
 type: theory
-custom_name: 'T1: Search in a tiny dataset'
+custom_name: "T1: Search in a tiny dataset"
 files:
-- name: src/Main.kt
-  visible: false
-- name: src/database.png
+- name: csv.png
   visible: true

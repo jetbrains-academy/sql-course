@@ -1,5 +1,5 @@
 type: edu
-custom_name: 'Ex: simple data filtering'
+custom_name: "Ex: simple data filtering"
 files:
 - name: src/Task.kt
   visible: true
