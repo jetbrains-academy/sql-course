@@ -1,7 +1,7 @@
 type: edu
-custom_name: 'Ex: subqueries in WHERE'
+custom_name: "Ex: subqueries in WHERE"
 files:
-- name: src/Task.kt
-  visible: true
-- name: test/Tests.kt
-  visible: false
+  - name: src/Task.kt
+    visible: true
+  - name: test/Tests.kt
+    visible: false

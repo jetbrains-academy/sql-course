@@ -1,7 +1,7 @@
 type: edu
-custom_name: 'Ex: Make a join not using a join'
+custom_name: "Ex: Make a join not using a join"
 files:
-- name: src/Task.kt
-  visible: true
-- name: test/Tests.kt
-  visible: false
+  - name: src/Task.kt
+    visible: true
+  - name: test/Tests.kt
+    visible: false
