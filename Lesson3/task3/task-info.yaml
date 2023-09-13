@@ -1,7 +1,9 @@
 type: edu
 custom_name: "Ex: simple data filtering"
 files:
-  - name: src/Query.sql
-    visible: true
   - name: test/Tests.kt
     visible: false
+  - name: init.sql
+    visible: false
+  - name: src/Query.sql
+    visible: true
