@@ -1,7 +1,8 @@
-Look at the dataset in [this CSV file](course://datasets/small/airports.csv). The first line of
-this file is a header with the column names, and the remaining rows contain data about the 
-top 30 busiest airports across the world.
+## Exercise
 
-Use a spreadsheet or command-line tools to find the busiest European airport.
+----
+Look at the dataset in [this CSV file](course://datasets/small/airports.csv). 
 
-Type the airport code and the number of movements in the placeholders.
+Use a spreadsheet or command-line tools, or data view, which is built into %IDE_NAME%, to find the busiest European airport, that is, the one with the greatest number of movements across all airports located in Europe.
+
+Type the airport code and the number of movements in the placeholders in a file opened in the editor pane instead of `???` and `0`.

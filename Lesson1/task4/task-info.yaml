@@ -1,14 +1,14 @@
 type: edu
-custom_name: 'Ex: Search in a small dataset using spreadsheets or command-line tools'
+custom_name: "Ex: Search in a small dataset using spreadsheets or command-line tools"
 files:
-- name: src/Task.kt
-  visible: true
-  placeholders:
-  - offset: 15
-    length: 3
-    placeholder_text: Airport code
-  - offset: 23
-    length: 1
-    placeholder_text: 0
-- name: test/Tests.kt
-  visible: false
+  - name: src/Task.kt
+    visible: true
+    placeholders:
+      - offset: 15
+        length: 3
+        placeholder_text: Airport code
+      - offset: 23
+        length: 1
+        placeholder_text: Movements
+  - name: test/Tests.kt
+    visible: false

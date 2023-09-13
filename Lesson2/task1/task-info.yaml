@@ -1,5 +1,5 @@
 type: theory
-custom_name: 'T1: SELECT clause and mathematical expressions'
+custom_name: "T1: SELECT clause and arithmetic expressions"
 files:
-- name: src/Task.kt
+- name: summary.png
   visible: true

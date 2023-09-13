@@ -1,12 +1,14 @@
-# Using SQL as a calculator
+## `SELECT` clause and arithmetic expressions
+
+----
 
 In this task, we will write our first SQL code which calculates the value of some 
-expressions. These queries will not access or manipulate any tables.
+expressions. The minimal executable piece of code in SQL is called _query_, so we will write SQL queries. These queries will not access or manipulate any tables.
 
-## `SELECT` clause
+### `SELECT` clause
 
 Every SQL query consists of a few parts, called _clauses_. The simplest query includes 
-only a _select clause_. It starts with the keyword `SELECT` followed by a comma-delimited 
+only a _select clause_. It starts with the keyword **`SELECT`** followed by a comma-delimited 
 list of numeric, string, or other expressions. Here is a query which calculates the result 
 of an arithmetic expression. 
 
@@ -14,7 +16,7 @@ of an arithmetic expression.
 SELECT (3+4)*6;
 ```
 
-## Arithmetic expressions
+### Arithmetic expressions
 
 Integer and decimal numbers, arithmetic operations, and parentheses work as you may expect. `2`
 is an integer number, `3.14` is a decimal number, `+` is the addition operator, `-` is for subtraction,
@@ -23,7 +25,7 @@ is an integer number, `3.14` is a decimal number, `+` is the addition operator, 
 
 There is a number of built-in 
 standard mathematical functions in SQL. Their full list depends on the SQL engine, that is, on the software 
-which executes the query; however, the most common functions, such as `ABS`, `SQRT`, and `LOG`, are 
+which executes the query; however, the most common functions, such as **`ABS`**, **`SQRT`**, and **`LOG`**, are 
 available in most, if not all, of the engines. 
 
 It is possible to calculate many expressions in a single query, separating them by commas:
@@ -38,14 +40,14 @@ per se if there is some other way to mark the query end. However, some clients â
 take your queries and send them to the engine â€“ may expect that you explicitly type a semicolon
 at the end.
 
-[demo of psql console goes here]
+[TODO: demo of psql console goes here]
 
-## Output column names
+### Output column names
 
 All SQL queries output table-structured results. Even if a query consists of a single SELECT clause
 and a single expression, it is still a table with one row and one column 
 (however, such queries may be treated as scalar values, as we will see in the later lessons). Every column has
-a name and a data type, and columns produced by simple `SELECT`s are no exception. If a column
+a name and a data type, and columns produced by any simple **`SELECT`** query are no exception. If a column
 name is not specified, it is chosen by the SQL engine. However, it is possible to specify output column
 names explicitly using the keyword `AS`:
 
@@ -53,4 +55,4 @@ names explicitly using the keyword `AS`:
 SELECT POWER(2, 2) AS squared, POWER(2, 3) AS cubed, SQRT(2) AS square_root
 ```
 
-[the result of running this query]
+[TODO: the result of running this query]
