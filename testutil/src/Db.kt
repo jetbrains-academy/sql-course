@@ -51,7 +51,6 @@ class Db(dbName: String) {
 
     fun executeAndScore(sqlStatement: String, expected: Map<String, String>, placeholders: List<Any> = mutableListOf()): ScoredSolution {
         val query = if (placeholders.isEmpty()) sqlStatement else MessageFormat.format(sqlStatement.replace("'", "''"), *placeholders.toTypedArray())
-        println(query)
         execute(query).let { resultSet ->
             val assessment = if (resultSet.isEmpty()) {
                 "Query returned an empty result" to 0.0
@@ -73,6 +72,35 @@ class Db(dbName: String) {
             return ScoredSolution(query, assessment.first, assessment.second)
         }
     }
+
+    fun executeAndEvaluate(sqlStatement: String, expected: Map<String, String>, placeholders: List<Any> = mutableListOf()): EvaluationResult {
+        val query = if (placeholders.isEmpty()) sqlStatement else MessageFormat.format(sqlStatement.replace("'", "''"), *placeholders.toTypedArray())
+        execute(query).let { resultSet ->
+            val result = if (resultSet.isEmpty()) {
+                EvaluationResult("Query returned an empty result", "not empty result", "empty result")
+            } else {
+                val row = resultSet[0]
+                val scores = expected.map { (key, value) ->
+                    row[key]?.let {
+                        if (value != it) {
+                            var message = "The value in '$key' column is wrong."
+                            for((i, ph) in placeholders.withIndex()){
+                                message += " With {$i} = '$ph';"
+                            }
+                            EvaluationResult(message, value, it)
+                        } else {
+                            EvaluationResult("Ok", value, it)
+                        }
+                    } ?: run {
+                        EvaluationResult("Column '$key' not found", "column exists", "column missed")
+                    }
+                }
+                scores.firstOrNull { it.actual != it.expected } ?: EvaluationResult("Ok", null, null)
+            }
+            return result
+        }
+    }
+
     fun execute(sqlStatement: String): List<Map<String, String?>> {
         try {
             dataSource.connection.use { cxn ->

@@ -1,8 +1,11 @@
 custom_name: 2. Using SQL as a calculator
 content:
-- task0
-- task1
-- task2
-- task3
-- task5
-- task4
+  - task0
+  - task1
+  - Ex1. Arithmetic exception practice
+  - task2
+  - Ex2. String expressions practice
+  - task3
+  - Ex3. Boolean expressions practice
+  - task5
+  - Ex4. More expressions practice

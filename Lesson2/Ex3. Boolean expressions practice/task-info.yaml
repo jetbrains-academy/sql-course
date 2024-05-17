@@ -1,0 +1,10 @@
+type: edu
+files:
+  - name: src/task.sql
+    visible: true
+    placeholders:
+      - offset: 300
+        length: 25
+        placeholder_text: '> 0'
+  - name: test/SqlTest.kt
+    visible: false
