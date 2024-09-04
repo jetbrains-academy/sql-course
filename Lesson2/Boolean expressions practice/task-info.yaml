@@ -3,7 +3,7 @@ files:
   - name: src/task.sql
     visible: true
     placeholders:
-      - offset: 300
+      - offset: 298
         length: 25
         placeholder_text: '> 0'
   - name: test/SqlTest.kt

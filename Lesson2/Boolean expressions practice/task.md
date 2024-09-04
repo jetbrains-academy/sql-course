@@ -1,6 +1,6 @@
 ### Placeholders
-In this and the following tasks, you will encounter placeholders in the query. 
-They look like numbers in curly brackets. For example, `{0}`, `{1}`, ...
+In this and some following tasks, you will encounter placeholders in the query. 
+They look like question mark: `?`
 
 They are needed for the task checking system - different values will be substituted for them during testing. 
 So don't remove them from the query.

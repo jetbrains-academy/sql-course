@@ -4,10 +4,10 @@ files:
     visible: true
     placeholders:
       - offset: 311
-        length: 25
-        placeholder_text: "'{0}' = 'The moon'"
-      - offset: 702
-        length: 33
-        placeholder_text: "{0} > 0"
+        length: 21
+        placeholder_text: '? = ''The moon'''
+      - offset: 698
+        length: 31
+        placeholder_text: '? > 0'
   - name: test/Tests.kt
     visible: false

@@ -1,6 +1,6 @@
 import org.h2.jdbcx.JdbcDataSource
+import java.sql.PreparedStatement
 import java.sql.SQLException
-import java.text.MessageFormat
 
 class Db(dbName: String) {
     private val dataSource = JdbcDataSource().also {
@@ -49,33 +49,8 @@ class Db(dbName: String) {
         queries.forEachIndexed { idx, query -> code(this, idx, query) }
     }
 
-    fun executeAndScore(sqlStatement: String, expected: Map<String, String>, placeholders: List<Any> = mutableListOf()): ScoredSolution {
-        val query = if (placeholders.isEmpty()) sqlStatement else MessageFormat.format(sqlStatement.replace("'", "''"), *placeholders.toTypedArray())
-        execute(query).let { resultSet ->
-            val assessment = if (resultSet.isEmpty()) {
-                "Query returned an empty result" to 0.0
-            } else {
-                val row = resultSet[0]
-                val scores = expected.map { (key, value) ->
-                    row[key]?.let {
-                        if (value != it) {
-                            "The value in 'result' column is $it. Expected: $value" to 0.0
-                        } else {
-                            "OK" to 1.0
-                        }
-                    } ?: run {
-                        "Column 'result' not found" to 0.0
-                    }
-                }
-                scores.firstOrNull { it.second == 0.0 } ?: "OK" to 1.0
-            }
-            return ScoredSolution(query, assessment.first, assessment.second)
-        }
-    }
-
     fun executeAndEvaluate(sqlStatement: String, expected: Map<String, String>, placeholders: List<Any> = mutableListOf()): EvaluationResult {
-        val query = if (placeholders.isEmpty()) sqlStatement else MessageFormat.format(sqlStatement.replace("'", "''"), *placeholders.toTypedArray())
-        execute(query).let { resultSet ->
+        executeWithParameters(sqlStatement, placeholders).let { resultSet ->
             val result = if (resultSet.isEmpty()) {
                 EvaluationResult("Query returned an empty result", "not empty result", "empty result")
             } else {
@@ -84,8 +59,8 @@ class Db(dbName: String) {
                     row[key]?.let {
                         if (value != it) {
                             var message = "The value in '$key' column is wrong."
-                            for((i, ph) in placeholders.withIndex()){
-                                message += " With {$i} = '$ph';"
+                            for(ph in placeholders){
+                                message += " With ? = '$ph';"
                             }
                             EvaluationResult(message, value, it)
                         } else {
@@ -101,23 +76,36 @@ class Db(dbName: String) {
         }
     }
 
-    fun execute(sqlStatement: String): List<Map<String, String?>> {
+    private fun execute(sqlStatement: String): List<Map<String, String?>> {
+        return executeWithParameters(sqlStatement, emptyList())
+    }
+
+    private fun executeWithParameters(sqlStatement: String, parameters: List<Any>): List<Map<String, String?>> {
         try {
             dataSource.connection.use { cxn ->
                 val rows = mutableListOf<Map<String, String?>>()
-                cxn.createStatement().executeQuery(sqlStatement).use { rs ->
-                    while (rs.next()) {
-                        val values = mutableMapOf<String, String>()
-                        for (i in 1..rs.metaData.columnCount) {
-                            values[rs.metaData.getColumnName(i).lowercase()] = rs.getString(i)
+                cxn.prepareStatement(sqlStatement).use { ps ->
+                    setParameters(ps, parameters)
+                    ps.executeQuery().use { rs ->
+                        while (rs.next()) {
+                            val values = mutableMapOf<String, String?>()
+                            for (i in 1..rs.metaData.columnCount) {
+                                values[rs.metaData.getColumnName(i).lowercase()] = rs.getString(i)
+                            }
+                            rows.add(values)
                         }
-                        rows.add(values)
                     }
                 }
                 return rows
             }
         } catch (e: SQLException) {
             throw RuntimeException(e)
+        }
+    }
+
+    private fun setParameters(ps: PreparedStatement, parameters: List<Any>) {
+        parameters.forEachIndexed { index, parameter ->
+            ps.setObject(index + 1, parameter)
         }
     }
 }
