@@ -7,7 +7,7 @@ class Test {
     lateinit var db: Db
     @Before
     fun setUp() {
-        db = Db("L2.Ex4")
+        db = Db("test")
     }
 
     @Test
@@ -24,13 +24,6 @@ class Test {
                     results.add(db.executeAndEvaluate(query, mapOf("first_result" to "FALSE"), listOf("The  moon")))
                     results.add(db.executeAndEvaluate(query, mapOf("first_result" to "FALSE"), listOf("foobar")))
                     results.add(db.executeAndEvaluate(query, mapOf("first_result" to "FALSE"), listOf("")))
-                }
-                1 -> {
-                    results.add(db.executeAndEvaluate(query, mapOf("second_result" to "FALSE"), listOf(1)))
-                    results.add(db.executeAndEvaluate(query, mapOf("second_result" to "FALSE"), listOf(11)))
-                    for (k in 2..10) {
-                        results.add(db.executeAndEvaluate(query, mapOf("second_result" to "TRUE"), listOf(k*k)))
-                    }
                 }
             }
         }

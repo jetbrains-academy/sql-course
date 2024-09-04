@@ -6,7 +6,7 @@ class SqlTest {
     lateinit var db: Db
     @Before
     fun setUp() {
-        db = Db("L2.Ex2")
+        db = Db("test")
     }
 
     @Test
