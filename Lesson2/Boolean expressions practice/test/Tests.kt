@@ -7,7 +7,7 @@ class SqlTest {
     lateinit var db: Db
     @Before
     fun setUp() {
-        db = Db("test")
+        db = Db("test", true)
     }
 
     @Test
@@ -16,12 +16,12 @@ class SqlTest {
         db.forEachQueryInFile("/task.sql") { db, idx, query ->
             when (idx) {
                 0 -> {
-                    results.add(db.executeAndEvaluate(query, mapOf("result" to "FALSE"), listOf(1.0)))
-                    results.add(db.executeAndEvaluate(query, mapOf("result" to "FALSE"), listOf((sqrt(122.0)+0.00001).toString())))
-                    results.add(db.executeAndEvaluate(query, mapOf("result" to "TRUE" ), listOf(1.1)))
-                    results.add(db.executeAndEvaluate(query, mapOf("result" to "TRUE" ), listOf(sqrt(122.0).toString())))
-                    results.add(db.executeAndEvaluate(query, mapOf("result" to "TRUE" ), listOf(5)))
-                    results.add(db.executeAndEvaluate(query, mapOf("result" to "FALSE"), listOf(-5)))
+                    results.add(db.executeAndEvaluate(query, listOf("result", "0"), listOf(1.0)))
+                    results.add(db.executeAndEvaluate(query, listOf("result", "0"), listOf((sqrt(122.0)+0.00001))))
+                    results.add(db.executeAndEvaluate(query, listOf("result", "1" ), listOf(1.1)))
+                    results.add(db.executeAndEvaluate(query, listOf("result", "1" ), listOf(sqrt(122.0))))
+                    results.add(db.executeAndEvaluate(query, listOf("result", "1" ), listOf(5)))
+                    results.add(db.executeAndEvaluate(query, listOf("result", "0"), listOf(-5)))
                 }
             }
         }

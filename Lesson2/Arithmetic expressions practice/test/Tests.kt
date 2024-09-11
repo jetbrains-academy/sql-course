@@ -6,7 +6,7 @@ class SqlTest {
     lateinit var db: Db
     @Before
     fun setUp() {
-        db = Db("test")
+        db = Db("test", true)
     }
 
     @Test
@@ -14,7 +14,9 @@ class SqlTest {
         val results = mutableListOf<EvaluationResult>()
         db.forEachQueryInFile("/task.sql") { db, idx, query ->
             when (idx) {
-                0 -> results.add(db.executeAndEvaluate(query, mapOf("result" to "42")))
+                0 -> {
+                    results.add(db.executeAndEvaluate(query, listOf("result", "42")))
+                }
             }
         }
         for (result in results) {

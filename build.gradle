@@ -40,8 +40,8 @@ subprojects {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
         implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
         implementation "com.h2database:h2:2.1.+"
+        implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
         implementation group: 'junit', name: 'junit', version: '4.12'
-        //implementation files("$rootProject.projectDir/lib/sql-task-test-server-22.11.jar")
         testImplementation "com.fasterxml.jackson.core:jackson-core:2.14.0"
         testImplementation "com.fasterxml.jackson.core:jackson-databind:2.14.0"
         testImplementation group: 'junit', name: 'junit', version: '4.12'

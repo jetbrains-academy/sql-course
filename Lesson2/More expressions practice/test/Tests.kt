@@ -7,7 +7,7 @@ class Test {
     lateinit var db: Db
     @Before
     fun setUp() {
-        db = Db("test")
+        db = Db("test", true)
     }
 
     @Test
@@ -18,12 +18,12 @@ class Test {
             when (idx) {
 
                 0 -> {
-                    results.add(db.executeAndEvaluate(query, mapOf("first_result" to "TRUE"), listOf("The moon")))
-                    results.add(db.executeAndEvaluate(query, mapOf("first_result" to "TRUE"), listOf("the moon")))
-                    results.add(db.executeAndEvaluate(query, mapOf("first_result" to "TRUE"), listOf("THE MOON")))
-                    results.add(db.executeAndEvaluate(query, mapOf("first_result" to "FALSE"), listOf("The  moon")))
-                    results.add(db.executeAndEvaluate(query, mapOf("first_result" to "FALSE"), listOf("foobar")))
-                    results.add(db.executeAndEvaluate(query, mapOf("first_result" to "FALSE"), listOf("")))
+                    results.add(db.executeAndEvaluate(query, listOf("first_result", "1"), listOf("The moon")))
+                    results.add(db.executeAndEvaluate(query, listOf("first_result", "1"), listOf("the moon")))
+                    results.add(db.executeAndEvaluate(query, listOf("first_result", "1"), listOf("THE MOON")))
+                    results.add(db.executeAndEvaluate(query, listOf("first_result", "0"), listOf("The  moon")))
+                    results.add(db.executeAndEvaluate(query, listOf("first_result", "0"), listOf("foobar")))
+                    results.add(db.executeAndEvaluate(query, listOf("first_result", "0"), listOf("")))
                 }
             }
         }
