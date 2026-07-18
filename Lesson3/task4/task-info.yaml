@@ -1,5 +1,8 @@
 type: theory
 custom_name: "T3: subqueries in WHERE clause"
 files:
-  - name: src/Main.kt
+  - name: src/example.sql
     visible: true
+  - name: planet.sqlite
+    visible: true
+    is_binary: true

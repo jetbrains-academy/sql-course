@@ -1,8 +1,11 @@
 type: theory
 custom_name: "T2: simple data filtering"
 files:
+  - name: src/example.sql
+    visible: true
   - name: SQL 101 - Task 3.2 - data filtering.drawio.png
     visible: true
     is_binary: true
-  - name: task.md
-    visible: false
+  - name: planet.sqlite
+    visible: true
+    is_binary: true
