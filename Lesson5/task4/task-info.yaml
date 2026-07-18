@@ -1,5 +1,5 @@
 type: theory
-custom_name: 'T2: aggregate functions and rows grouping'
+custom_name: "T2: aggregate functions and rows grouping"
 files:
-- name: src/Main.kt
-  visible: true
+  - name: src/Main.kt
+    visible: true

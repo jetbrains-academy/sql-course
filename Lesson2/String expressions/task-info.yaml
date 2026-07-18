@@ -1,4 +1,5 @@
 type: theory
+custom_name: String expressions
 files:
-- name: src/Main.kt
-  visible: true
+  - name: src/Main.kt
+    visible: true

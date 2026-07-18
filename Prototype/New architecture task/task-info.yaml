@@ -12,5 +12,7 @@ files:
     visible: true
   - name: prototype.sqlite
     visible: true
+    is_binary: true
   - name: tasks_architecture.png
     visible: false
+    is_binary: true

@@ -1,9 +1,9 @@
 custom_name: 5. Aggregates and data grouping
 content:
-- task0
-- task1
-- task2
-- task4
-- task5
-- task6
-- task7
+  - task0
+  - task1
+  - task2
+  - task4
+  - task5
+  - task6
+  - task7

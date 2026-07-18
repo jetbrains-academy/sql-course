@@ -1,8 +1,8 @@
-custom_name: '3. Selecting data from a table'
+custom_name: 3. Selecting data from a table
 content:
-- task0
-- task1
-- task2
-- task3
-- task4
-- task5
+  - task0
+  - task1
+  - task2
+  - task3
+  - task4
+  - task5

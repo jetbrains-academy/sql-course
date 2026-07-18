@@ -1,4 +1,5 @@
 type: theory
+custom_name: Three-valued logic
 files:
   - name: src/Main.kt
     visible: true

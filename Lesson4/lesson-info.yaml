@@ -1,8 +1,8 @@
 custom_name: 4. Joining tables
 content:
-- task0
-- task1
-- task5
-- task7
-- task3
-- task4
+  - task0
+  - task1
+  - task5
+  - task7
+  - task3
+  - task4

@@ -1,7 +1,8 @@
 type: theory
-custom_name: 'T2: simple data filtering'
+custom_name: "T2: simple data filtering"
 files:
-- name: SQL 101 - Task 3.2 - data filtering.drawio.png
-  visible: true
-- name: task.md
-  visible: false
+  - name: SQL 101 - Task 3.2 - data filtering.drawio.png
+    visible: true
+    is_binary: true
+  - name: task.md
+    visible: false

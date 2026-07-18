@@ -1,5 +1,4 @@
--- In the query below, edit the boolean expression so that instead of checking that
--- the value of the placeholder `?` is greater than zero it checked that it
--- is greater or equal to 1.1 and less or equal to the square root of 122.
--- Make sure to keep the placeholder in the solution.
+-- ========== Query 1 ==========
+-- Replace `> 0` so it is true only when ? is in the range [1.1, sqrt(122)].
+-- Keep the ? placeholder.
 SELECT ? BETWEEN 1.1 AND SQRT(122) AS result;

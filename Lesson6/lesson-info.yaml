@@ -1,5 +1,5 @@
 custom_name: 6. Subqueries and common table expressions
 content:
-- task1
-- task3
-- task4
+  - task1
+  - task3
+  - task4

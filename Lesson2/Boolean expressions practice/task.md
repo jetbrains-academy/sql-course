@@ -1,11 +1,13 @@
-### Placeholders
-In this and some following tasks, you will encounter placeholders in the query. 
-They look like question mark: `?`
-
-They are needed for the task checking system - different values will be substituted for them during testing. 
-So don't remove them from the query.
+### About the `?` placeholder
+This query contains a placeholder written as a question mark: `?`.
+While checking your solution, the checker substitutes different values for it,
+so **keep the `?` in the query** — don't replace or delete it.
 
 ### Task
-In this exercise you have to edit an expression and make its returning the
-expected result. Read the task definitions in `task.sql` file, edit the code below the tasks
-and click the button `Check`.
+A boolean expression returns `1` (true) or `0` (false).
+
+**Your task:** in `task.sql`, change the expression so that instead of checking
+that `?` is greater than zero, it checks that `?` is **greater than or equal to
+`1.1` and less than or equal to the square root of 122**.
+
+Edit `task.sql` and click **Check**.

@@ -1,13 +1,14 @@
 type: edu
+custom_name: String expressions practice
 files:
   - name: src/task.sql
     visible: true
     placeholders:
-      - offset: 104
+      - offset: 93
         length: 5
         placeholder_text: ???
-      - offset: 120
+      - offset: 109
         length: 2
         placeholder_text: ???
-  - name: test/SqlTest.kt
+  - name: test/Tests.kt
     visible: false

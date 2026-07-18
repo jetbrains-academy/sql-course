@@ -1,13 +1,13 @@
 type: edu
-custom_name: 'Ex: Writing search queries in Kotlin'
+custom_name: "Ex: Writing search queries in Kotlin"
 files:
-- name: src/Task.kt
-  visible: true
-  placeholders:
-  - offset: 544
-    length: 29
-    placeholder_text: Airport code
-- name: src/airports.csv
-  visible: false
-- name: test/Tests.kt
-  visible: false
+  - name: src/Task.kt
+    visible: true
+    placeholders:
+      - offset: 544
+        length: 29
+        placeholder_text: Airport code
+  - name: src/airports.csv
+    visible: false
+  - name: test/Tests.kt
+    visible: false

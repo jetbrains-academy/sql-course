@@ -1,5 +1,5 @@
 type: theory
-custom_name: 'T1: Inner Join operator'
+custom_name: "T1: Inner Join operator"
 files:
-- name: src/Main.kt
-  visible: true
+  - name: src/Main.kt
+    visible: true

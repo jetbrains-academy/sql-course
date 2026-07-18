@@ -1,2 +1,3 @@
--- Add string concatenation operators and uppercase conversion to get 'HELLO, SQL' in the result
+-- ========== Query 1 ==========
+-- Fill in the blanks so the result is 'HELLO, SQL'.
 SELECT UPPER('Hello, ' || 'sql') AS result;

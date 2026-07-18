@@ -1,11 +1,12 @@
 type: edu
+custom_name: Arithmetic expressions practice
 files:
   - name: src/task.sql
-    visible: true
+    visible: false
     placeholders:
-      - offset: 66
+      - offset: 89
         length: 10
         placeholder_text: 8*10 + 4
-        is_visible: false
-  - name: test/SqlTest.kt
+  - name: test/Tests.kt
     visible: false
+    propagatable: false

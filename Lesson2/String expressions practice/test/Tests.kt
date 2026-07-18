@@ -2,8 +2,9 @@ import org.junit.Before
 import org.junit.Assert
 import org.junit.Test
 
-class SqlTest {
+class Tests {
     lateinit var db: Db
+
     @Before
     fun setUp() {
         db = Db("test", true)
@@ -21,7 +22,6 @@ class SqlTest {
         }
         for (result in results) {
             Assert.assertEquals(result.message, result.expected, result.actual)
-            println(result)
         }
     }
 }

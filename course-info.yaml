@@ -18,3 +18,12 @@ content:
   - datasets
 environment_settings:
   jvm_language_level: JDK_11
+additional_files:
+  - name: LICENSE
+  - name: datasets/traffic_death_rates.csv
+  - name: testutil/src/Db.kt
+  - name: testutil/src/Asserts.kt
+  - name: build.gradle
+  - name: settings.gradle
+  - name: gradle/wrapper/gradle-wrapper.properties
+yaml_version: 5

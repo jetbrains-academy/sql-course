@@ -1,7 +1,8 @@
 type: theory
 custom_name: Intro
 files:
-- name: L1T0-intro.png
-  visible: true
-- name: task.md
-  visible: false
+  - name: L1T0-intro.png
+    visible: true
+    is_binary: true
+  - name: task.md
+    visible: false

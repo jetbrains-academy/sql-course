@@ -1,10 +1,11 @@
 type: edu
+custom_name: Boolean expressions practice
 files:
   - name: src/task.sql
     visible: true
     placeholders:
-      - offset: 298
+      - offset: 146
         length: 25
         placeholder_text: '> 0'
-  - name: test/SqlTest.kt
+  - name: test/Tests.kt
     visible: false

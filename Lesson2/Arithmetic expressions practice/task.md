@@ -1,3 +1,7 @@
-In this exercise you have to edit an expression and make its returning the
-expected result. Read the task definitions in `task.sql` file, edit the code below the tasks
-and click the button `Check`.
+You've seen how `SELECT` evaluates arithmetic expressions and how parentheses
+change the order of operations.
+
+**Your task:** in `task.sql`, add parentheses to the expression so that the query
+returns **42** in the `result` column.
+
+Edit `task.sql` and click **Check**.

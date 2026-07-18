@@ -1,5 +1,5 @@
 type: theory
-custom_name: 'T1: Subqueries in FROM clause'
+custom_name: "T1: Subqueries in FROM clause"
 files:
-- name: src/Main.kt
-  visible: true
+  - name: src/Main.kt
+    visible: true

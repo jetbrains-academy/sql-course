@@ -1,18 +1,18 @@
 type: choice
 is_multiple_choice: false
 options:
-- text: Africa
-  is_correct: false
-- text: Asia
-  is_correct: true
-- text: Europe
-  is_correct: false
-- text: North America
-  is_correct: false
-- text: South America
-  is_correct: false
+  - text: Africa
+    is_correct: false
+  - text: Asia
+    is_correct: true
+  - text: Europe
+    is_correct: false
+  - text: North America
+    is_correct: false
+  - text: South America
+    is_correct: false
 files:
-- name: src/dataset.txt
-  visible: true
+  - name: src/dataset.txt
+    visible: true
 custom_name: "Ex: Search in a tiny dataset"
 local_check: true

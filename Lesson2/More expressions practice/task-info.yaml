@@ -1,13 +1,15 @@
 type: edu
+custom_name: More expressions practice
 files:
   - name: src/task.sql
     visible: true
     placeholders:
-      - offset: 311
+      - offset: 126
         length: 21
         placeholder_text: '? = ''The moon'''
-      - offset: 698
+      - offset: 298
         length: 31
         placeholder_text: '? > 0'
   - name: test/Tests.kt
     visible: false
+    propagatable: false
