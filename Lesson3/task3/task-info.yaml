@@ -1,9 +1,33 @@
 type: edu
 custom_name: "Ex: simple data filtering"
 files:
+  - name: src/task.sql
+    visible: true
+    placeholders:
+      - offset: 127
+        length: 7
+        placeholder_text: "true"
+      - offset: 290
+        length: 26
+        placeholder_text: "true"
+      - offset: 525
+        length: 73
+        placeholder_text: "true"
+      - offset: 789
+        length: 45
+        placeholder_text: "true"
+      - offset: 1131
+        length: 71
+        placeholder_text: "true"
   - name: test/Tests.kt
     visible: false
+    propagatable: false
   - name: init.sql
     visible: false
-  - name: src/Query.sql
+    propagatable: false
+  - name: init_data.sql
+    visible: false
+    propagatable: false
+  - name: planet.sqlite
     visible: true
+    is_binary: true

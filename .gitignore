@@ -14,3 +14,6 @@
 /testutil/out/production/classes/
 /.idea/
 /*/*/build
+
+# Throwaway file-backed SQLite databases created by task tests
+test.sqlite

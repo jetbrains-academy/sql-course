@@ -1,5 +1,3 @@
-## Select all rows from a table
-
 The most simple SQL query which selects data from a table looks as follows:
 
 ```sql

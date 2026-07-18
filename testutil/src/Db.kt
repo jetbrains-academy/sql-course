@@ -53,7 +53,9 @@ class Db(dbName: String, inMemory: Boolean = false) {
                 }
             } else {
                 isComment = false
-                currentQuery.append(it)
+                // Join lines of a multi-line query with a newline so tokens on
+                // separate lines don't get concatenated (e.g. "climate" + "FROM").
+                currentQuery.append(it).append("\n")
             }
         }
 

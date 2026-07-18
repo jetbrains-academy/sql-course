@@ -1,0 +1,13 @@
+DELETE FROM Planet;
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (1,  'Terra',   1, 'mild',          0, 6371);
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (2,  'Aquara',  1, 'warm',          1, 7000);
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (3,  'Pyros',   0, 'hot',           1, 3200);
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (4,  'Glacia',  0, 'cold',          0, 5200);
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (5,  'Verda',   1, 'mild',          1, 6800);
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (6,  'Dunar',   0, 'warm',          0, 4500);
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (7,  'Solmar',  0, 'hot',           0, 9800);
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (8,  'Mirren',  1, 'extremely hot', 0, 8200);
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (9,  'Cobar',   0, 'mild',          0, 7100);
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (10, 'Frost',   0, 'cold',          1, 5000);
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (12, 'Zephyra', 0, 'warm',          0, 12000);
+INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES (42, 'Answer',  1, 'mild',          0, 4242);

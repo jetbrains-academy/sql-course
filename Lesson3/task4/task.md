@@ -1,12 +1,10 @@
-## Subqueries in the WHERE clause
-
 ### Subqueries and the `IN` operator
 Let's return to the `IN` operator, which checks if its "left-hand" operand is an element of the list defined by its 
 "right-hand" operand:
 
 ```sql
 SELECT * FROM Planet
-WHERE climate IN ('mild', 'cool')
+WHERE climate IN ('mild', 'warm')
 ```
 
 We can explicitly specify all elements of the list, like we did in the query above, but what if we 

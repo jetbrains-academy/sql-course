@@ -1,17 +1,15 @@
-## Exercise: writing simple filters in the WHERE clause
+In this exercise, you have to write a few simple filters in the `WHERE` clauses of the queries.
+All the tasks operate with a single table named `Planet` with the following columns:
 
-In this exercise, you have to write a few simple filters in WHERE clauses of the queries.
-All the tasks will operate with a single table named `Planet` with the following columns:
+* `id` — the integer identifier of the planet
+* `name` — a character string with the name of the planet
+* `is_inhabited` — a flag (`1`/`0`) indicating whether the planet is inhabited
+* `climate` — a character string describing the planet climate
+  (one of `'cold'`, `'mild'`, `'warm'`, `'hot'`, `'extremely hot'`)
+* `has_weapons` — a flag (`1`/`0`) indicating if there are dangerous weapons on the planet
+* `radius` — the planet radius
 
-* `id` is the integer identifier of the planet
-* `name` is a character string with the name of the planet
-* `is_inhabited` is a boolean flag indicating whether the planet is inhabited 
-* `climate` is a character string describing the planet climate 
-  The list of possible values includes, but is not limited to, `'cold', 'mild', 'warm', 'hot', 'extremely hot'`
-* `has_weapons` is a boolean flag indicating if there are dangerous weapons on the planet
+Read the task definitions in the `task.sql` file and replace the trivial `true` expression in each
+`WHERE` clause with an expression that solves the task.
 
-Please read the task definitions in the `Query.sql` file, replace the trivial expressions `true` in their `WHERE`
-clauses with the expressions that solve the tasks.
-
-You can click "Check" at any moment. If some solution fails to pass the test, you will see 
-a hint which may help you to fix the problem.
+You can click **Check** at any moment. If some solution fails, you will see a hint that may help you fix it.
