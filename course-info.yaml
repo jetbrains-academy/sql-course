@@ -8,10 +8,13 @@ summary: "This is a short introduction into the fundamentals of SQL query langua
   \ but probably with some programming experience."
 programming_language: SQL
 content:
-- Lesson1
-- Lesson2
-- Lesson3
-- Lesson4
-- Lesson5
-- Lesson6
-- datasets
+  - Prototype
+  - Lesson1
+  - Lesson2
+  - Lesson3
+  - Lesson4
+  - Lesson5
+  - Lesson6
+  - datasets
+environment_settings:
+  jvm_language_level: JDK_11

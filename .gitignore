@@ -12,3 +12,5 @@
 /testutil/build/
 /testutil/out/
 /testutil/out/production/classes/
+/.idea/
+/*/*/build

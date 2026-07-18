@@ -1,8 +1,11 @@
 custom_name: 2. Using SQL as a calculator
 content:
-- task0
-- task1
-- task2
-- task3
-- task5
-- task4
+  - Intro
+  - SELECT and arithmetic expressions
+  - Arithmetic expressions practice
+  - String expressions
+  - String expressions practice
+  - Boolean expressions
+  - Boolean expressions practice
+  - Three-valued logic
+  - More expressions practice

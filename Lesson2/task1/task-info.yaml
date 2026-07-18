@@ -1,5 +1,0 @@
-type: theory
-custom_name: "T1: SELECT clause and arithmetic expressions"
-files:
-- name: summary.png
-  visible: true

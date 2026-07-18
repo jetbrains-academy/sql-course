@@ -1,5 +1,0 @@
-type: theory
-custom_name: 'T3: Boolean expressions'
-files:
-- name: src/Main.kt
-  visible: true

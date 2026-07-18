@@ -1,0 +1,13 @@
+type: edu
+files:
+  - name: src/task.sql
+    visible: true
+    placeholders:
+      - offset: 311
+        length: 21
+        placeholder_text: '? = ''The moon'''
+      - offset: 698
+        length: 31
+        placeholder_text: '? > 0'
+  - name: test/Tests.kt
+    visible: false
