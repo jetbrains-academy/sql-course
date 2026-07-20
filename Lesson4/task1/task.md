@@ -1,5 +1,3 @@
-## INNER JOIN operator
-
 The standard way of finding pairs of matching rows from two tables in SQL is the operator called `INNER JOIN`, which
 can be used in a `FROM` clause. 
 It has a few variations, which all search for pairs matching a certain condition and differ only in the way the match

@@ -34,6 +34,15 @@ class Tests {
                     "2122-05-12",
                     "2122-06-01",
                 )))
+                2 -> results.add(db.executeAndEvaluate(query, listOf(
+                    "planet | num | ship",
+                    "Terra | MF201 | Falcon 22",
+                    "Verda | MF147 | Falcon 28",
+                    "Verda | MF149 | Falcon 25",
+                    "Aquara | MF210 | Falcon 22",
+                    "Answer | MF305 | Falcon 28",
+                    "Pyros | MF088 | Falcon 25",
+                )))
             }
         }
         for (result in results) {

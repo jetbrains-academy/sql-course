@@ -20,19 +20,28 @@ class Tests {
                 0 -> results.add(db.executeAndEvaluate(query, listOf(
                     "planet | num",
                     "Terra | MF201",
+                    "Aquara | MF210",
+                    "Pyros | MF088",
+                    "Glacia | <null>",
                     "Verda | MF147",
                     "Verda | MF149",
-                    "Aquara | MF210",
+                    "Dunar | <null>",
+                    "Solmar | <null>",
+                    "Mirren | <null>",
+                    "Cobar | <null>",
+                    "Frost | <null>",
+                    "Zephyra | <null>",
                     "Answer | MF305",
-                    "Pyros | MF088",
                 )))
                 1 -> results.add(db.executeAndEvaluate(query, listOf(
-                    "flight_date",
-                    "2122-04-12",
-                    "2122-05-01",
-                    "2122-05-08",
-                    "2122-05-12",
-                    "2122-06-01",
+                    "planet",
+                    "Glacia",
+                    "Dunar",
+                    "Solmar",
+                    "Mirren",
+                    "Cobar",
+                    "Frost",
+                    "Zephyra",
                 )))
             }
         }

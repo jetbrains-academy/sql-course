@@ -1,5 +1,3 @@
-## Other ways to do inner joins
-
 Aside from the explicit `JOIN` operators, there are other ways to join tables in SQL. 
 
 ### Cross-join and filters
@@ -73,7 +71,9 @@ code in the future are able to understand what you meant.
 From this perspective, if you do a join, use `JOIN`, because it makes the intention clear. Compared 
 with cross-join, where technical join conditions are mixed with important filters in a long `WHERE` clause, `JOIN` allows to 
 split those apart, making it clear which is the filter and which is the join condition. Look at the following two queries, which both 
-find the planets visited by large spacecraft built in the shipyards located on the planets with hot climate:
+find the planets visited by large spacecraft built in the shipyards located on the planets with hot climate
+(the `Shipyard` table here is hypothetical — it is not part of the course database, so these two queries are for
+illustration only):
 
 ```sql
 SELECT P.name

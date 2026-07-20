@@ -1,10 +1,11 @@
-## Exercise: rewriting queries to use join
+In this exercise you reproduce the effect of a join **without** using the `JOIN` operator — first with a
+comma (cross join) plus a `WHERE` filter, then with a subquery and the `IN` operator. The tables are:
 
-In this exercise, you have to read a few queries which do not use explicit `JOIN` operators and rewrite them 
-using `JOIN`.
-The definitions of the tables and columns used in this exercise are given in the `Schema.sql` file.
+* `Planet(id, name, is_inhabited, climate, has_weapons, radius)`
+* `Flight(num, planet_id, flight_date, spacecraft_id, people_count)` — `planet_id` links a flight to its
+  destination planet
 
-Please read the queries in the `Query.sql` file, and for each query, type its rewritten version in the placeholder below. 
+Read the task definitions in `task.sql` and replace each highlighted fragment so the query returns the
+required result.
 
-You can click "Check" at any moment. If some solution fails to pass the test, you will see
-a hint, which may help you to fix the problem.
+You can click **Check** at any moment. If some solution fails, you will see a hint that may help you fix it.
