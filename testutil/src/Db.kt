@@ -155,6 +155,7 @@ class Db(dbName: String, inMemory: Boolean = false) {
             dataSource.connection.use { cxn ->
                 // Determine if the statement should return results or not
                 val isQuery = sqlStatement.trim().startsWith("SELECT", ignoreCase = true) ||
+                        sqlStatement.trim().startsWith("WITH", ignoreCase = true) ||
                         sqlStatement.trim().startsWith("PRAGMA", ignoreCase = true)
                 val rows = mutableListOf<Map<String, String?>>()
 

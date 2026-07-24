@@ -1,5 +1,3 @@
-## Subqueries in FROM clause
-
 We know that every SQL query output is a table, and we have seen the usage of scalar and non-scalar subquery outputs 
 in `WHERE` and `SELECT`clauses. Can we write a subquery in a `FROM` clause and join its output with other tables?
 Yes, sure!   
@@ -32,9 +30,11 @@ SELECT F.spacecraft_id
           -- We are looking for the same spacecraft
           F.spacecraft_id = T.spacecraft_id 
           -- and flights in the same year 
-          AND EXTRACT(YEAR FROM T.flight_date) = EXTRACT(YEAR FROM F.flight_date)
-          -- but different months. The standard function EXTRACT returns a specified part from the datetime value.
-          AND EXTRACT(MONTH FROM T.flight_date) <> EXTRACT(MONTH FROM F.flight_date)
+          AND CAST(strftime('%Y', T.flight_date) AS INTEGER) = CAST(strftime('%Y', F.flight_date) AS INTEGER)
+          -- but different months. strftime('%Y', ...) and strftime('%m', ...) return the year and month
+          -- parts of a date as text; we CAST them to integers to compare them. (Standard SQL uses EXTRACT
+          -- for this, but SQLite has no EXTRACT, so we use strftime.)
+          AND CAST(strftime('%m', T.flight_date) AS INTEGER) <> CAST(strftime('%m', F.flight_date) AS INTEGER)
     )
     WHERE NOT P.is_inhabited
 ```
@@ -48,8 +48,8 @@ In this particular case, we could easily write the query without any subqueries:
   JOIN Planet P2     ON P2.id=F2.planet_id
   JOIN Flight F      ON (
       F2.spacecraft_id = F.spacecraft_id 
-      AND EXTRACT(YEAR FROM F.flight_date) = EXTRACT(YEAR FROM F2.flight_date)
-      AND EXTRACT(MONTH FROM F.flight_date) <> EXTRACT(MONTH FROM F2.flight_date)
+      AND CAST(strftime('%Y', F.flight_date) AS INTEGER) = CAST(strftime('%Y', F2.flight_date) AS INTEGER)
+      AND CAST(strftime('%m', F.flight_date) AS INTEGER) <> CAST(strftime('%m', F2.flight_date) AS INTEGER)
   )
   JOIN Planet P  ON P.id = F.planet_id
   WHERE P2.is_inhabited AND NOT P.is_inhabited
@@ -62,9 +62,9 @@ It is easy to count flights by spacecraft and year:
 
 
 ```sql
-SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
 FROM Flight
-GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)
+GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)
 ```
 
 And having counted the flights for each spacecraft and year, we can find the maximum using the above query as a subquery:
@@ -72,11 +72,11 @@ And having counted the flights for each spacecraft and year, we can find the max
 ```sql
 SELECT MAX(flight_count) AS max_flight_count
 FROM (
-    SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
-    GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)
+    GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)
 ) AS T 
-WHERE flight_year = 2084
+WHERE flight_year = 2121
 ```
 
 An interesting follow-up task is to find the spacecraft which set a record and traveled `max_flight_count` times, that is,
@@ -94,15 +94,15 @@ Now, if we replace `T` with a query that counts the flights, we'll solve the pro
 ```sql
 SELECT * 
 FROM (
-    SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
-    GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)
+    GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)
 ) AS T
 WHERE flight_count = (SELECT MAX(flight_count) FROM (
-    SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
-    GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)    
-)) AND flight_year = 2084
+    GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)    
+)) AND flight_year = 2121
 ```
 
 This is not a piece of cake though because we cloned the body of the query that calculates `T`, which makes maintenance more

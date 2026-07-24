@@ -18,13 +18,12 @@ class Tests {
         db.forEachQueryInFile("/task.sql") { db, idx, query ->
             when (idx) {
                 0 -> results.add(db.executeAndEvaluate(query, listOf(
-                    "spacecraft_id | flight_year | flight_count",
-                    "4 | 2121 | 5",
+                    "max_flights",
+                    "5",
                 )))
                 1 -> results.add(db.executeAndEvaluate(query, listOf(
-                    "spacecraft_id | flight_count",
-                    "1 | 6",
-                    "4 | 9",
+                    "busy_groups",
+                    "3",
                 )))
             }
         }

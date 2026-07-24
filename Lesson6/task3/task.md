@@ -1,19 +1,17 @@
-## Common Table Expressions
-
 Remember the query we wrote to find an arg max – a spacecraft that had the greatest count of flights? 
 
 ```sql
 SELECT * 
 FROM (
-    SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
-    GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)
+    GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)
 ) AS T
 WHERE flight_count = (SELECT MAX(flight_count) FROM (
-    SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
-    GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)    
-)) AND flight_year = 2084
+    GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)    
+)) AND flight_year = 2121
 ```
 
 We had to write the same counting subquery twice to find the maximum and then to find the row with the maximum value. 
@@ -23,18 +21,16 @@ Second, will it be efficient? Will the engine execute the counting subquery just
 In the modern SQL, there is a good way to write a table expression just once and refer to it from different parts
 of a query. You may think of it as a function that returns a table and, probably, caches the result of calculations.
 
-### Common Table Expressions
-
-So, a common table expression, abbreviated as CTE, is essentially a subquery with an alias, which lexically 
+#So, a common table expression, abbreviated as CTE, is essentially a subquery with an alias, which lexically 
 goes before the "main" query and can be referred to by the alias in the main query. 
 The syntax of defining a CTE is slightly more verbose than the subquery syntax: 
 
 ```sql
 -- Here goes a CTE, which can be referred to as T in subsequent queries
 WITH T AS (
-    SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
-    GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)    
+    GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)    
 )
 -- Here goes the main query
 SELECT * FROM T WHERE flight_count = (SELECT MAX(flight_count) FROM T)
@@ -56,9 +52,9 @@ data by sequentially contracting set of fields:
 ```sql
 -- This CTE counts flights grouping by the spacecraft and year.
 WITH T AS (
-    SELECT F.spacecraft_id, EXTRACT(YEAR FROM flight_date) AS flight_year, COUNT(*) AS flight_count
+    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
-    GROUP BY spacecraft_id, EXTRACT(YEAR FROM flight_date)    
+    GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)    
 ),
 -- This CTE calculates flight subtotals grouping by spacecraft only.
 S AS (
@@ -69,7 +65,7 @@ R AS (SELECT SUM(total_flight_count) AS grand_total FROM S)
 -- Here starts the main query. It joins the outputs of the two CTEs so that in the result, in every row we
 -- get a spacecraft id, year, the count of flights of the spacecraft in that year and the total count of flights
 -- made by the spacecraft.
-SELECT * FROM T JOIN S JOIN R USING(spacecraft_id)
+SELECT * FROM T JOIN S USING(spacecraft_id) CROSS JOIN R
 ```
 
 Common table expressions have a great power, and naturally, it comes with great responsibility. 
@@ -84,19 +80,19 @@ B AS (
     SELECT * FROM A WHERE climate = 'mild'  
 ),
 C AS (
-    SELECT flight_date FROM B WHERE spaceraft_name = 'Falcon 9'
+    SELECT flight_date FROM B WHERE spacecraft_name = 'Falcon 22'
 )
 SELECT * FROM C
 ```
 
-This query just searches for flights made by `Falcon 9` to the planets with a mild climate, and it can be easily 
+This query just searches for flights made by `Falcon 22` to the planets with a mild climate, and it can be easily 
 rewritten as follows: 
 
 ```sql
 SELECT flight_date
 FROM Flight F JOIN Spacecraft S ON F.spacecraft_id=S.id
               JOIN Planet P     ON F.planet_id=P.id 
-WHERE P.climate='mild' AND S.name='Falcon 9'
+WHERE P.climate='mild' AND S.name='Falcon 22'
 ```
 
 The rewritten query is shorter, it is actually easier to understand for a relatively experienced SQL programmer, and finally,

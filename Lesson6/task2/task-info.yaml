@@ -1,15 +1,15 @@
 type: edu
-custom_name: "Ex: Common Table Expressions"
+custom_name: "Ex: Subqueries in FROM"
 files:
   - name: src/task.sql
     visible: true
     placeholders:
-      - offset: 475
-        length: 33
-        placeholder_text: 0
-      - offset: 868
-        length: 16
-        placeholder_text: "true"
+      - offset: 200
+        length: 17
+        placeholder_text: flight_count
+      - offset: 726
+        length: 6
+        placeholder_text: 'true'
   - name: test/Tests.kt
     visible: false
     propagatable: false
