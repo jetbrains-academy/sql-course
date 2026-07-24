@@ -1,7 +1,3 @@
-## Complex search tasks
-
-----
-
 When either the amount of data or the search task complexity, or both of them, grow further, spreadsheets or 
 text-based command-line tools become less usable. What if you want to calculate the total count of 
 movements summed across all airports for each country? Or what if you want to calculate the average count of 
@@ -9,14 +5,12 @@ movements for all airports excluding those of North America?
 
 Spreadsheets can actually filter data, as well as group and calculate aggregated grouped values in pivot tables:
 
-[Demo of using a pivot table in Google Sheets goes here] 
-
 
 Good knowledge of Unix command-line text processing tools may help as well. For instance, here is how we can calculate 
 the total sum of movements by region using the **`awk`** tool:
 
 ```
-cd datasets/small
+cd Lesson1
 cat airports.csv | awk -F, 'NR>1 {arr[$6]+=$7} END {for (a in arr) print a, arr[a]}'
 ```
 

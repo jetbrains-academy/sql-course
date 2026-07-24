@@ -4,8 +4,10 @@
 ### Content
 - [x] Move `astrofleet.sqlite` in each lesson to the lesson-level; update all references to use same DB for all tasks
 - [ ] Add instructions for learners how to use in-IDE database tool to work with DB in this course
+- [ ] Add a guide about integrated into IDE CSV-data tools
 - [x] Remove Prototype lesson
-- [ ] Get rid of the appendix lesson
+- [x] Get rid of the appendix lesson
+- [x] Check are SQL requests make write to the lessons' .sqlite files → no, the entire curriculum is read-only.
 - [ ] Test the course by someone available
 
 ### Publication

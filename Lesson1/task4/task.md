@@ -1,7 +1,4 @@
-## Exercise
-
-----
-Look at the dataset in [this CSV file](course://datasets/small/airports.csv). 
+Look at the dataset in [this CSV file](course://Lesson1/airports.csv). 
 
 Use a spreadsheet or command-line tools, or data view, which is built into %IDE_NAME%, to find the busiest European airport, that is, the one with the greatest number of movements across all airports located in Europe.
 

@@ -9,7 +9,9 @@ fun task6_totalByRegionExceptAsia(inputData: List<String>): Map<String, Int> {
     val mapRegionToSum = mutableMapOf<String, Int>()
     for (row in inputData) {
         val columns = row.split(",")
-        // TODO: write your code here
+        if ("Asia" != columns[5]) {
+            mapRegionToSum[columns[5]] = mapRegionToSum.getOrDefault(columns[5], 0) + columns[6].toInt()
+        }
     }
     return mapRegionToSum
 }

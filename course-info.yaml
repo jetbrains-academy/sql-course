@@ -15,17 +15,17 @@ content:
   - Lesson4
   - Lesson5
   - Lesson6
-  - datasets
 environment_settings:
   jvm_language_level: JDK_11
 additional_files:
   - name: LICENSE
-  - name: datasets/traffic_death_rates.csv
   - name: testutil/src/Db.kt
   - name: testutil/src/Asserts.kt
   - name: build.gradle
   - name: settings.gradle
   - name: gradle/wrapper/gradle-wrapper.properties
+  - name: Lesson1/airports.csv
+    visible: true
   - name: Lesson3/L3_planet.sqlite
     visible: true
     is_binary: true

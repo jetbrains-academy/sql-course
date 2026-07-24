@@ -1,1 +1,1 @@
-fun task4() = "???" to 0
+fun task4() = "CDG" to 475776

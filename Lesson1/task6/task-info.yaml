@@ -5,8 +5,8 @@ files:
     visible: true
     placeholders:
       - offset: 544
-        length: 29
-        placeholder_text: Airport code
+        length: 142
+        placeholder_text: "// TODO: write your code here"
   - name: src/airports.csv
     visible: false
   - name: test/Tests.kt

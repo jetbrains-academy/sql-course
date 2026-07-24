@@ -1,6 +1,3 @@
-## Search in a tiny dataset
-
-----
 If you work with data, you most likely need to search through it and process the search results. 
 No matter if you are a programmer or an accountant, there are lots of tasks
 that require careful processing of piles of data.

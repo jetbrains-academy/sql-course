@@ -1,6 +1,3 @@
-# Why do we need SQL?
-
-----
 In this lesson, we will show you a few different ways of searching and processing
 data to give you an idea of how SQL can help us with search tasks. 
 

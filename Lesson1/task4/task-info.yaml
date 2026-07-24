@@ -6,9 +6,9 @@ files:
     placeholders:
       - offset: 15
         length: 3
-        placeholder_text: Airport code
+        placeholder_text: ???
       - offset: 23
-        length: 1
-        placeholder_text: Movements
+        length: 6
+        placeholder_text: 0
   - name: test/Tests.kt
     visible: false

@@ -1,5 +1,0 @@
-type: edu
-custom_name: Small dataset
-files:
-  - name: airports.csv
-    visible: true
