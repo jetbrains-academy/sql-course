@@ -1,7 +1,27 @@
 type: edu
 custom_name: "Ex: aggregate functions and rows grouping"
 files:
-  - name: src/Task.kt
+  - name: src/task.sql
     visible: true
+    placeholders:
+      - offset: 102
+        length: 11
+        placeholder_text: radius
+      - offset: 368
+        length: 4
+        placeholder_text: '*'
+      - offset: 683
+        length: 24
+        placeholder_text: planet_id
   - name: test/Tests.kt
     visible: false
+    propagatable: false
+  - name: init.sql
+    visible: false
+    propagatable: false
+  - name: init_data.sql
+    visible: false
+    propagatable: false
+  - name: marsoflot.sqlite
+    visible: true
+    is_binary: true

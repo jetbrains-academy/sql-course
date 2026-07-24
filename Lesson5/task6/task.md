@@ -1,5 +1,3 @@
-## Aggregate functions, groups and filters
-
 Aside from filters in the `WHERE` clause, which, as we know, are applied before grouping takes place, SQL allows for other filters,
 which are applied during or after the work of `GROUP BY` and aggregate functions.
 
@@ -10,8 +8,8 @@ When the grouping is done, we can additionally filter the rows, which are fed to
 ```sql
 SELECT P.id,                                                      --
        COUNT(*)                        AS total_flights,          --
-       COUNT(*) FILTER (S.capacity>5)  AS big_capacity_flights,   --
-       COUNT(*) FILTER (S.capacity<=5) AS small_capacity_flights, --
+       COUNT(*) FILTER (WHERE S.capacity>5)  AS big_capacity_flights,   --
+       COUNT(*) FILTER (WHERE S.capacity<=5) AS small_capacity_flights, --
 FROM Flight F JOIN Spacecraft S ON S.id=F.spacecraft_id           -- 1. FROM is executed first
               JOIN Planet P     ON P.id=F.planet_id
 WHERE P.climate='mild'                                            -- 2. Filtering 
@@ -64,7 +62,7 @@ GROUP BY P.id
 ### Filtering the whole group
 
 Sometimes we want to drop the whole group if it doesn't match some criteria. 
-For instance, what if we're looking for planets with a mild climate and the total count of flights not less than 20? 
+For instance, what if we're looking for planets with a mild climate and the total count of flights not less than 3? 
 We can do it with the `HAVING` clause:
 
 ```sql
@@ -73,7 +71,7 @@ FROM Flight F JOIN Spacecraft S ON S.id=F.spacecraft_id
               JOIN Planet P     ON P.id=F.planet_id
 WHERE P.climate='mild'
 GROUP BY P.id, P.name
-HAVING COUNT(*) >= 20
+HAVING COUNT(*) >= 3
 ```
 
 Lexically, it comes in a query after the `GROUP BY` clause and is evaluated after `GROUP BY`. 

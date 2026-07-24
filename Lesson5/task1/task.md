@@ -1,5 +1,3 @@
-## Aggregate functions and scalar subqueries
-
 An aggregate function takes a list of values and returns a single aggregate value for that list. For instance, 
 an aggregate value may be the number of elements in the list, or the maximum value, if it makes sense, or the sum
 of values for numeric input. The list of supported functions differs across the database engines, but there are five 
@@ -59,15 +57,14 @@ and there are `NULL` values indeed, or if the expression evaluates to `NULL` bec
 What if there are _only_ `NULL` values in the input? What if the input is empty?
 
 All aggregate functions, including `COUNT`, ignore `NULL` values in the input list. 
-If there are `NULL` values in the `Planet.climate` column, the following queries will return different results:
+The `Flight.cargo` column is `NULL` for flights that carried no cargo, so the following queries return different results:
 
 ```sql
--- This will return a number which is less than the number of rows because in some rows, the value of "climate" is NULL 
-SELECT COUNT(climate) FROM Planet;
+-- Returns 10, which is less than the number of rows, because cargo is NULL for some flights
+SELECT COUNT(cargo) FROM Flight;
 
--- This will still return the number of rows because the input list will include the same value 42 as many times 
--- as the number of rows in the Planet table.
-SELECT COUNT(42) FROM Planet;
+-- Returns 14 (the number of rows), because the input list includes the value 42 for every row
+SELECT COUNT(42) FROM Flight;
 ```
 
 There is a special syntax `COUNT(*)`, which means "just count the rows". 
@@ -90,15 +87,14 @@ Those queries below looks nice, right?
 ```sql
 -- "Count" the planets visited by Pegasus
 SELECT COUNT(*)
-FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spaceraft S ON S.id=F.spacecraft_id
+FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spacecraft S ON S.id=F.spacecraft_id
 WHERE S.name='Pegasus'
 
 -- Calculate the average radius of the planets visited by Pegasus
 SELECT AVG(P.radius)
-FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spaceraft S ON S.id=F.spacecraft_id
+FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spacecraft S ON S.id=F.spacecraft_id
 WHERE S.name='Pegasus'
 ```
-[TODO: animated GIF showing the results of running queries above]
 
 Unfortunately, their results are wrong unless there is a happy coincidence. 
 The output of joining planets, flights, and spacecraft is a table where the 
@@ -109,7 +105,6 @@ the flights, which is not the same as the average radius of the visited planets.
 The good news is that we can easily fix this issue. Adding a keyword `DISTINCT` before the aggregate function expression 
 will make it count only distinct values. 
 
-[TODO: animated GIF showing the results of running COUNT(DISTINCT *)]
 
 Ooops, it is not _that_ easy. `*` is not an expression. 
 If we want distinct values, we need to write the expression that produces the values. 
@@ -120,17 +115,16 @@ Let's count the planet identifiers:
 ```sql
 -- Really count the planets visited by Pegasus
 SELECT COUNT(DISTINCT P.id)
-FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spaceraft S ON S.id=F.spacecraft_id
+FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spacecraft S ON S.id=F.spacecraft_id
 WHERE S.name='Pegasus'
 ```
 
-[TODO: animated GIF]
 
 Okay, it certainly looks better. Why don't we use the same approach to calculating the average radius? 
 
 ```sql
 SELECT AVG(DISTINCT P.radius)
-FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spaceraft S ON S.id=F.spacecraft_id
+FROM Planet P JOIN Flight F ON P.id=F.planet_id JOIN Spacecraft S ON S.id=F.spacecraft_id
 WHERE S.name='Pegasus'
 ```
 
@@ -139,7 +133,6 @@ This will work if different planets always have different radiuses, but can we b
 What if just by coincidence two different planets happen to have the same radius? 
 In this case, we will feed it to `AVG` only once, and the result will obviously be wrong.
 
-[TODO: animated gif showing the issue]
 
 Unless we have a guarantee that planet radius values are always different for different planets, we need some other way 
 to solve the problem, and we will consider that in the next lesson.

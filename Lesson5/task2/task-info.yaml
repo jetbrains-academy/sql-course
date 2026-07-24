@@ -1,7 +1,27 @@
 type: edu
 custom_name: "Ex: aggregate functions and scalar subqueries"
 files:
-  - name: src/Task.kt
+  - name: src/task.sql
     visible: true
+    placeholders:
+      - offset: 93
+        length: 11
+        placeholder_text: radius
+      - offset: 338
+        length: 13
+        placeholder_text: '*'
+      - offset: 650
+        length: 32
+        placeholder_text: '0'
   - name: test/Tests.kt
     visible: false
+    propagatable: false
+  - name: init.sql
+    visible: false
+    propagatable: false
+  - name: init_data.sql
+    visible: false
+    propagatable: false
+  - name: marsoflot.sqlite
+    visible: true
+    is_binary: true

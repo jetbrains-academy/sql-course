@@ -1,5 +1,3 @@
-## Aggregate functions and rows grouping
-
 Remember how we found the maximum radius of the planets with a mild climate?
 
 ```sql
@@ -74,7 +72,7 @@ can prove the opposite. The engine has no reasons to choose one of the different
 in favor of others, so it just refuses to run such queries. 
 It's worth noticing that there are engines that are more optimistic and allow for using non-grouping columns in 
 `SELECT` from a grouped table, hoping that programmers won't shoot their own foot. 
-When a non-grouping column is in the select list of a query with a `GROUP BY` clause, they choose a value from an essentially random row from еру group. 
+When a non-grouping column is in the select list of a query with a `GROUP BY` clause, they choose a value from an essentially random row from the group. 
 
 ### Grouping by more than one column and grouping by expressions
 

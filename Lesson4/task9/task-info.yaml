@@ -6,10 +6,10 @@ files:
     placeholders:
       - offset: 248
         length: 18
-        placeholder_text: 'true'
+        placeholder_text: "true"
       - offset: 449
         length: 13
-        placeholder_text: 'true'
+        placeholder_text: "true"
   - name: test/Tests.kt
     visible: false
     propagatable: false
