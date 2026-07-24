@@ -1,5 +1,6 @@
 type: theory
 custom_name: What is in this lesson
 files:
-  - name: src/Main.kt
+  - name: L6T0-intro.png
     visible: true
+    is_binary: true
