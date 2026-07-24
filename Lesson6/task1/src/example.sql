@@ -1,4 +1,4 @@
--- Run these against astrofleet.sqlite to see subqueries in the FROM clause.
+-- Run these against L6_astrofleet.sqlite to see subqueries in the FROM clause.
 
 -- Spacecraft with two flights in the same year but different months, one to an
 -- inhabited planet and one to an uninhabited one (the subquery T is a table expression)

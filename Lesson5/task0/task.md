@@ -10,8 +10,8 @@ group and count flights by spacecraft.
 
 We keep working with the data of the imaginary space travel company _Astrofleet_. This lesson uses a slightly
 richer dataset than before — the `Flight` table now has an `id` and a `cargo` column, there are more flights,
-and there is a spacecraft that never flew. Each exercise ships an SQLite database file (`astrofleet.sqlite`)
-you can open with the [SQLite console client](https://www.sqlite.org/cli.html). SQLite prints boolean values
+and there is a spacecraft that never flew. This lesson ships an SQLite database file (`L5_astrofleet.sqlite`),
+shared by all its tasks, that you can open with the [SQLite console client](https://www.sqlite.org/cli.html). SQLite prints boolean values
 as `1` and `0`, and a `NULL` as an empty cell.
 
 **Planet**

@@ -1,4 +1,4 @@
--- Run these examples against planet.sqlite to see how SELECT ... FROM works.
+-- Run these examples against L3_planet.sqlite to see how SELECT ... FROM works.
 
 -- Select all columns and all rows
 SELECT * FROM Planet;

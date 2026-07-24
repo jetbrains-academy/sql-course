@@ -2,7 +2,7 @@
 
 ## TODO lists
 ### Content
-- [ ] Move `astrofleet.sqlite` in each lesson to the lesson-level; update all references to use same DB for all tasks
+- [x] Move `astrofleet.sqlite` in each lesson to the lesson-level; update all references to use same DB for all tasks
 - [ ] Add instructions for learners how to use in-IDE database tool to work with DB in this course
 - [ ] Remove Prototype lesson
 - [ ] Get rid of the appendix lesson

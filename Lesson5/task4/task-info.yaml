@@ -3,6 +3,3 @@ custom_name: "T2: aggregate functions and rows grouping"
 files:
   - name: src/example.sql
     visible: true
-  - name: astrofleet.sqlite
-    visible: true
-    is_binary: true

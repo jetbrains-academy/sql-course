@@ -1,4 +1,4 @@
--- Run these against astrofleet.sqlite to see aggregate functions and scalar subqueries.
+-- Run these against L5_astrofleet.sqlite to see aggregate functions and scalar subqueries.
 
 -- Scalar aggregates
 SELECT MAX(radius) FROM Planet;

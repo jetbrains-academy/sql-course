@@ -1,4 +1,4 @@
--- Run these examples against planet.sqlite to see how the WHERE clause filters rows.
+-- Run these examples against L3_planet.sqlite to see how the WHERE clause filters rows.
 
 -- Keep only the rows that match a condition
 SELECT id, name

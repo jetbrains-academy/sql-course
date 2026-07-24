@@ -1,4 +1,4 @@
--- Run these examples against planet.sqlite to see how subqueries work in WHERE.
+-- Run these examples against L3_planet.sqlite to see how subqueries work in WHERE.
 
 -- The IN operator with an explicit list
 SELECT * FROM Planet

@@ -4,8 +4,8 @@ One of the important features of spreadsheets is filters, and in this lesson we 
 The queries in this lesson assume that there is a data source, where all the required tables are stored.
 Exercise tasks will automatically create a data source – tables and some data – and will
 connect your SQL queries to that data source. If you want to run any of these queries elsewhere,
-you will need to use your own data source, e.g., a relational database. For your convenience, each exercise
-task ships an SQLite database file (`planet.sqlite`) which you can open with the
+you will need to use your own data source, e.g., a relational database. For your convenience, this
+lesson ships an SQLite database file (`L3_planet.sqlite`), shared by all its tasks, which you can open with the
 [SQLite console client](https://www.sqlite.org/cli.html).
 
 We will work with the data of some imaginary space travel company called _Astrofleet_,

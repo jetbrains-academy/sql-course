@@ -26,4 +26,16 @@ additional_files:
   - name: build.gradle
   - name: settings.gradle
   - name: gradle/wrapper/gradle-wrapper.properties
+  - name: Lesson3/L3_planet.sqlite
+    visible: true
+    is_binary: true
+  - name: Lesson4/L4_astrofleet.sqlite
+    visible: true
+    is_binary: true
+  - name: Lesson5/L5_astrofleet.sqlite
+    visible: true
+    is_binary: true
+  - name: Lesson6/L6_astrofleet.sqlite
+    visible: true
+    is_binary: true
 yaml_version: 5

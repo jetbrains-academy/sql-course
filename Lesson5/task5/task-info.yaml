@@ -22,6 +22,6 @@ files:
   - name: init_data.sql
     visible: false
     propagatable: false
-  - name: astrofleet.sqlite
+  - name: test.sqlite
     visible: true
     is_binary: true

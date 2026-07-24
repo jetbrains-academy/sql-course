@@ -3,8 +3,8 @@ ways to build a query on top of the result of another query.
 
 We keep working with the _Astrofleet_ data. It is the same as in the previous lesson, but the `Flight` table now
 spans **two years** (2121 and 2122), which we will use to group and rank flights. SQLite prints boolean values
-as `1`/`0` and a `NULL` as an empty cell. Each exercise ships an SQLite database file (`astrofleet.sqlite`) you
-can open with the [SQLite console client](https://www.sqlite.org/cli.html).
+as `1`/`0` and a `NULL` as an empty cell. This lesson ships an SQLite database file (`L6_astrofleet.sqlite`),
+shared by all its tasks, that you can open with the [SQLite console client](https://www.sqlite.org/cli.html).
 
 **Planet**
 

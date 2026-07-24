@@ -6,6 +6,3 @@ files:
   - name: SQL 101 - Task 3.2 - data filtering.drawio.png
     visible: true
     is_binary: true
-  - name: planet.sqlite
-    visible: true
-    is_binary: true
