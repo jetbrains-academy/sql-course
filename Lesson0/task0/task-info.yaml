@@ -1,0 +1,5 @@
+type: theory
+custom_name: Welcome
+files:
+  - name: src/task.sql
+    visible: true

@@ -8,7 +8,7 @@ summary: "This is a short introduction into the fundamentals of SQL query langua
   \ but probably with some programming experience."
 programming_language: SQL
 content:
-  - Prototype
+  - Lesson0
   - Lesson1
   - Lesson2
   - Lesson3
