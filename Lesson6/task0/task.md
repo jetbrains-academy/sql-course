@@ -1,9 +1,9 @@
 In this lesson we learn how to use subqueries in the `FROM` clause and common table expressions (CTEs) — two
 ways to build a query on top of the result of another query.
 
-We keep working with the _Marsoflot_ data. It is the same as in the previous lesson, but the `Flight` table now
+We keep working with the _Astrofleet_ data. It is the same as in the previous lesson, but the `Flight` table now
 spans **two years** (2121 and 2122), which we will use to group and rank flights. SQLite prints boolean values
-as `1`/`0` and a `NULL` as an empty cell. Each exercise ships an SQLite database file (`marsoflot.sqlite`) you
+as `1`/`0` and a `NULL` as an empty cell. Each exercise ships an SQLite database file (`astrofleet.sqlite`) you
 can open with the [SQLite console client](https://www.sqlite.org/cli.html).
 
 **Planet**
@@ -37,25 +37,25 @@ can open with the [SQLite console client](https://www.sqlite.org/cli.html).
 
 | id | num   | planet_id | flight_date | spacecraft_id | people_count | cargo |
 |----|-------|-----------|-------------|---------------|--------------|-------|
-| 1  | MF201 | 1         | 2122-04-12  | 1             | 5            | ore   |
-| 2  | MF147 | 5         | 2122-05-01  | 3             | 4            | NULL  |
-| 3  | MF149 | 5         | 2122-05-08  | 2             | 3            | water |
-| 4  | MF210 | 2         | 2122-05-12  | 1             | 2            | NULL  |
-| 5  | MF305 | 42        | 2122-06-01  | 3             | 7            | seeds |
-| 6  | MF088 | 3         | 2122-06-15  | 2             | 1            | ore   |
-| 7  | MF412 | 1         | 2122-06-20  | 4             | 8            | tools |
-| 8  | MF413 | 1         | 2122-07-02  | 4             | 10           | NULL  |
-| 9  | MF414 | 2         | 2122-07-05  | 4             | 6            | water |
-| 10 | MF520 | 5         | 2122-07-10  | 1             | 4            | ore   |
-| 11 | MF521 | 42        | 2122-07-14  | 2             | 2            | NULL  |
-| 12 | MF522 | 3         | 2122-07-20  | 3             | 5            | fuel  |
-| 13 | MF530 | 5         | 2122-08-01  | 4             | 9            | tools |
-| 14 | MF531 | 1         | 2122-08-03  | 1             | 3            | water |
-| 15 | MF101 | 1         | 2121-03-05  | 4             | 7            | ore   |
-| 16 | MF102 | 3         | 2121-04-10  | 4             | 5            | fuel  |
-| 17 | MF103 | 5         | 2121-05-20  | 4             | 8            | NULL  |
-| 18 | MF104 | 2         | 2121-06-12  | 4             | 6            | water |
-| 19 | MF105 | 6         | 2121-04-18  | 1             | 3            | ore   |
-| 20 | MF106 | 5         | 2121-07-01  | 1             | 4            | seeds |
-| 21 | MF107 | 3         | 2121-08-09  | 3             | 2            | NULL  |
-| 22 | MF108 | 8         | 2121-09-15  | 4             | 9            | tools |
+| 1  | AF201 | 1         | 2122-04-12  | 1             | 5            | ore   |
+| 2  | AF147 | 5         | 2122-05-01  | 3             | 4            | NULL  |
+| 3  | AF149 | 5         | 2122-05-08  | 2             | 3            | water |
+| 4  | AF210 | 2         | 2122-05-12  | 1             | 2            | NULL  |
+| 5  | AF305 | 42        | 2122-06-01  | 3             | 7            | seeds |
+| 6  | AF088 | 3         | 2122-06-15  | 2             | 1            | ore   |
+| 7  | AF412 | 1         | 2122-06-20  | 4             | 8            | tools |
+| 8  | AF413 | 1         | 2122-07-02  | 4             | 10           | NULL  |
+| 9  | AF414 | 2         | 2122-07-05  | 4             | 6            | water |
+| 10 | AF520 | 5         | 2122-07-10  | 1             | 4            | ore   |
+| 11 | AF521 | 42        | 2122-07-14  | 2             | 2            | NULL  |
+| 12 | AF522 | 3         | 2122-07-20  | 3             | 5            | fuel  |
+| 13 | AF530 | 5         | 2122-08-01  | 4             | 9            | tools |
+| 14 | AF531 | 1         | 2122-08-03  | 1             | 3            | water |
+| 15 | AF101 | 1         | 2121-03-05  | 4             | 7            | ore   |
+| 16 | AF102 | 3         | 2121-04-10  | 4             | 5            | fuel  |
+| 17 | AF103 | 5         | 2121-05-20  | 4             | 8            | NULL  |
+| 18 | AF104 | 2         | 2121-06-12  | 4             | 6            | water |
+| 19 | AF105 | 6         | 2121-04-18  | 1             | 3            | ore   |
+| 20 | AF106 | 5         | 2121-07-01  | 1             | 4            | seeds |
+| 21 | AF107 | 3         | 2121-08-09  | 3             | 2            | NULL  |
+| 22 | AF108 | 8         | 2121-09-15  | 4             | 9            | tools |

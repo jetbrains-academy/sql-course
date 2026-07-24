@@ -1,4 +1,4 @@
--- Run these against marsoflot.sqlite to see GROUP BY in action.
+-- Run these against astrofleet.sqlite to see GROUP BY in action.
 
 -- Max radius and planet count per climate, inhabited planets only
 SELECT climate, MAX(radius), COUNT(*) FROM Planet WHERE is_inhabited GROUP BY climate;

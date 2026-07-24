@@ -8,5 +8,5 @@ you will need to use your own data source, e.g., a relational database. For your
 task ships an SQLite database file (`planet.sqlite`) which you can open with the
 [SQLite console client](https://www.sqlite.org/cli.html).
 
-We will work with the data of some imaginary space travel company called _Marsoflot_,
+We will work with the data of some imaginary space travel company called _Astrofleet_,
 which carries passengers and cargo between planets in a galaxy far, far away.

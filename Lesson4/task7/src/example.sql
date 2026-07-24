@@ -1,4 +1,4 @@
--- Run these against marsoflot.sqlite to see how join chains and filters work.
+-- Run these against astrofleet.sqlite to see how join chains and filters work.
 
 -- Inner join chain: planet + flight + spacecraft
 SELECT *

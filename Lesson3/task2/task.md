@@ -24,11 +24,11 @@ Let's look at a more complex example:
 ```sql
 SELECT id, name
 FROM Planet
-WHERE id = 1 OR id = 2 OR name = 'Disa'
+WHERE id = 1 OR id = 2 OR name = 'Pyros'
 ```
 
 The expression above evaluates to `true` if the value of the attribute `id` is 1, or if the value of `id` is 2,
-or if the value of the `name` attribute is `'Disa'`.
+or if the value of the `name` attribute is `'Pyros'`.
 
 ----
 
@@ -48,15 +48,15 @@ Let's assume that besides `id` and `name`, there is a boolean column `is_inhabit
 and its value is `NULL` if we don't know for sure whether the planet is inhabited.
 Suppose the table looks as follows (remember that SQLite prints boolean values as `1` and `0`, and `NULL` as an empty cell):
 
-| name   | id  | is_inhabited |
-|--------|-----|--------------|
-| Disa   | 4   | true         |
-| Lava   | 2   | false        |
-| Reva   | 3   | true         |
-| Tibela | 1   | NULL         |
+| name  | id | is_inhabited |
+|-------|----|--------------|
+| Terra | 1  | 1            |
+| Pyros | 3  | 0            |
+| Verda | 5  | 1            |
+| Cobar | 9  |              |
 
 
-What if one of Marsoflot clients is looking for a place to spend their summer vacation off the beaten paths and
+What if one of Astrofleet clients is looking for a place to spend their summer vacation off the beaten paths and
 wants to exclude from the search those planets which are certainly inhabited?
 Will the following query return exhaustive results?
 
@@ -64,8 +64,8 @@ Will the following query return exhaustive results?
 SELECT name FROM Planet WHERE NOT is_inhabited
 ```
 
-Not exactly. It will return only those planets which are certainly not inhabited (in the table above, just _Lava_);
-however, _Tibela_, which is neither known to be inhabited nor known to be uninhabited, will be missing because
+Not exactly. It will return only those planets which are certainly not inhabited (in the table above, just _Pyros_);
+however, _Cobar_, which is neither known to be inhabited nor known to be uninhabited, will be missing because
 negated `NULL` remains `NULL` and the result of the `WHERE` expression is unknown. There are other, more subtle
 cases where the result set, which would have been non-empty otherwise, may become empty in the presence of
 unexpected `NULL` values processed by the `WHERE` clause. We will look at such queries in one of the following steps.

@@ -1,4 +1,4 @@
--- Run these against marsoflot.sqlite to see common table expressions (CTEs).
+-- Run these against astrofleet.sqlite to see common table expressions (CTEs).
 
 -- Arg-max via a CTE: the (spacecraft, year) with the most flights.
 -- T is defined once and referred to twice.

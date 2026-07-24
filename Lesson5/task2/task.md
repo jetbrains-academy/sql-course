@@ -1,5 +1,5 @@
 In this exercise you practise aggregate functions (`COUNT`, `AVG`, …), `DISTINCT`, and scalar subqueries on
-the Marsoflot tables:
+the Astrofleet tables:
 
 * `Planet(id, name, is_inhabited, climate, has_weapons, radius)`
 * `Flight(id, num, planet_id, flight_date, spacecraft_id, people_count, cargo)`

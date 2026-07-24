@@ -3,6 +3,6 @@ custom_name: "T2: Common Table Expressions"
 files:
   - name: src/example.sql
     visible: true
-  - name: marsoflot.sqlite
+  - name: astrofleet.sqlite
     visible: true
     is_binary: true

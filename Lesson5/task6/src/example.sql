@@ -1,4 +1,4 @@
--- Run these against marsoflot.sqlite to see selective aggregates and group filters.
+-- Run these against astrofleet.sqlite to see selective aggregates and group filters.
 
 -- Selective aggregates with FILTER (WHERE ...)
 SELECT P.id,

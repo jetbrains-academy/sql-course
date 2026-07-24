@@ -8,7 +8,7 @@ WHERE id = 1;
 -- A more complex condition
 SELECT id, name
 FROM Planet
-WHERE id = 1 OR id = 2 OR name = 'Disa';
+WHERE id = 1 OR id = 2 OR name = 'Pyros';
 
 -- NOT with a boolean column
 -- (rows where is_inhabited is NULL would be excluded, too)

@@ -8,9 +8,9 @@ Then we will see how we can group the results of filtering and calculate aggrega
 As an example, we may group planets with the same climate and calculate the maximum planet radius for each group, or
 group and count flights by spacecraft.
 
-We keep working with the data of the imaginary space travel company _Marsoflot_. This lesson uses a slightly
+We keep working with the data of the imaginary space travel company _Astrofleet_. This lesson uses a slightly
 richer dataset than before — the `Flight` table now has an `id` and a `cargo` column, there are more flights,
-and there is a spacecraft that never flew. Each exercise ships an SQLite database file (`marsoflot.sqlite`)
+and there is a spacecraft that never flew. Each exercise ships an SQLite database file (`astrofleet.sqlite`)
 you can open with the [SQLite console client](https://www.sqlite.org/cli.html). SQLite prints boolean values
 as `1` and `0`, and a `NULL` as an empty cell.
 
@@ -45,19 +45,19 @@ as `1` and `0`, and a `NULL` as an empty cell.
 
 | id | num   | planet_id | flight_date | spacecraft_id | people_count | cargo  |
 |----|-------|-----------|-------------|---------------|--------------|--------|
-| 1  | MF201 | 1         | 2122-04-12  | 1             | 5            | ore    |
-| 2  | MF147 | 5         | 2122-05-01  | 3             | 4            | NULL   |
-| 3  | MF149 | 5         | 2122-05-08  | 2             | 3            | water  |
-| 4  | MF210 | 2         | 2122-05-12  | 1             | 2            | NULL   |
-| 5  | MF305 | 42        | 2122-06-01  | 3             | 7            | seeds  |
-| 6  | MF088 | 3         | 2122-06-15  | 2             | 1            | ore    |
-| 7  | MF412 | 1         | 2122-06-20  | 4             | 8            | tools  |
-| 8  | MF413 | 1         | 2122-07-02  | 4             | 10           | NULL   |
-| 9  | MF414 | 2         | 2122-07-05  | 4             | 6            | water  |
-| 10 | MF520 | 5         | 2122-07-10  | 1             | 4            | ore    |
-| 11 | MF521 | 42        | 2122-07-14  | 2             | 2            | NULL   |
-| 12 | MF522 | 3         | 2122-07-20  | 3             | 5            | fuel   |
-| 13 | MF530 | 5         | 2122-08-01  | 4             | 9            | tools  |
-| 14 | MF531 | 1         | 2122-08-03  | 1             | 3            | water  |
+| 1  | AF201 | 1         | 2122-04-12  | 1             | 5            | ore    |
+| 2  | AF147 | 5         | 2122-05-01  | 3             | 4            | NULL   |
+| 3  | AF149 | 5         | 2122-05-08  | 2             | 3            | water  |
+| 4  | AF210 | 2         | 2122-05-12  | 1             | 2            | NULL   |
+| 5  | AF305 | 42        | 2122-06-01  | 3             | 7            | seeds  |
+| 6  | AF088 | 3         | 2122-06-15  | 2             | 1            | ore    |
+| 7  | AF412 | 1         | 2122-06-20  | 4             | 8            | tools  |
+| 8  | AF413 | 1         | 2122-07-02  | 4             | 10           | NULL   |
+| 9  | AF414 | 2         | 2122-07-05  | 4             | 6            | water  |
+| 10 | AF520 | 5         | 2122-07-10  | 1             | 4            | ore    |
+| 11 | AF521 | 42        | 2122-07-14  | 2             | 2            | NULL   |
+| 12 | AF522 | 3         | 2122-07-20  | 3             | 5            | fuel   |
+| 13 | AF530 | 5         | 2122-08-01  | 4             | 9            | tools  |
+| 14 | AF531 | 1         | 2122-08-03  | 1             | 3            | water  |
 
 Note that the spacecraft _Comet 9_ has no flights, _Pegasus_ flew to _Terra_ twice, and some flights carry no cargo.

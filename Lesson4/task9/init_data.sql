@@ -16,9 +16,9 @@ INSERT INTO Planet(id, name, is_inhabited, climate, has_weapons, radius) VALUES 
 INSERT INTO Spacecraft(id, name, capacity) VALUES (1, 'Falcon 22', 5);
 INSERT INTO Spacecraft(id, name, capacity) VALUES (2, 'Falcon 25', 3);
 INSERT INTO Spacecraft(id, name, capacity) VALUES (3, 'Falcon 28', 7);
-INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('MF201', 1,  '2122-04-12', 1, 5);
-INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('MF147', 5,  '2122-05-01', 3, 4);
-INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('MF149', 5,  '2122-05-08', 2, 3);
-INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('MF210', 2,  '2122-05-12', 1, 2);
-INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('MF305', 42, '2122-06-01', 3, 7);
-INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('MF088', 3,  '2122-06-15', 2, 1);
+INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('AF201', 1,  '2122-04-12', 1, 5);
+INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('AF147', 5,  '2122-05-01', 3, 4);
+INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('AF149', 5,  '2122-05-08', 2, 3);
+INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('AF210', 2,  '2122-05-12', 1, 2);
+INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('AF305', 42, '2122-06-01', 3, 7);
+INSERT INTO Flight(num, planet_id, flight_date, spacecraft_id, people_count) VALUES ('AF088', 3,  '2122-06-15', 2, 1);

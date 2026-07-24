@@ -31,19 +31,19 @@ booleans as `1`/`0` and empty cells for `NULL`):
 
 | P.name  | P.id | P.is_inhabited | F.num | F.planet_id | F.flight_date |
 |---------|------|----------------|-------|-------------|---------------|
-| Terra   | 1    | 1              | MF201 | 1           | 2122-04-12    |
-| Aquara  | 2    | 1              | MF210 | 2           | 2122-05-12    |
-| Pyros   | 3    | 0              | MF088 | 3           | 2122-06-15    |
+| Terra   | 1    | 1              | AF201 | 1           | 2122-04-12    |
+| Aquara  | 2    | 1              | AF210 | 2           | 2122-05-12    |
+| Pyros   | 3    | 0              | AF088 | 3           | 2122-06-15    |
 | Glacia  | 4    | 0              | NULL  | NULL        | NULL          |
-| Verda   | 5    | 1              | MF147 | 5           | 2122-05-01    |
-| Verda   | 5    | 1              | MF149 | 5           | 2122-05-08    |
+| Verda   | 5    | 1              | AF147 | 5           | 2122-05-01    |
+| Verda   | 5    | 1              | AF149 | 5           | 2122-05-08    |
 | Dunar   | 6    | 0              | NULL  | NULL        | NULL          |
 | Solmar  | 7    | 0              | NULL  | NULL        | NULL          |
 | Mirren  | 8    | 1              | NULL  | NULL        | NULL          |
 | Cobar   | 9    | 0              | NULL  | NULL        | NULL          |
 | Frost   | 10   | 0              | NULL  | NULL        | NULL          |
 | Zephyra | 12   | 0              | NULL  | NULL        | NULL          |
-| Answer  | 42   | 1              | MF305 | 42          | 2122-06-01    |
+| Answer  | 42   | 1              | AF305 | 42          | 2122-06-01    |
 
 The planets with flights appear with their flight data; the planets with no flights (Glacia, Dunar, Solmar,
 Mirren, Cobar, Frost, Zephyra) each appear once, with `NULL`s in the flight columns.

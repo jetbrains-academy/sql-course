@@ -1,4 +1,4 @@
--- Run these against marsoflot.sqlite to see how INNER JOIN works.
+-- Run these against astrofleet.sqlite to see how INNER JOIN works.
 
 -- Inner join: every planet paired with the flights to it
 SELECT * FROM Planet JOIN Flight ON Planet.id = Flight.planet_id;

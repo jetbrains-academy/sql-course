@@ -1,4 +1,4 @@
--- Run these against marsoflot.sqlite to see how outer joins work.
+-- Run these against astrofleet.sqlite to see how outer joins work.
 
 -- LEFT OUTER JOIN: all planets, with NULLs where there are no flights
 SELECT * FROM Planet LEFT OUTER JOIN Flight ON id = planet_id;

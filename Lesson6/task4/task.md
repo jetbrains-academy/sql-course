@@ -1,4 +1,4 @@
-In this exercise you practise **common table expressions** (the `WITH` clause) on the Marsoflot tables:
+In this exercise you practise **common table expressions** (the `WITH` clause) on the Astrofleet tables:
 
 * `Planet(id, name, is_inhabited, climate, has_weapons, radius)`
 * `Flight(id, num, planet_id, flight_date, spacecraft_id, people_count, cargo)`

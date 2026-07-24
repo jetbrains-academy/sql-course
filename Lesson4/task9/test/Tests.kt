@@ -19,19 +19,19 @@ class Tests {
             when (idx) {
                 0 -> results.add(db.executeAndEvaluate(query, listOf(
                     "planet | num",
-                    "Terra | MF201",
-                    "Aquara | MF210",
-                    "Pyros | MF088",
+                    "Terra | AF201",
+                    "Aquara | AF210",
+                    "Pyros | AF088",
                     "Glacia | <null>",
-                    "Verda | MF147",
-                    "Verda | MF149",
+                    "Verda | AF147",
+                    "Verda | AF149",
                     "Dunar | <null>",
                     "Solmar | <null>",
                     "Mirren | <null>",
                     "Cobar | <null>",
                     "Frost | <null>",
                     "Zephyra | <null>",
-                    "Answer | MF305",
+                    "Answer | AF305",
                 )))
                 1 -> results.add(db.executeAndEvaluate(query, listOf(
                     "planet",

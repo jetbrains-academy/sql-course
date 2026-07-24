@@ -1,4 +1,4 @@
--- Run these against marsoflot.sqlite to see joins expressed without the JOIN operator.
+-- Run these against astrofleet.sqlite to see joins expressed without the JOIN operator.
 
 -- Cross join (Cartesian product) plus a filter equals an inner join
 SELECT * FROM Planet CROSS JOIN Flight

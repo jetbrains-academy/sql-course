@@ -19,12 +19,12 @@ class Tests {
             when (idx) {
                 0 -> results.add(db.executeAndEvaluate(query, listOf(
                     "planet | num",
-                    "Terra | MF201",
-                    "Verda | MF147",
-                    "Verda | MF149",
-                    "Aquara | MF210",
-                    "Answer | MF305",
-                    "Pyros | MF088",
+                    "Terra | AF201",
+                    "Verda | AF147",
+                    "Verda | AF149",
+                    "Aquara | AF210",
+                    "Answer | AF305",
+                    "Pyros | AF088",
                 )))
                 1 -> results.add(db.executeAndEvaluate(query, listOf(
                     "flight_date",

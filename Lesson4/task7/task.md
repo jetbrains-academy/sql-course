@@ -20,12 +20,12 @@ FROM Planet P JOIN Flight F ON P.id = F.planet_id
 
 | P.name | P.id | P.is_inhabited | F.num | F.planet_id | F.flight_date | F.spacecraft_id |
 |--------|------|----------------|-------|-------------|---------------|-----------------|
-| Terra  | 1    | 1              | MF201 | 1           | 2122-04-12    | 1               |
-| Verda  | 5    | 1              | MF147 | 5           | 2122-05-01    | 3               |
-| Verda  | 5    | 1              | MF149 | 5           | 2122-05-08    | 2               |
-| Aquara | 2    | 1              | MF210 | 2           | 2122-05-12    | 1               |
-| Answer | 42   | 1              | MF305 | 42          | 2122-06-01    | 3               |
-| Pyros  | 3    | 0              | MF088 | 3           | 2122-06-15    | 2               |
+| Terra  | 1    | 1              | AF201 | 1           | 2122-04-12    | 1               |
+| Verda  | 5    | 1              | AF147 | 5           | 2122-05-01    | 3               |
+| Verda  | 5    | 1              | AF149 | 5           | 2122-05-08    | 2               |
+| Aquara | 2    | 1              | AF210 | 2           | 2122-05-12    | 1               |
+| Answer | 42   | 1              | AF305 | 42          | 2122-06-01    | 3               |
+| Pyros  | 3    | 0              | AF088 | 3           | 2122-06-15    | 2               |
 
 It is essentially a table with columns and rows, and we can join it with the `Spacecraft` table:
 
@@ -39,12 +39,12 @@ FROM Planet P JOIN Flight F     ON P.id = F.planet_id
 
 | P.name | P.id | F.num | F.spacecraft_id | S.name    | S.capacity |
 |--------|------|-------|-----------------|-----------|------------|
-| Terra  | 1    | MF201 | 1               | Falcon 22 | 5          |
-| Verda  | 5    | MF147 | 3               | Falcon 28 | 7          |
-| Verda  | 5    | MF149 | 2               | Falcon 25 | 3          |
-| Aquara | 2    | MF210 | 1               | Falcon 22 | 5          |
-| Answer | 42   | MF305 | 3               | Falcon 28 | 7          |
-| Pyros  | 3    | MF088 | 2               | Falcon 25 | 3          |
+| Terra  | 1    | AF201 | 1               | Falcon 22 | 5          |
+| Verda  | 5    | AF147 | 3               | Falcon 28 | 7          |
+| Verda  | 5    | AF149 | 2               | Falcon 25 | 3          |
+| Aquara | 2    | AF210 | 1               | Falcon 22 | 5          |
+| Answer | 42   | AF305 | 3               | Falcon 28 | 7          |
+| Pyros  | 3    | AF088 | 2               | Falcon 25 | 3          |
 
 Every row in the result joins connected facts from different tables. We can read a row like this:
 "Falcon 22, which can carry up to 5 astronauts, flew to the inhabited planet Terra on 2122-04-12".
@@ -73,19 +73,19 @@ FROM Planet P LEFT JOIN Flight F     ON P.id = F.planet_id
 
 | P.name  | P.id | F.num | F.spacecraft_id | S.name    | S.capacity |
 |---------|------|-------|-----------------|-----------|------------|
-| Terra   | 1    | MF201 | 1               | Falcon 22 | 5          |
-| Aquara  | 2    | MF210 | 1               | Falcon 22 | 5          |
-| Pyros   | 3    | MF088 | 2               | Falcon 25 | 3          |
+| Terra   | 1    | AF201 | 1               | Falcon 22 | 5          |
+| Aquara  | 2    | AF210 | 1               | Falcon 22 | 5          |
+| Pyros   | 3    | AF088 | 2               | Falcon 25 | 3          |
 | Glacia  | 4    | NULL  | NULL            | NULL      | NULL       |
-| Verda   | 5    | MF147 | 3               | Falcon 28 | 7          |
-| Verda   | 5    | MF149 | 2               | Falcon 25 | 3          |
+| Verda   | 5    | AF147 | 3               | Falcon 28 | 7          |
+| Verda   | 5    | AF149 | 2               | Falcon 25 | 3          |
 | Dunar   | 6    | NULL  | NULL            | NULL      | NULL       |
 | Solmar  | 7    | NULL  | NULL            | NULL      | NULL       |
 | Mirren  | 8    | NULL  | NULL            | NULL      | NULL       |
 | Cobar   | 9    | NULL  | NULL            | NULL      | NULL       |
 | Frost   | 10   | NULL  | NULL            | NULL      | NULL       |
 | Zephyra | 12   | NULL  | NULL            | NULL      | NULL       |
-| Answer  | 42   | MF305 | 3               | Falcon 28 | 7          |
+| Answer  | 42   | AF305 | 3               | Falcon 28 | 7          |
 
 Another option is to build the inner join part first and then add the outer part with the planets using `RIGHT JOIN`:
 

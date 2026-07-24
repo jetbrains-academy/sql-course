@@ -19,12 +19,12 @@ class Tests {
             when (idx) {
                 0 -> results.add(db.executeAndEvaluate(query, listOf(
                     "planet | num",
-                    "Terra | MF201",
-                    "Verda | MF147",
-                    "Verda | MF149",
-                    "Aquara | MF210",
-                    "Answer | MF305",
-                    "Pyros | MF088",
+                    "Terra | AF201",
+                    "Verda | AF147",
+                    "Verda | AF149",
+                    "Aquara | AF210",
+                    "Answer | AF305",
+                    "Pyros | AF088",
                 )))
                 1 -> results.add(db.executeAndEvaluate(query, listOf(
                     "flight_date",
@@ -36,12 +36,12 @@ class Tests {
                 )))
                 2 -> results.add(db.executeAndEvaluate(query, listOf(
                     "planet | num | ship",
-                    "Terra | MF201 | Falcon 22",
-                    "Verda | MF147 | Falcon 28",
-                    "Verda | MF149 | Falcon 25",
-                    "Aquara | MF210 | Falcon 22",
-                    "Answer | MF305 | Falcon 28",
-                    "Pyros | MF088 | Falcon 25",
+                    "Terra | AF201 | Falcon 22",
+                    "Verda | AF147 | Falcon 28",
+                    "Verda | AF149 | Falcon 25",
+                    "Aquara | AF210 | Falcon 22",
+                    "Answer | AF305 | Falcon 28",
+                    "Pyros | AF088 | Falcon 25",
                 )))
             }
         }
