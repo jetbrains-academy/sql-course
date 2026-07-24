@@ -12,7 +12,7 @@ files:
         placeholder_text: '*'
       - offset: 650
         length: 32
-        placeholder_text: '0'
+        placeholder_text: 0
   - name: test/Tests.kt
     visible: false
     propagatable: false
