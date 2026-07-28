@@ -2,7 +2,7 @@ type: edu
 custom_name: Arithmetic expressions practice
 files:
   - name: src/task.sql
-    visible: false
+    visible: true
     placeholders:
       - offset: 89
         length: 10

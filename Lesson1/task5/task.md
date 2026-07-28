@@ -16,6 +16,7 @@ cat airports.csv | awk -F, 'NR>1 {arr[$6]+=$7} END {for (a in arr) print a, arr[
 
 However, data grows bigger, search requests become more complex, and we need to search more often and to have the results fast. 
 We need something different from making manual or semi-automated manipulations with spreadsheets or writing awkward shell scripts.
+
 One may argue that we can write a search code using a general-purpose programming language, such as Kotlin or Python.
 This may work well if all our data fits into RAM and all our queries are known in advance, which allows for writing 
 efficient code with relatively little effort. In the next task, you can try writing simple search code in Kotlin.

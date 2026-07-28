@@ -1,0 +1,7 @@
+type: theory
+custom_name: "IDE: Explore tables"
+files:
+  - name: task.md
+    visible: false
+  - name: src/Main.kt
+    visible: true

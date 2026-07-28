@@ -4,4 +4,5 @@ Write a couple of lines in the placeholder in the editor pane, so that at the en
 the map **`mapRegionToSum`** contained all regions except for _Asia_ as keys and every key was 
 mapped to the total number of airport movements in a given region.
 
-The task input is a list of CSV file rows with the data cells separated by commas. The format is the same as in [this CSV file](course://Lesson1/airports.csv). The header row is excluded from the input automatically.
+The task input is a list of CSV file rows with the data cells separated by commas.
+The format is the same as in the [airports.csv](course://Lesson1/airports.csv) file. The header row is excluded from the input automatically.

@@ -12,3 +12,9 @@ files:
         placeholder_text: 0
   - name: test/Tests.kt
     visible: false
+  - name: images/csv_as_table_dark.gif
+    visible: false
+    is_binary: true
+  - name: images/csv_as_table.gif
+    visible: false
+    is_binary: true

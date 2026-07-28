@@ -1,5 +1,8 @@
+Look into the [airport.csv](course://Lesson1/airports.csv) file that you can find in this lesson.
+
 When the amount of data grows, search with eyes becomes troublesome. You can easily miss some value, or count it twice,
 or make other mistakes.
+
 If you want to do a reliable search within a table with more than a few dozens of rows, you need some automation. Spreadsheets, like Excel or Google Sheets, are handy for many quick and relatively simple tasks, such as finding 
 the maximum or minimum values, because they allow filtering the rows or sorting the rows by any column. 
 

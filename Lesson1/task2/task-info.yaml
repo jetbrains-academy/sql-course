@@ -12,7 +12,7 @@ options:
   - text: South America
     is_correct: false
 files:
-  - name: src/dataset.txt
+  - name: dataset.txt
     visible: true
 custom_name: "Ex: Search in a tiny dataset"
 local_check: true

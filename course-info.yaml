@@ -38,4 +38,4 @@ additional_files:
   - name: Lesson6/L6_astrofleet.sqlite
     visible: true
     is_binary: true
-yaml_version: 5
+yaml_version: 6

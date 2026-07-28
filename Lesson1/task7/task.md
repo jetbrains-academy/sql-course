@@ -23,7 +23,9 @@ with the columns **`code`** and **`country`** and the processor which executes t
 
 SQL is usually associated with complex relational database management systems, which
 run on powerful servers in big enterprises. They store and manage table data in their binary format and provide an SQL 
-interface for queries. However, there are many other programs which can execute queries written in SQL or an SQL-like
+interface for queries.
+
+However, there are many other programs which can execute queries written in SQL or an SQL-like
 language. For instance, there is a program **`trdsql`**, which can execute SQL queries over CSV files. An embeddable 
 SQL database **[SQLite](https://sqlite.org)** can be found in nearly every web browser or Android phone. SQL is used in 
 Google's [BigQuery](https://cloud.google.com/bigquery) data warehouse system, and – surprise! – it is built into Google Sheets, too. Yes, you 

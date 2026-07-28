@@ -1,0 +1,5 @@
+type: theory
+custom_name: "IDE: Run SQL from the editor"
+files:
+  - name: src/example.sql
+    visible: true
