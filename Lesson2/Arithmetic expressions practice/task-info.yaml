@@ -10,3 +10,9 @@ files:
   - name: test/Tests.kt
     visible: false
     propagatable: false
+  - name: images/show_full_report.png
+    visible: false
+    is_binary: true
+  - name: images/show_full_report_dark.png
+    visible: false
+    is_binary: true
