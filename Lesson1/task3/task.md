@@ -1,5 +1,9 @@
 Look into the [airport.csv](course://Lesson1/airports.csv) file that you can find in this lesson.
 
+<div style="text-align: center; max-width: 300px; margin: 0 auto;">
+<img src="images/airports_file.png" alt="airport.csv file location">
+</div>
+
 When the amount of data grows, search with eyes becomes troublesome. You can easily miss some value, or count it twice,
 or make other mistakes.
 

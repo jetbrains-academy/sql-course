@@ -3,3 +3,9 @@ custom_name: "T2: Search in a small dataset using spreadsheets or command-line t
 files:
   - name: src/Main.kt
     visible: true
+  - name: images/airports_file.png
+    visible: false
+    is_binary: true
+  - name: images/airports_file_dark.png
+    visible: false
+    is_binary: true
