@@ -1,5 +1,5 @@
 type: edu
-custom_name: Boolean expressions practice
+custom_name: "Ex: Boolean expressions"
 files:
   - name: src/task.sql
     visible: true

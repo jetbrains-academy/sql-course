@@ -1,5 +1,5 @@
 type: edu
-custom_name: More expressions practice
+custom_name: "Ex: More expressions"
 files:
   - name: src/task.sql
     visible: true

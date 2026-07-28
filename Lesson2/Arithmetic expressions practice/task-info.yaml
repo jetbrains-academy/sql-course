@@ -1,5 +1,5 @@
 type: edu
-custom_name: Arithmetic expressions practice
+custom_name: "Ex: Arithmetic expressions"
 files:
   - name: src/task.sql
     visible: true

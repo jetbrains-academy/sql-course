@@ -1,5 +1,5 @@
 type: theory
-custom_name: Three-valued logic
+custom_name: "T4: Three-valued logic"
 files:
   - name: src/Main.kt
     visible: true

@@ -7,7 +7,7 @@
 - [x] Add a guide about integrated into IDE CSV-data tools
 - [x] Add images for lesson1 (?)
 - [x] Add guide about checking system into `Arithmetic expression practice` task
-- [ ] Rename Lesson2 tasks to use the same prefixes
+- [x] Rename Lesson2 tasks to use the same prefixes
 - [x] Remove Prototype lesson
 - [x] Get rid of the appendix lesson
 - [x] Check are SQL requests make write to the lessons' .sqlite files → no, the entire curriculum is read-only.

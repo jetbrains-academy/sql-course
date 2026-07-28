@@ -1,5 +1,5 @@
 type: theory
-custom_name: Using SQL as a calculator
+custom_name: What is in this lesson
 files:
   - name: task.md
     visible: false

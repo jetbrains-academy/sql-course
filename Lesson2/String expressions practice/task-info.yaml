@@ -1,5 +1,5 @@
 type: edu
-custom_name: String expressions practice
+custom_name: "Ex: String expressions"
 files:
   - name: src/task.sql
     visible: true
