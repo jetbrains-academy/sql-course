@@ -7,6 +7,7 @@ In this exercise you practise **outer joins** on the `Planet` and `Flight` table
 Unlike an inner join, an outer join keeps rows that have no match on the other side and fills the missing
 columns with `NULL`.
 
+### Task
 Read the task definitions in `task.sql` and replace each `true` with an expression that solves the task.
 
 You can click **Check** at any moment. If some solution fails, you will see a hint that may help you fix it.

@@ -5,6 +5,7 @@ comma (cross join) plus a `WHERE` filter, then with a subquery and the `IN` oper
 * `Flight(num, planet_id, flight_date, spacecraft_id, people_count)` — `planet_id` links a flight to its
   destination planet
 
+### Task
 Read the task definitions in `task.sql` and replace each highlighted fragment so the query returns the
 required result.
 

@@ -1,5 +1,6 @@
 _This exercise is for those who have at least some small experience with Kotlin. If you have no such experience, feel free to skip it._ 
 
+### Task
 Write a couple of lines in the placeholder in the editor pane, so that at the end of the function 
 the map **`mapRegionToSum`** contained all regions except for _Asia_ as keys and every key was 
 mapped to the total number of airport movements in a given region.

@@ -5,6 +5,7 @@ with `FILTER (WHERE …)` — on the Astrofleet tables:
 * `Flight(id, num, planet_id, flight_date, spacecraft_id, people_count, cargo)`
 * `Spacecraft(id, name, capacity)`
 
+### Task
 Read the task definitions in `task.sql` and replace each highlighted fragment so the query returns the
 required result.
 

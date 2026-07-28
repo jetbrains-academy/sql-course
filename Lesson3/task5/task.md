@@ -9,6 +9,7 @@ All the tasks operate with a single table named `Planet` with the following colu
 * `has_weapons` — a flag (`1`/`0`) indicating if there are dangerous weapons on the planet
 * `radius` — the planet radius
 
+### Task
 Read the task definitions in the `task.sql` file and replace the trivial `true` expression in each
 `WHERE` clause with an expression that solves the task:
 

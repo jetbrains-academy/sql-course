@@ -5,6 +5,7 @@ In this exercise you practise the `INNER JOIN` operator on the `Planet`, `Flight
   destination planet, `spacecraft_id` links it to the ship that performed it
 * `Spacecraft(id, name, capacity)`
 
+### Task
 Read the task definitions in `task.sql` and replace each `true` with an expression that solves the task.
 
 You can click **Check** at any moment. If some solution fails, you will see a hint that may help you fix it.
