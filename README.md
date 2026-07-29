@@ -3,7 +3,7 @@
 ## TODO lists
 ### Content
 - [x] Move `astrofleet.sqlite` in each lesson to the lesson-level; update all references to use same DB for all tasks
-- [ ] Add instructions for learners how to use in-IDE database tool to work with DB in this course
+- [x] Add instructions for learners how to use in-IDE database tool to work with DB in this course
 - [x] Add a guide about integrated into IDE CSV-data tools
 - [x] Add images for lesson1 (?)
 - [x] Add guide about checking system into `Arithmetic expression practice` task

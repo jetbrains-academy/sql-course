@@ -17,7 +17,7 @@ is 1. The `WHERE` clause consists of a logical expression, which returns a boole
 The expressions may be very complex and may use many sophisticated SQL constructs, but very often
 it is just a combination of mathematical and logical operators, which work with the column values.
 
-<img src="SQL 101 - Task 3.2 - data filtering.drawio.png" width="600" alt="How the WHERE clause filters rows"/>
+<img src="SQL 101 - Task 3.2 - data filtering.drawio.png" width="827" alt="How the WHERE clause filters rows"/>
 
 Let's look at a more complex example:
 
