@@ -5,3 +5,27 @@ files:
     visible: false
   - name: src/Main.kt
     visible: true
+  - name: images/data_sources_dark.png
+    visible: false
+    is_binary: true
+  - name: images/data_sources.png
+    visible: false
+    is_binary: true
+  - name: images/data_sources_connection_ok.png
+    visible: false
+    is_binary: true
+  - name: images/data_sources_connection_ok_dark.png
+    visible: false
+    is_binary: true
+  - name: images/driver_download.png
+    visible: false
+    is_binary: true
+  - name: images/driver_download_dark.png
+    visible: false
+    is_binary: true
+  - name: images/planet_table_dark.png
+    visible: false
+    is_binary: true
+  - name: images/planet_table.png
+    visible: false
+    is_binary: true

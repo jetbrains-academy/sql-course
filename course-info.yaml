@@ -6,6 +6,8 @@ summary: "This is a short introduction into the fundamentals of SQL query langua
   \ filters, \ntable joins, set operations, rows grouping and calculation of aggregated\
   \ values. It is designed for\nthe absolute newbies with no prior knowledge of SQL\
   \ but probably with some programming experience."
+vendor:
+  name: Konstantin Chaika
 programming_language: SQL
 content:
   - Lesson0

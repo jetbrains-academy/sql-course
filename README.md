@@ -11,7 +11,10 @@
 - [x] Remove Prototype lesson
 - [x] Get rid of the appendix lesson
 - [x] Check are SQL requests make write to the lessons' .sqlite files → no, the entire curriculum is read-only.
+- [ ] Update gradle-everything in the Kotlin-onboarding way and add propper files to the repository and course files
+- [ ] Add intro lesson "how to use the course" -- same as Kotlin Onboarding 1 have
 - [ ] Test the course by someone available
+- [ ] Plugin team -> enable sql course feature flag in prod
 
 ### Publication
 - [ ] Finalize course name and description
