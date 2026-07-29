@@ -27,7 +27,8 @@ To work with the database, first create a **data source** — a saved connection
 
 4. Finally, click "OK" to finish the setup.
 
-5. The data source now appears in the **Database** tool window on the right. You can look inside it to see the tables and data.
+5. The data source now appears in the **Database** tool window on the right. In this lesson a database contains only one table: `Planet`.
+   You can find it expanding the **L3_planet** → **main** → **tables**.
 
 <div style="text-align: center; max-width: 1000px; margin: 0 auto;">
 <img src="images/planet_table.png" alt="Planet table content">

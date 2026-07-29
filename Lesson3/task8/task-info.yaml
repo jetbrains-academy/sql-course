@@ -3,3 +3,31 @@ custom_name: "IDE: Run SQL from the editor"
 files:
   - name: src/example.sql
     visible: true
+  - name: images/run_dark.svg
+    visible: false
+  - name: images/run.svg
+    visible: false
+  - name: images/exec_query.png
+    visible: false
+    is_binary: true
+  - name: images/exec_query_dark.png
+    visible: false
+    is_binary: true
+  - name: images/data_source_dark.png
+    visible: false
+    is_binary: true
+  - name: images/result_dark.png
+    visible: false
+    is_binary: true
+  - name: images/result.png
+    visible: false
+    is_binary: true
+  - name: images/data_source.png
+    visible: false
+    is_binary: true
+  - name: images/sqlite3_dark.png
+    visible: false
+    is_binary: true
+  - name: images/sqlite3.png
+    visible: false
+    is_binary: true
