@@ -22,5 +22,4 @@ def isTaskDir(File dir) {
     return new File(dir, "src").exists() && !new File(dir, 'gradlew').exists()
 }
 
-include 'util'
 include 'testutil'

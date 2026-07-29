@@ -1,11 +1,10 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '2.4.10'
 
     repositories {
         mavenCentral()
-        maven {
-            url "https://maven.pkg.jetbrains.space/public/p/compose/dev"
-        }
     }
 
     dependencies {
@@ -29,29 +28,26 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'kotlin'
 
-    sourceCompatibility = 11
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
 
     repositories {
         mavenCentral()
     }
 
     dependencies {
-        def coroutines_version = '1.6.4'
-        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-        implementation "com.h2database:h2:2.1.+"
+        // kotlin-stdlib is added automatically by the Kotlin Gradle plugin
         implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
-        implementation group: 'junit', name: 'junit', version: '4.12'
-        testImplementation "com.fasterxml.jackson.core:jackson-core:2.14.0"
-        testImplementation "com.fasterxml.jackson.core:jackson-databind:2.14.0"
-        testImplementation group: 'junit', name: 'junit', version: '4.12'
+        implementation 'junit:junit:4.13.2'
+        testImplementation 'junit:junit:4.13.2'
     }
 
-    compileKotlin {
-        kotlinOptions.jvmTarget = "11"
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "11"
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_21
+        }
     }
 
     sourceSets {
@@ -67,7 +63,11 @@ subprojects {
         }
     }
 
-    mainClassName = project.hasProperty("mainClass") ? project.getProperty("mainClass") : ""
+    application {
+        if (project.hasProperty("mainClass")) {
+            mainClass = project.getProperty("mainClass")
+        }
+    }
     test {
         outputs.upToDateWhen { false }
         afterTest { TestDescriptor test, TestResult result ->
@@ -91,22 +91,14 @@ subprojects {
     }
 }
 
-project(':util') {
-    dependencies {
-        implementation group: 'junit', name: 'junit', version: '4.12'
-    }
-}
-
 project(':testutil') {
     dependencies {
-        implementation group: 'junit', name: 'junit', version: '4.12'
+        implementation 'junit:junit:4.13.2'
     }
 }
 
-configure(subprojects.findAll { it.name != 'util' && it.name != 'testutil'}) {
+configure(subprojects.findAll { it.name != 'testutil' }) {
     dependencies {
-        implementation project(':util').sourceSets.main.output
-        testImplementation project(':util').sourceSets.test.output
         testImplementation project(':testutil')
     }
 }
