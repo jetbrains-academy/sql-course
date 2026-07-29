@@ -15,20 +15,20 @@ To work with the database, first create a **data source** — a saved connection
 <img src="images/data_sources.png" alt="Data Sources and Drivers window">
 </div>
 
-2. If you see a note that Driver is not downloaded, click the Download button and wait until it is downloaded:
+2. If you see a note that the driver is not downloaded, click the **Download** button and wait until it finishes:
 <div style="text-align: center; max-width: 600px; margin: 0 auto;">
 <img src="images/driver_download.png" alt="Driver not downloaded message">
 </div>
 
-3. Click "Test Connection" in the botton to check that everything is working:
+3. Click **Test Connection** at the bottom to check that everything is working:
 <div style="text-align: center; max-width: 400px; margin: 0 auto;">
 <img src="images/data_sources_connection_ok.png" alt="Test Connection results">
 </div>
 
-4. Finally, click "OK" to finish the setup.
+4. Finally, click **OK** to finish the setup.
 
-5. The data source now appears in the **Database** tool window on the right. In this lesson a database contains only one table: `Planet`.
-   You can find it expanding the **L3_planet** → **main** → **tables**.
+5. The data source now appears in the **Database** tool window on the right. In this lesson the database contains only one table, `Planet`.
+   You can find it by expanding **L3_planet** → **main** → **tables**.
 
 <div style="text-align: center; max-width: 1000px; margin: 0 auto;">
 <img src="images/planet_table.png" alt="Planet table content">

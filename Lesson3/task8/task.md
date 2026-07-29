@@ -1,14 +1,14 @@
-Every theory task starting with this lesson, we'll usually ship an `example.sql` file with ready-to-run queries. 
-You can run them against the database you connected in one click.
-Let's practice in it using `example.sql` with two simple queries.
+Starting with this lesson, most theory tasks ship an `example.sql` file with ready-to-run queries.
+You can run them against the database you connected to in one click.
+Let's practice with this task's `example.sql`, which has two simple queries.
 
-1. Select the request you want to run. When click the ![](images/run.svg) button or 
-  press &shortcut:Console.Jpa.Execute; to execute the selected query:
+1. Select the query you want to run, then click the ![](images/run.svg) button or
+   press &shortcut:Console.Jpa.Execute; to execute the selected query:
 <div style="text-align: center; max-width: 500px; margin: 0 auto;">
 <img src="images/exec_query.png" alt="Execute query">
 </div>
 
-2. Next, select a data sourse: in which database you want to execute this query (choose "Use Default Schema"):
+2. Next, choose the data source to run the query against (select **Use Default Schema**):
 <div style="text-align: center; max-width: 500px; margin: 0 auto;">
 <img src="images/data_source.png" alt="Data source selection">
 </div>   

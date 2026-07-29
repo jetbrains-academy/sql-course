@@ -1,6 +1,6 @@
 Now you know how to connect to the database and look at the data without writing a single line of SQL.
 
-The `Planet` table opened in the **data editor** presented as a spreadsheet grid where each 
+The `Planet` table opens in the **data editor**, shown as a spreadsheet grid where each
 row is a table row and each column is a table column.
 
 From the grid you can explore the data:
