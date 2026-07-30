@@ -19,6 +19,7 @@ content:
   - Lesson4
   - Lesson5
   - Lesson6
+  - Lesson7
 environment_settings:
   jvm_language_level: JDK_21
 additional_files:
