@@ -80,7 +80,7 @@ SELECT P.name
 -- This is clearly a chain of joins with join conditions
 FROM Planet P JOIN Flight F ON P.id=F.planet_id
 JOIN Spacecraft S ON S.id=F.spacecraft_id
-JOIN Shipyard Y ON S.shipyard_id=S.id
+JOIN Shipyard Y ON S.shipyard_id=Y.id
 JOIN Planet P2 ON P2.id=Y.planet_id
 -- This is clearly a search filter
 WHERE P2.climate = 'hot' AND S.capacity > 10

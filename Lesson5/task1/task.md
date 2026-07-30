@@ -153,7 +153,7 @@ SELECT id, name, MAX(radius) FROM Planet
 The reason sits in the SQL standard, which says that in the presence of aggregate functions in the `SELECT` clause, the result
 shall contain 1 row unless there are groups, which we will discuss later. 
 If the result is just a single row with the aggregate function values, the database engine can't add there any "bare" 
-non-aggregated column values because there is no rule to chose one out of N values in all table rows.
+non-aggregated column values because there is no rule to choose one out of N values in all table rows.
 
 However, there are valid use cases where an aggregate function is used along with bare column values. 
 For instance, if we want to output all planet rows with all their columns _and_ an additional column with the maximum 

@@ -9,7 +9,7 @@ When the grouping is done, we can additionally filter the rows, which are fed to
 SELECT P.id,                                                      --
        COUNT(*)                        AS total_flights,          --
        COUNT(*) FILTER (WHERE S.capacity>5)  AS big_capacity_flights,   --
-       COUNT(*) FILTER (WHERE S.capacity<=5) AS small_capacity_flights, --
+       COUNT(*) FILTER (WHERE S.capacity<=5) AS small_capacity_flights  --
 FROM Flight F JOIN Spacecraft S ON S.id=F.spacecraft_id           -- 1. FROM is executed first
               JOIN Planet P     ON P.id=F.planet_id
 WHERE P.climate='mild'                                            -- 2. Filtering 
@@ -52,7 +52,7 @@ effectively filters out the input row. Our query can be rewritten using case exp
 SELECT P.id, 
        COUNT(*)                                            AS total_flights, 
        COUNT(CASE WHEN S.capacity>5 THEN 1 ELSE NULL END)  AS big_capacity_flights,
-       COUNT(CASE WHEN S.capacity<=5 THEN 1 ELSE NULL END) AS small_capacity_flights,
+       COUNT(CASE WHEN S.capacity<=5 THEN 1 ELSE NULL END) AS small_capacity_flights
 FROM Flight F JOIN Spacecraft S ON S.id=F.spacecraft_id
               JOIN Planet P     ON P.id=F.planet_id
 WHERE P.climate='mild'

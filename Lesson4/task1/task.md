@@ -100,5 +100,5 @@ to the number of people living on the destination planet.
 
 ----
 
-Some inner join variations are not supported by crtain database engines; in particular, `NATURAL JOIN` and `JOIN...USING`
+Some inner join variations are not supported by certain database engines; in particular, `NATURAL JOIN` and `JOIN...USING`
 are not supported by Microsoft SQL Server. However, the `JOIN...ON` syntax is likely to be supported by any engine.

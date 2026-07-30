@@ -21,7 +21,7 @@ Second, will it be efficient? Will the engine execute the counting subquery just
 In the modern SQL, there is a good way to write a table expression just once and refer to it from different parts
 of a query. You may think of it as a function that returns a table and, probably, caches the result of calculations.
 
-#So, a common table expression, abbreviated as CTE, is essentially a subquery with an alias, which lexically 
+So, a common table expression, abbreviated as CTE, is essentially a subquery with an alias, which lexically 
 goes before the "main" query and can be referred to by the alias in the main query. 
 The syntax of defining a CTE is slightly more verbose than the subquery syntax: 
 

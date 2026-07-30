@@ -94,7 +94,7 @@ Let's say that we want to count how many times each spacecraft flew to each plan
 a pair of columns – `planet_id, spacecraft_id` – and count them:
 
 ```sql
--- This counts the flights to each planet
+-- This counts the flights for each planet-and-spacecraft pair
 SELECT planet_id, spacecraft_id, COUNT(id) FROM Flight
 GROUP BY planet_id, spacecraft_id
 ```
@@ -106,7 +106,7 @@ all rows in one group have the same value of the grouping expression. For instan
 groups of those with a radius greater than or equal to 5000 and the rest, and count them: 
 
 ```sql
--- This counts the flights to each planet
+-- This counts the planets in each radius group
 SELECT radius >= 5000, COUNT(*) FROM Planet
 GROUP BY radius >= 5000
 ```

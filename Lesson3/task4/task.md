@@ -37,9 +37,7 @@ WHERE EXISTS(SELECT climate FROM Planet WHERE is_inhabited)
 ```
 
 Let's suppose that there are 100 planet records in the table, only one of them is inhabited, and its climate is "mild". 
-How many rows will there be in the result of the whole query?
-
-[demo showing that there will be as many rows as there are planets]
+How many rows will there be in the result of the whole query? Right, 100!
 
 The fact of the matter is that during the query execution, the SQL engine evaluates the same `EXISTS` expression for each row. 
 It always returns `true`, and thus we select all the rows from the `Planet` table.
