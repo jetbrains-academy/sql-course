@@ -7,7 +7,9 @@ summary: "This is a short introduction into the fundamentals of SQL query langua
   \ values. It is designed for\nthe absolute newbies with no prior knowledge of SQL\
   \ but probably with some programming experience."
 vendor:
-  name: Konstantin Chaika
+  name: JetBrains s.r.o.
+  email: support@jetbrains.com
+  url: https://www.jetbrains.com/
 programming_language: SQL
 content:
   - Lesson0
@@ -18,7 +20,7 @@ content:
   - Lesson5
   - Lesson6
 environment_settings:
-  jvm_language_level: JDK_11
+  jvm_language_level: JDK_21
 additional_files:
   - name: LICENSE
   - name: testutil/src/Db.kt
