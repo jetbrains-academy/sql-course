@@ -1,5 +1,8 @@
 # SQL Introduction
 
+## IDE Feature flag
+At the moment, to work with this course, the following feature flag should be enabled: `edu.course.sql`.
+
 ## TODO lists
 ### Content
 - [x] Move `astrofleet.sqlite` in each lesson to the lesson-level; update all references to use same DB for all tasks
@@ -11,8 +14,8 @@
 - [x] Remove Prototype lesson
 - [x] Get rid of the appendix lesson
 - [x] Check are SQL requests make write to the lessons' .sqlite files → no, the entire curriculum is read-only.
-- [ ] Update gradle-everything in the Kotlin-onboarding way and add propper files to the repository and course files
-- [ ] Add intro lesson "how to use the course" -- same as Kotlin Onboarding 1 have
+- [x] Update gradle-everything in the Kotlin-onboarding way and add propper files to the repository and course files
+- [x] Add intro lesson "how to use the course" -- same as Kotlin Onboarding 1 have
 - [ ] Test the course by someone available
 - [ ] Plugin team -> enable sql course feature flag in prod
 

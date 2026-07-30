@@ -1,0 +1,10 @@
+type: theory
+files:
+  - name: src/Main.kt
+    visible: true
+  - name: images/edu_course_view.png
+    visible: false
+    is_binary: true
+  - name: images/edu_course_view_dark.png
+    visible: false
+    is_binary: true
