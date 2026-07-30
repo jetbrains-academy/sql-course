@@ -15,7 +15,7 @@ SELECT F.spacecraft_id
     FROM Flight F JOIN Planet P ON P.id = F.planet_id 
     JOIN (
         --------------------------------------------------------------------------
-        -- This subquery returns the flight date, flight number, and flight destination
+        -- This subquery returns the spacecraft, flight date, flight number, and flight destination
         -- for flights to inhabited planets.
         SELECT spacecraft_id, flight_date, num, planet_id 
         FROM Flight F2 
@@ -62,7 +62,7 @@ It is easy to count flights by spacecraft and year:
 
 
 ```sql
-SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
+SELECT spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
 FROM Flight
 GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)
 ```
@@ -72,7 +72,7 @@ And having counted the flights for each spacecraft and year, we can find the max
 ```sql
 SELECT MAX(flight_count) AS max_flight_count
 FROM (
-    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
+    SELECT spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
     GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)
 ) AS T 
@@ -94,12 +94,12 @@ Now, if we replace `T` with a query that counts the flights, we'll solve the pro
 ```sql
 SELECT * 
 FROM (
-    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
+    SELECT spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
     GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)
 ) AS T
 WHERE flight_count = (SELECT MAX(flight_count) FROM (
-    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
+    SELECT spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
     GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)    
 )) AND flight_year = 2121

@@ -1,5 +1,5 @@
 type: theory
-custom_name: "T1: aggregate functions and scalar subqueries"
+custom_name: "T1: Aggregate functions and scalar subqueries"
 files:
   - name: src/example.sql
     visible: true

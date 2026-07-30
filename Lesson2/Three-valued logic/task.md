@@ -1,12 +1,12 @@
 Boolean logic in general-purpose programming languages is usually two-valued, that is, there are two boolean values: `true` and `false`. In SQL boolean logic is three-valued. In addition to `true` and `false` there is **`NULL`**, which stands for "unknown".
 
-Except for some cases, the result of using `NULL` in any comparison or logical operator is also `NULL`. For instance, we don't know if `NULL` equals to anything, including `NULL` itself:
+Except for some cases, the result of using `NULL` in any comparison or logical operator is also `NULL`. For instance, we don't know if `NULL` equals anything, including `NULL` itself:
 
 ```sql
 -- We don't know if NULL is equal to 0 or not, so the result of this query is NULL:
 SELECT NULL = 0;
 
--- We don't know if NULL equals to empty string, true or false, and even to NULL
+-- We don't know if NULL equals empty string, true or false, and even NULL
 -- itself. The result of all these expressions is NULL:
 SELECT NULL = '', NULL = true, NULL = NULL;
 ```

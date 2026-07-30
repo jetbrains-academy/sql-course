@@ -1,5 +1,5 @@
 type: edu
-custom_name: "Ex: aggregate functions and rows grouping"
+custom_name: "Ex: Aggregate functions and rows grouping"
 files:
   - name: src/task.sql
     visible: true

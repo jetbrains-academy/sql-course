@@ -3,12 +3,12 @@ Remember the query we wrote to find an arg max – a spacecraft that had the gre
 ```sql
 SELECT * 
 FROM (
-    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
+    SELECT spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
     GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)
 ) AS T
 WHERE flight_count = (SELECT MAX(flight_count) FROM (
-    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
+    SELECT spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
     GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)    
 )) AND flight_year = 2121
@@ -28,7 +28,7 @@ The syntax of defining a CTE is slightly more verbose than the subquery syntax:
 ```sql
 -- Here goes a CTE, which can be referred to as T in subsequent queries
 WITH T AS (
-    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
+    SELECT spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
     GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)    
 )
@@ -52,7 +52,7 @@ data by sequentially contracting set of fields:
 ```sql
 -- This CTE counts flights grouping by the spacecraft and year.
 WITH T AS (
-    SELECT F.spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
+    SELECT spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER) AS flight_year, COUNT(*) AS flight_count
     FROM Flight
     GROUP BY spacecraft_id, CAST(strftime('%Y', flight_date) AS INTEGER)    
 ),
@@ -62,7 +62,7 @@ S AS (
 ),
 -- This CTE calculates the grand total value of flights.
 R AS (SELECT SUM(total_flight_count) AS grand_total FROM S)
--- Here starts the main query. It joins the outputs of the two CTEs so that in the result, in every row we
+-- Here starts the main query. It joins the outputs of the three CTEs so that in the result, in every row we
 -- get a spacecraft id, year, the count of flights of the spacecraft in that year and the total count of flights
 -- made by the spacecraft.
 SELECT * FROM T JOIN S USING(spacecraft_id) CROSS JOIN R

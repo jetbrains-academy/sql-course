@@ -118,5 +118,5 @@ ACTUAL:
 | 4  | <null> |
 
 QUERY: 
-SELECT id, name from Planet where is_inhabited=FALSE;
+SELECT id, name FROM Planet WHERE is_inhabited = false;
 ```

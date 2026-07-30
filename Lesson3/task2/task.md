@@ -56,7 +56,7 @@ Suppose the table looks as follows (remember that SQLite prints boolean values a
 | Cobar | 9  |              |
 
 
-What if one of Astrofleet clients is looking for a place to spend their summer vacation off the beaten paths and
+What if one of Astrofleet's clients is looking for a place to spend their summer vacation off the beaten paths and
 wants to exclude from the search those planets which are certainly inhabited?
 Will the following query return exhaustive results?
 
