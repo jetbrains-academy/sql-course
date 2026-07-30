@@ -50,6 +50,7 @@ Please be sure to review the [project's contributing guidelines](https://github.
 - [x] Update gradle-everything in the Kotlin-onboarding way and add propper files to the repository and course files
 - [x] Add intro lesson "how to use the course" -- same as Kotlin Onboarding 1 have
 - [ ] Test the course by someone available
+- [ ] Add a link to the EDU licenses page
 - [ ] Plugin team -> enable sql course feature flag in prod
 
 ### Publication
