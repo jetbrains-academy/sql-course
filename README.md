@@ -7,11 +7,34 @@
 <a href="https://plugins.jetbrains.com/plugin/TODO/versions" target="_blank">
 <img src="https://img.shields.io/badge/dynamic/yaml?query=%24.course_version&url=https://raw.githubusercontent.com/jetbrains-academy/sql-course/refs/heads/master/course-remote-info.yaml&logo=jetbrains&logoColor=FC801D&label=Marketplace&color=6b59fe&style=flat&prefix=v" alt="Marketplace"></a>
 
+> [!WARNING]
+> At the moment, to work with this course, the following feature flag should be enabled: `edu.course.sql`
 
 # SQL Introduction
+**SQL** (Structured Query Language) is how you talk to databases —
+you ask a question, and the database gives you back the data that answers it. It's one
+of the most widely used skills in software and data analysis, and it's wonderfully
+approachable: you can write a genuinely useful query on your very first day.
 
-## IDE Feature flag
-At the moment, to work with this course, the following feature flag should be enabled: `edu.course.sql`.
+This course is a hands-on introduction to the fundamentals of SQL. Across the lessons
+you'll learn how to:
+
+- read data with `SELECT` and narrow it down with `WHERE`;
+- work with numbers, text, and boolean expressions;
+- combine data from several tables using **joins**;
+- summarize data with grouping and **aggregate** functions;
+- and build more powerful queries with **subqueries** and **CTEs** (Common Table Expressions).
+
+It's designed for complete beginners — no prior SQL knowledge is assumed. A little
+programming experience is helpful but not required.
+
+## Want to know more?
+If you have questions about the course or the tasks, or if you find any errors, 
+feel free to ask questions and participate in discussions within the repository 
+[issues](https://github.com/jetbrains-academy/sql-course/issues).
+
+## Contribution
+Please be sure to review the [project's contributing guidelines](https://github.com/jetbrains-academy/.github/blob/main/contributing_guidelines.md) to learn how to help the project.
 
 ## TODO lists
 ### Content
@@ -33,38 +56,51 @@ At the moment, to work with this course, the following feature flag should be en
 - [ ] Finalize course name and description
 - [ ] Update Readme to match style
 
-## Architecture
+## Course technical details
 ### Notes
-- Sqlite don't have boolean `TRUE`/`FALSE` -- only `1`/`0` instead
+- Sqlite doesn't have boolean `TRUE`/`FALSE` -- only `1`/`0` instead
 
-### User-DB interaction
-#### JB in-IDE solutions
-[Native way](https://www.jetbrains.com/pages/intellij-idea-databases/).
-Not available in Community Edition.
+### Database Tools and SQL
+For a seamless experience, we recommend using the feature built into the IDE [Database Tools and SQL](https://www.jetbrains.com/pages/intellij-idea-databases/).
+This [feature](https://www.jetbrains.com/help/idea/relational-databases.html) is only available in Ultimate subscription. 
 
-#### SQLite CLI
-- `sqlite3 prototype.sqlite < init.sql`
-- `sqlite3 prototype.sqlite < init_data.sql`
-- `sqlite3 prototype.sqlite < src/task.sql`
+### SQLite CLI
+All steps, including manual database initialization (_not required for the learner anymore_), can be performed using the CLI like:
+- `sqlite3 test.sqlite < init.sql`
+- `sqlite3 test.sqlite < init_data.sql`
+- `sqlite3 test.sqlite < src/task.sql`
 
-#### Other GUI app
-Problems wit directories, multiplatforms
+### Other GUI apps
+If the learner is willing to use another application and navigate to the SQLite files within the course, 
+the following non-commercial GUI solutions can be used (the list is not exhaustive):
+- [DataGrip](https://www.jetbrains.com/datagrip)
+- [DB Browser for SQLite (DB4S)](https://sqlitebrowser.org/)
 
-### Tasks scheme
+### Tasks architecture
+- Learner is provided with a shared sample database for the lesson (`LX_astrofleet.sqlite`).
+- Within the lesson all `example.sql` or `task.sql` can be executed on this database.
+- On Check, `Tests.kt` builds a fresh `test.sqlite` from `init.sql` + `init_data.sql` (in task folder -> isolated from the shared DB).
+- It runs each query from `task.sql` and compares the rows against the expected result.
+- On a mismatch it shows the Full Feedback available on the **Show Full Feedback…** link.
+- `test.sqlite` is visible for learner – no need to hide it, actually.
+
 ```text
-./
-├── init.sql          // (re)create tables
-├── init_data.sql     // (re)fill tables with data
-├── prototype.sqlite  // DB 
-├── src
-│   └── task.sql      // User solving task here
-└── test
-    └── Tests.kt
+LessonX/                       
+├── LX_astrofleet.sqlite    // shared sample DB for the lesson  ; visible
+└── taskX/                     
+    ├── init.sql            // (re)creates tables               ; hidden
+    ├── init_data.sql       // (re)fills tables with data       ; hidden
+    ├── test.sqlite         // DB created by tests              ; visible
+    ├── src
+    │   ├── example.sql     // (theory)                         ; visible
+    │   └── task.sql        // (practice) user solves task here ; visible
+    └── test
+        └── Tests.kt                                            ; hidden
 ```
 
 <img src="images/tasks_architecture.png" alt="Anatomy of an edu task in the new checker architecture"/>
 
-### Full Feedback
+### Full feedback example
 ```text
 org.junit.ComparisonFailure: The query returned an incorrect number of rows 
 
