@@ -1,4 +1,4 @@
-In this exercise you practise **subqueries in the `FROM` clause** on the Astrofleet tables:
+In this exercise you practice **subqueries in the `FROM` clause** on the Astrofleet tables:
 
 * `Planet(id, name, is_inhabited, climate, has_weapons, radius)`
 * `Flight(id, num, planet_id, flight_date, spacecraft_id, people_count, cargo)`

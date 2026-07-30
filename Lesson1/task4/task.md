@@ -1,9 +1,9 @@
-Let's continue with the [airport.csv](course://Lesson1/airports.csv) file in this lesson.
+Let's continue with the [airports.csv](course://Lesson1/airports.csv) file in this lesson.
 
 Use a spreadsheet or command-line tools, or [data view](https://www.jetbrains.com/help/idea/editing-csv-and-tsv-files.html), which is built into %IDE_NAME%, to find the busiest European airport, that is, the one with the greatest number of movements across all airports located in Europe.
 
 <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-<img src="images/csv_as_table.gif" alt="SCV as a Table in IDE">
+<img src="images/csv_as_table.gif" alt="CSV as a Table in IDE">
 </div>
 
 ### Task

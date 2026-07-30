@@ -12,7 +12,7 @@ don't know them at the moment of writing the query? For instance, what if we wan
 planets where the climate matches one of the climate values for the inhabited planets? Let's refer to this task as The Problem 
 hereinafter in this step.
 
-The most simple way of solving The Problem is to build a list for the `IN` operator using a _subquery_. It will look like this:
+The simplest way of solving The Problem is to build a list for the `IN` operator using a _subquery_. It will look like this:
 
 ```sql
 SELECT * FROM Planet

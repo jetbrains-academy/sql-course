@@ -1,4 +1,4 @@
-In this exercise you practise the `INNER JOIN` operator on the `Planet`, `Flight`, and `Spacecraft` tables:
+In this exercise you practice the `INNER JOIN` operator on the `Planet`, `Flight`, and `Spacecraft` tables:
 
 * `Planet(id, name, is_inhabited, climate, has_weapons, radius)`
 * `Flight(num, planet_id, flight_date, spacecraft_id, people_count)` — `planet_id` links a flight to its

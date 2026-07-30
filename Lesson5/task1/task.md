@@ -82,7 +82,7 @@ However, sometimes we may want to remove duplicates and calculate distinct value
 
 Imagine that we want to count all planets visited by a spacecraft "Pegasus" and calculate their average radius. 
 Here a "visited planet" means "there was at least one flight to that planet". 
-Those queries below looks nice, right?
+Those queries below look nice, right?
 
 ```sql
 -- "Count" the planets visited by Pegasus

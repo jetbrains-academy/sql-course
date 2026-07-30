@@ -58,7 +58,7 @@ Please be sure to review the [project's contributing guidelines](https://github.
 
 ## Course technical details
 ### Notes
-- Sqlite doesn't have boolean `TRUE`/`FALSE` -- only `1`/`0` instead
+- SQLite doesn't have boolean `TRUE`/`FALSE` -- only `1`/`0` instead
 
 ### Database Tools and SQL
 For a seamless experience, we recommend using the feature built into the IDE [Database Tools and SQL](https://www.jetbrains.com/pages/intellij-idea-databases/).

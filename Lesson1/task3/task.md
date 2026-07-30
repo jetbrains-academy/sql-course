@@ -1,4 +1,4 @@
-Look into the [airport.csv](course://Lesson1/airports.csv) file that you can find in this lesson.
+Look into the [airports.csv](course://Lesson1/airports.csv) file that you can find in this lesson.
 
 <div style="text-align: center; max-width: 300px; margin: 0 auto;">
 <img src="images/airports_file.png" alt="airport.csv file location">

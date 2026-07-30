@@ -1,4 +1,4 @@
-In this exercise you practise **outer joins** on the `Planet` and `Flight` tables:
+In this exercise you practice **outer joins** on the `Planet` and `Flight` tables:
 
 * `Planet(id, name, is_inhabited, climate, has_weapons, radius)`
 * `Flight(num, planet_id, flight_date, spacecraft_id, people_count)` — `planet_id` links a flight to its

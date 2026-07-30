@@ -37,14 +37,14 @@ implemented in the major SQL engines.
 What if we want to find the dates of flights to the uninhabited planets? We can write such a query using joins and filters:
 
 ```sql
-SELECT flight_date FROM Flight F JOIN Planet P ON F.planet_id=P.id WHERE Planet.is_inhabited = FALSE
+SELECT flight_date FROM Flight F JOIN Planet P ON F.planet_id=P.id WHERE P.is_inhabited = false
 ```
 
 However, if we recall subqueries in the `WHERE` clause and the `IN` operator, we can rewrite this query as follows:
 
 ```sql
 SELECT flight_date FROM Flight
-WHERE planet_id IN (SELECT id FROM Planet WHERE is_inhabited = FALSE)
+WHERE planet_id IN (SELECT id FROM Planet WHERE is_inhabited = false)
 ```
 
 The subquery returns a list of identifiers of the uninhabited planets, and the outer query tests for each row from `Flight` 

@@ -41,7 +41,7 @@ The groups do not intersect with each other, that is, they partition the output 
 
 The subsequent evaluation of the `SELECT` clause will output exactly one row per group. For each group, we can select the value
 of the grouping column and the values of aggregate functions, which now build their input 
-from the rows constituting the group. We can't select anything else. Let's look at some valid and not valid queries:
+from the rows constituting the group. We can't select anything else. Let's look at some valid and invalid queries:
 
 ```sql
 -- This query is OK. The select list is a single aggregate function.

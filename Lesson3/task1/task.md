@@ -1,4 +1,4 @@
-The most simple SQL query which selects data from a table looks as follows:
+The simplest SQL query which selects data from a table looks as follows:
 
 ```sql
 SELECT * FROM Planet

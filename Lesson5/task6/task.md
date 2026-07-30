@@ -23,7 +23,7 @@ by the `FILTER` keyword and the filtering expression.
 
 The filtering expression may use what is allowed in the `WHERE` clause, with some restrictions.
 
-Unfortunately, although `FILTER` has been in the SQL standard since 2003, it is an optional features and is barely supported by  
+Unfortunately, although `FILTER` has been in the SQL standard since 2003, it is an optional feature and is barely supported by  
 database engines. 
 Basically, among the most popular databases, only PostgreSQL and SQLite support it out of the box. 
 However, `FILTER` is easy to emulate using case expressions, which are supported by nearly every database engine. 

@@ -1,5 +1,5 @@
 type: edu
-custom_name: "Ex: subqueries in WHERE"
+custom_name: "Ex: Subqueries in WHERE"
 files:
   - name: src/task.sql
     visible: true

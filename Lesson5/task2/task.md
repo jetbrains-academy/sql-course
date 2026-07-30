@@ -1,4 +1,4 @@
-In this exercise you practise aggregate functions (`COUNT`, `AVG`, …), `DISTINCT`, and scalar subqueries on
+In this exercise you practice aggregate functions (`COUNT`, `AVG`, …), `DISTINCT`, and scalar subqueries on
 the Astrofleet tables:
 
 * `Planet(id, name, is_inhabited, climate, has_weapons, radius)`

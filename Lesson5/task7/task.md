@@ -1,4 +1,4 @@
-In this exercise you practise group filters — `HAVING` (filtering whole groups) and selective aggregates
+In this exercise you practice group filters — `HAVING` (filtering whole groups) and selective aggregates
 with `FILTER (WHERE …)` — on the Astrofleet tables:
 
 * `Planet(id, name, is_inhabited, climate, has_weapons, radius)`
