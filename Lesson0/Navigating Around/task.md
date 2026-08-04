@@ -4,9 +4,9 @@ This lesson will help you take your first steps with the [JetBrains Academy plug
 
 With the JetBrains Academy plugin, you can learn programming languages and tools by completing coding tasks and receiving instant feedback right inside your IDE.
 
-Enough talking – let's get started!
-
 If you're already familiar with the interface, feel free to skip this lesson.
+
+Enough talking – let's get started!
 
 ### Working with courses
 Every course available in the JetBrains Academy plugin is structured as a list of lessons. Lessons, in turn, can be grouped into sections, and each lesson contains several tasks.
@@ -22,4 +22,4 @@ img {
 </style>
 <img src="edu_plugin_overview.png" class="center" width=1000>
 
-Click the "Next" button to navigate to the next task.
+Click "Next" to move to the next task.
