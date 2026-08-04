@@ -1,5 +1,4 @@
-In this lesson, we will show you a few different ways of searching and processing
-data to give you an idea of how SQL can help us with search tasks. 
+In this lesson, we'll walk through a few different ways to query and process
+data so you can see how SQL solves real-world search problems. 
 
-If you already know what the primary purpose of SQL is, how and where it can be used, and just can't wait to
-get your hands dirty with some SQL dust, feel free to skip this lesson.
+If you're already familiar with what SQL is used for and can't wait to get your hands dirty writing queries, feel free to skip this lesson.
