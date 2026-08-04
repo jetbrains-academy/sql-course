@@ -18,7 +18,21 @@ Let's practice with this task's `example.sql`, which has two simple queries.
 <div style="text-align: center; max-width: 1000px; margin: 0 auto;">
 <img src="images/result.png" alt="Query results">
 </div>  
+<br>
 
+### Note
+ 
+> In this task or one of the following tasks, you may see this warning when you open an `.sql` file:
+> <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+> <img src="images/sql_dialect_warning.png" alt="SQL dialect warning">
+> </div>
+
+> Click **Change dialect to…**, select **Project SQL Dialect: SQLite** in the window that appears, and click OK.
+> <div style="text-align: center; max-width: 500px; margin: 0 auto;">
+> <img src="images/dialect_selection.png" alt="SQL dialect selection">
+> </div>
+
+---
 
 **No Database tools?** Run the same queries from the command line: `sqlite3 Lesson3/L3_planet.sqlite`, then paste a
 query and press Enter:

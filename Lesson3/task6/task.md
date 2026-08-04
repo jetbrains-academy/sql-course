@@ -3,7 +3,7 @@ You can open it right inside %IDE_NAME% with the built-in [**Database** tools](h
 the example queries — no external program needed.
 
 > **Prerequisite.** The Database tools are bundled in **IntelliJ IDEA Ultimate**. 
-> In **IntelliJ IDEA Community** they are not available. If you don't have them,
+> In **IntelliJ IDEA** they are not available. If you don't have them,
 > you can use the `sqlite3` [command-line client](https://www.sqlite.org/cli.html) instead.
 
 
@@ -16,7 +16,7 @@ To work with the database, first create a **data source** — a saved connection
 </div>
 
 2. If you see a note that the driver is not downloaded, click the **Download** button and wait until it finishes:
-<div style="text-align: center; max-width: 600px; margin: 0 auto;">
+<div style="text-align: center; max-width: 700px; margin: 0 auto;">
 <img src="images/driver_download.png" alt="Driver not downloaded message">
 </div>
 
