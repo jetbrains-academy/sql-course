@@ -1,5 +1,5 @@
-String literals in SQL use single quotes, the `||` operator concatenates
-strings, and `UPPER` converts a string to upper case.
+String literals in SQL are enclosed in single quotes. The `||` operator concatenates
+strings, and `UPPER` converts a string to uppercase.
 
 ### Task
 In `task.sql`, fill in the blanks (`???`) so that the query
