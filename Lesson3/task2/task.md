@@ -1,21 +1,21 @@
-Queries which select everything from a table are useful, but more often we need to filter out most
-of the data and leave only those rows which meet certain criteria. In SQL, we can do that with the
+Queries that select everything from a table are useful, but more often we need to filter out most
+of the data and leave only the rows that meet specific criteria. In SQL, we achieve this using the
 help of the `WHERE` clause.
 
-Let's look at this simple example:
+Let's look at a simple example:
 
 ```sql
--- Unless your query is very simple, it makes sense to format it with linebreaks and indents.
--- By the way, line comments in SQL start with a double hyphen.
+-- Unless your query is very simple, it makes sense to format it with line breaks and indents.
+-- Line comments in SQL start with a double hyphen.
 SELECT id, name
 FROM Planet
 WHERE id = 1
 ```
 
-The above query scans over the `Planet` table and finds the rows where the value of the `id` column
-is 1. The `WHERE` clause consists of a logical expression, which returns a boolean value.
-The expressions may be very complex and may use many sophisticated SQL constructs, but very often
-it is just a combination of mathematical and logical operators, which work with the column values.
+The above query scans the `Planet` table and finds the rows where the value of the `id` column
+is 1. The `WHERE` clause consists of a logical expression that returns a boolean value.
+These expressions can be highly complex, using many sophisticated SQL constructs, but they are most often
+a combination of mathematical and logical operators applied to column values.
 
 <img src="SQL 101 - Task 3.2 - data filtering.drawio.png" width="827" alt="How the WHERE clause filters rows"/>
 
@@ -27,26 +27,26 @@ FROM Planet
 WHERE id = 1 OR id = 2 OR name = 'Pyros'
 ```
 
-The expression above evaluates to `true` if the value of the attribute `id` is 1, or if the value of `id` is 2,
+The expression above evaluates to `true` if the value of the `id` attribute is 1, if the value of `id` is 2,
 or if the value of the `name` attribute is `'Pyros'`.
 
 ----
 
-Logically, the database engine executes the query as follows:
+Logically, the database engine executes the query in three steps:
 
 1. It scans through all the rows of the table specified in the `FROM` clause.
-2. For every row, it evaluates the `WHERE` expression, inserting the attribute values from the current row into the
+2. For each row, it evaluates the `WHERE` expression, inserting attribute values from the current row into the
    expression as necessary.
-3. If the expression evaluates to `true`, the whole current row goes to the `SELECT` clause, which may
-   process it further, as we saw in the previous lesson.
+3. If the expression evaluates to `true`, the whole current row is passed to the `SELECT` clause for
+   further processing, as we saw in the previous lesson.
 
-What are the possible results of evaluation of the `WHERE` expression, except for `true`?
-It may evaluate to `false`, which obviously means that the row will be excluded from the output.
-However, it may as well return `unknown`, or `NULL`, and in this case, the row is also excluded from the output.
+What happens if the `WHERE` expression evaluates to something other than `true`?
+If it evaluates to `false`, the row is obviously excluded from the output.
+However, if it evaluates to `NULL` (unknown), the row is also excluded.
 
-Let's assume that besides `id` and `name`, there is a boolean column `is_inhabited` in the table `Planet`
-and its value is `NULL` if we don't know for sure whether the planet is inhabited.
-Suppose the table looks as follows (remember that SQLite prints boolean values as `1` and `0`, and `NULL` as an empty cell):
+Suppose our `Planet` table includes a boolean column `is_inhabited` alongside `id` and `name`, where  
+a value of `NULL` indicates that we don't know for sure whether a planet is inhabited.
+Remember that SQLite displays `true` as `1`, `false` as  `0`, and `NULL` as an empty cell:
 
 | name  | id | is_inhabited |
 |-------|----|--------------|
@@ -56,16 +56,16 @@ Suppose the table looks as follows (remember that SQLite prints boolean values a
 | Cobar | 9  |              |
 
 
-What if one of Astrofleet's clients is looking for a place to spend their summer vacation off the beaten paths and
-wants to exclude from the search those planets which are certainly inhabited?
-Will the following query return exhaustive results?
+Now suppose an Astrofleet client wants to find a vacation destination off the beaten path and
+wants to exclude the planets that are known to be inhabited?
+Will the following query give them all available options?
 
 ```sql
 SELECT name FROM Planet WHERE NOT is_inhabited
 ```
 
-Not exactly. It will return only those planets which are certainly not inhabited (in the table above, just _Pyros_);
-however, _Cobar_, which is neither known to be inhabited nor known to be uninhabited, will be missing because
-negated `NULL` remains `NULL` and the result of the `WHERE` expression is unknown. There are other, more subtle
-cases where the result set, which would have been non-empty otherwise, may become empty in the presence of
-unexpected `NULL` values processed by the `WHERE` clause. We will look at such queries in one of the following steps.
+Not quite. This query will return only planets that are definitely not inhabited (in this table, only _Pyros_).
+_Cobar_ (neither known to be inhabited nor uninhabited) will be left out because 
+negating `NULL` remains `NULL`, making the `WHERE` expression evaluate to unknown. 
+There are other, more subtle cases where unexpected `NULL` values processed by the `WHERE` clause can silently eliminate rows from your result set.
+We will take a look at those query scenarios in an upcoming step.
