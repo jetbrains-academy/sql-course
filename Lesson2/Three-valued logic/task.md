@@ -1,19 +1,19 @@
-Boolean logic in general-purpose programming languages is usually two-valued, that is, there are two boolean values: `true` and `false`. In SQL boolean logic is three-valued. In addition to `true` and `false` there is **`NULL`**, which stands for "unknown".
+Boolean logic in general-purpose programming languages is usually two-valued, that is, expressions evaluate to either `true` or `false`. In SQL, however, boolean logic is three-valued. In addition to `true` and `false`, SQL includes **`NULL`**, which stands for an "unknown" value.
 
-Except for some cases, the result of using `NULL` in any comparison or logical operator is also `NULL`. For instance, we don't know if `NULL` equals anything, including `NULL` itself:
+Except in a few specific cases, using `NULL` in any comparison or logical operator results in `NULL`. For instance, we don't know if `NULL` is equal to anything, including `NULL` itself:
 
 ```sql
--- We don't know if NULL is equal to 0 or not, so the result of this query is NULL:
+-- We don't know if NULL is equal to 0, so the result of this query is NULL:
 SELECT NULL = 0;
 
--- We don't know if NULL equals empty string, true or false, and even NULL
+-- We don't know if NULL equals an empty string, true, false, or even NULL
 -- itself. The result of all these expressions is NULL:
 SELECT NULL = '', NULL = true, NULL = NULL;
 ```
 
-The truth tables of the logical operators look as follows.
+The truth tables for the logical operators look as follows.
 
-If one of the logical `AND` operands is `NULL`, the result is `NULL` unless another operand is `false`.
+If one operand of an `AND` expression is `NULL`, the result is `NULL` unless the other operand is `false`.
 
 
  **`AND`**   | `false`  | `true`   | `NULL`
@@ -22,7 +22,7 @@ If one of the logical `AND` operands is `NULL`, the result is `NULL` unless anot
  **`true`**  | `false`  | `true`   | `NULL`
  **`NULL`**  | `false`  | `NULL`   | `NULL`
 
-If one of the logical `OR` operands is `NULL`, the result is `NULL` unless another operand is `true`.
+If one operand of an `OR` expression is `NULL`, the result is `NULL` unless the other operand is `true`.
 
  **`OR`**    | `false` | `true` | `NULL`
 -------|-------|------|------
@@ -30,11 +30,11 @@ If one of the logical `OR` operands is `NULL`, the result is `NULL` unless anoth
  **`true`**  | `true`  | `true` | `true`
  **`NULL`**  | `NULL`  | `true` | `NULL`
 
-The only way to check if some value is NULL is using the operators `IS` and `IS NOT`:
+The only way to check whether a value is NULL is using the `IS` and `IS NOT` operators:
 
 ```sql
 -- The first expression returns true, the second returns false.
 SELECT NULL IS NULL, NULL IS NOT NULL;
 ```
 
-`NULL` value is rarely used in expressions as a literal, however, it may appear when we select data rows containing nulls from a table, as we'll see later.
+The literal `NULL` is rarely written in expressions, but it frequently appears when selecting rows containing nulls, as we'll see later.
