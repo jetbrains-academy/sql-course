@@ -1,7 +1,7 @@
-Usually, there is more than one table in a relational database, just like there is more than one data sheet
-in a complex spreadsheet. There are good reasons why we need many tables. Leaving aside complicated theory,
-it is not recommended to mix records of different types, so we keep the records about planets and flights in
-different tables. Here is the data we will work with in this lesson (SQLite prints boolean values as `1` and `0`):
+Relational database usually contain multiple tables, much like 
+a complex spreadsheet containing multiple sheets. There are good reasons why we need many tables. Leaving aside complicated theory,
+a simple rule of thumb is to avoid mixing records of different types in a single table. Therefore, we keep records about planets and records about flights in
+separate tables. Here is the dataset we will work with in this lesson (remember that SQLite represents boolean values as `1` and `0`):
 
 **Planet**
 
@@ -31,14 +31,14 @@ different tables. Here is the data we will work with in this lesson (SQLite prin
 | AF305 | 42        | 2122-06-01  | 3             | 7            |
 | AF088 | 3         | 2122-06-15  | 2             | 1            |
 
-We use the `planet_id` column to link a flight row with a planet row. If we kept everything in one table, we
-would have to clone a planet's data in each flight to that planet, and that could be error-prone and just annoying.
+We use the `planet_id` column in `Flight` to link a flight row with its corresponding planet row in `Planet`. If we kept everything in one table, we
+would have to clone a planet's details for each flight heading there, which is repetitive and error-prone.
 
-Splitting flights and planets makes our data more healthy, but now when searching, we need to find for each
-row from one table all rows from another table that meet certain criteria and then combine the matching pairs of
-rows. For instance, we may want to find for each planet row all matching flight rows such that
-`Planet.id = Flight.planet_id` and combine the attributes of each matching pair of planet and flight values.
-This way, for each planet, we will find all flights destined to it. The expected result will look as follows:
+Splitting flights and planets keeps our database clean. However, when searching, we often need to match
+rows across tables based on common criteria and combine their 
+attributes. For instance, we may want to match each planet row with all corresponding flight rows where
+`Planet.id = Flight.planet_id`. Combining attributes from matching pairs gives us
+all flights destined for each planet. The expected result will look as follows:
 
 | P.name | P.id | P.is_inhabited | F.num | F.planet_id | F.flight_date |
 |--------|------|----------------|-------|-------------|---------------|
@@ -49,10 +49,10 @@ This way, for each planet, we will find all flights destined to it. The expected
 | Answer | 42   | 1              | AF305 | 42          | 2122-06-01    |
 | Pyros  | 3    | 0              | AF088 | 3           | 2122-06-15    |
 
-We added table aliases `P` and `F` in the column names to distinguish between the columns from the `Planet` and
-`Flight` tables correspondingly. We have six rows in the result because for each flight we have one and only one
-planet which is the flight destination. Notice that the planets with no flights (Glacia, Dunar, Solmar, and
-others) are missing from the result.
+Here, we used table aliases `P` (`Planet`) and `F` (`Flight`) in the column names to distinguish between columns from each
+table. The result contains six rows because each flight has exactly one 
+destination planet. Notice that the planets with no flights (Glacia, Dunar, Solmar, 
+etc.) do not appear in this result.
 
-Such tasks are very common when querying relational data, and there is a family of `JOIN` operations in SQL,
-which are designed for that.
+Such tasks are very common when querying relational data, and SQL provides a family of `JOIN` operations 
+specifically designed for this purpose.
