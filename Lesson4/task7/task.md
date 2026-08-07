@@ -1,5 +1,5 @@
-We can join the result of joining two tables with a third table, and continue joining as needed.
-Our database has a `Spacecraft` table:
+We can join the result of joining two tables with a third table, and continue chaining additional tables as needed.
+Our database contains a `Spacecraft` table:
 
 **Spacecraft**
 
@@ -9,9 +9,9 @@ Our database has a `Spacecraft` table:
 | 2  | Falcon 25 | 3        |
 | 3  | Falcon 28 | 7        |
 
-The `Flight` table has a `spacecraft_id` column that keeps the identifier of the spacecraft which performed the flight.
+The `Flight` table includes a `spacecraft_id` column that flight each flight to the spacecraft that performed it.
 
-Let's look at the result of joining planets and flights:
+Recall the result of joining planets and flights:
 
 ```sql
 SELECT *
@@ -27,7 +27,7 @@ FROM Planet P JOIN Flight F ON P.id = F.planet_id
 | Answer | 42   | 1              | AF305 | 42          | 2122-06-01    | 3               |
 | Pyros  | 3    | 0              | AF088 | 3           | 2122-06-15    | 2               |
 
-It is essentially a table with columns and rows, and we can join it with the `Spacecraft` table:
+It is essentially a table with columns and rows, and we can join it directly with the `Spacecraft` table:
 
 ```sql
 SELECT *
@@ -35,7 +35,7 @@ FROM Planet P JOIN Flight F     ON P.id = F.planet_id
               JOIN Spacecraft S ON F.spacecraft_id = S.id
 ```
 
-(showing only some columns for readability)
+(Selected columns shown for readability)
 
 | P.name | P.id | F.num | F.spacecraft_id | S.name    | S.capacity |
 |--------|------|-------|-----------------|-----------|------------|
@@ -46,13 +46,13 @@ FROM Planet P JOIN Flight F     ON P.id = F.planet_id
 | Answer | 42   | AF305 | 3               | Falcon 28 | 7          |
 | Pyros  | 3    | AF088 | 2               | Falcon 25 | 3          |
 
-Every row in the result joins connected facts from different tables. We can read a row like this:
-"Falcon 22, which can carry up to 5 astronauts, flew to the inhabited planet Terra on 2122-04-12".
+Each row in the result combines connected facts across all three tables. For example, the first row reads:
+"Falcon 22, which can carry up to 5 astronauts, flew to the inhabited planet Terra on 2122-04-12."
 
 ## Outer join chains
 
-What if we want to add an "outer" part to the results above — that is, always output all the planets, even if
-there were no flights to some of them? It might be tempting to write it as follows:
+What if we want to include an "outer" part in the results above — that is, always output all planets, even if
+some have no flights? It might be tempting to write it as follows:
 
 ```sql
 SELECT *
@@ -60,10 +60,10 @@ FROM Planet P LEFT JOIN Flight F     ON P.id = F.planet_id
                    JOIN Spacecraft S ON F.spacecraft_id = S.id
 ```
 
-However, this will not work: the result will be the same as if we used inner joins only. The rows in the outer
-part of `Planet LEFT JOIN Flight` have `NULL` in `F.spacecraft_id`, and the comparison `F.spacecraft_id = S.id`
-is then `UNKNOWN`, so those rows have no match in the subsequent `JOIN Spacecraft`. If we want to keep the outer
-part in a chain of joins, we usually keep using `LEFT JOIN`:
+However, this won't work: the result will be identical to an inner join. Rows in the outer
+part of `Planet LEFT JOIN Flight` contain `NULL` for `F.spacecraft_id`. Consequently, the comparison `F.spacecraft_id = S.id`
+evaluates to `UNKNOWN`, leaving those rows without a match in the subsequent `JOIN Spacecraft`. To preserve the outer
+part across a chain of joins, you must continue using `LEFT JOIN` throughout the sequence:
 
 ```sql
 SELECT *
@@ -87,7 +87,7 @@ FROM Planet P LEFT JOIN Flight F     ON P.id = F.planet_id
 | Zephyra | 12   | NULL  | NULL            | NULL      | NULL       |
 | Answer  | 42   | AF305 | 3               | Falcon 28 | 7          |
 
-Another option is to build the inner join part first and then add the outer part with the planets using `RIGHT JOIN`:
+Another option is to build the inner join part first and then add the outer part for planets using a `RIGHT JOIN`:
 
 ```sql
 SELECT *
@@ -95,13 +95,13 @@ FROM Flight F JOIN Spacecraft S ON F.spacecraft_id = S.id
         RIGHT JOIN Planet P     ON P.id = F.planet_id
 ```
 
-Keep in mind, though, that these two approaches are not fully equivalent. If the `Flight` rows have any reason
-not to join with `Spacecraft`, we keep them when using a chain of `LEFT JOIN` operators but miss them otherwise.
-For instance, if we search for fully booked flights (where `people_count` equals the spacecraft `capacity`) but
-still want all planets in the result:
+Keep in mind, though, that these two approaches are not entirely equivalent. If any `Flight` rows
+fail to match with `Spacecraft`, a chain of `LEFT JOIN`s will preserve them.
+For instance, consider searching for fully booked flights (where `people_count` equals spacecraft `capacity`) while
+still including all planets in the result:
 
 ```sql
--- Outputs all planets; for planets with no flights or no fully booked flights, the Flight/Spacecraft columns are NULL.
+-- Includes all planets; for planets with no flights or no fully booked flights, the Flight/Spacecraft columns are NULL.
 SELECT *
 FROM Planet P LEFT JOIN Flight F     ON P.id = F.planet_id
               LEFT JOIN Spacecraft S ON (F.spacecraft_id = S.id AND F.people_count = S.capacity)
@@ -109,8 +109,8 @@ FROM Planet P LEFT JOIN Flight F     ON P.id = F.planet_id
 
 ## Filtering the results of joins
 
-If we have one or more joins in the `FROM` clause, filters in the `WHERE` clause apply to the result of joining.
-This allows for writing very powerful queries. For example, which planets did Falcon 25 fly to, and when?
+If a `FROM` clause contains one or more joins, any filters in the `WHERE` clause apply to the final joined result.
+This allows you to write very powerful queries. For example, which planets did Falcon 25 fly to, and when?
 
 ```sql
 SELECT P.name AS planet_name, F.flight_date, S.capacity
@@ -124,5 +124,5 @@ WHERE S.name = 'Falcon 25'
 | Verda       | 2122-05-08  | 3        |
 | Pyros       | 2122-06-15  | 3        |
 
-Notice that we used table aliases to keep the query short and to distinguish between the planet and spacecraft
-names, which would otherwise both be called `name`.
+Notice that we used table aliases to keep the query concise and to distinguish between planet and spacecraft
+names, which would otherwise share the column name `name`.
