@@ -31,3 +31,15 @@ files:
   - name: images/sqlite3.png
     visible: false
     is_binary: true
+  - name: images/dialect_selection.png
+    visible: false
+    is_binary: true
+  - name: images/sql_dialect_warning_dark.png
+    visible: false
+    is_binary: true
+  - name: images/sql_dialect_warning.png
+    visible: false
+    is_binary: true
+  - name: images/dialect_selection_dark.png
+    visible: false
+    is_binary: true
