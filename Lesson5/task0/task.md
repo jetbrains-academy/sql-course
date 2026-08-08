@@ -1,18 +1,18 @@
-In the previous lessons, we learned how to write queries with joins and search filters, and that's a good start!
-Now let's proceed to more complex tasks and talk about the SQL way of doing something similar to pivot tables in spreadsheets.
+In previous lessons, we learned how to write queries with joins and search filters – a solid foundation to build on!
+Now, let's move on to more complex tasks and explore the SQL equivalent of spreadsheet pivot tables.
 
-We'll start with calculating a scalar aggregate value over a list of rows:
-for instance, counting the number of rows or finding the maximum value in a column.
+We'll start by calculating scalar aggregate values across rows:
+for instance, counting total rows or finding a column's maximum value.
 
-Then we will see how we can group the results of filtering and calculate aggregate values separately for each group.
-As an example, we may group planets with the same climate and calculate the maximum planet radius for each group, or
+Then, we'll see how to group filtered results and calculate aggregate values for each group individually.
+For example, we can group planets by climate to find the maximum planet radius per climate type, or
 group and count flights by spacecraft.
 
-We keep working with the data of the imaginary space travel company _Astrofleet_. This lesson uses a slightly
-richer dataset than before — the `Flight` table now has an `id` and a `cargo` column, there are more flights,
-and there is a spacecraft that never flew. This lesson ships an SQLite database file (`L5_astrofleet.sqlite`),
-shared by all its tasks, that you can open with the [SQLite console client](https://www.sqlite.org/cli.html). SQLite prints boolean values
-as `1` and `0`, and a `NULL` as an empty cell.
+We continue working with data from the imaginary space travel company _Astrofleet_. This lesson uses a slightly
+richer dataset: the `Flight` table now includes `id` and `cargo` columns, contains more flights,
+and introduces a spacecraft that has never flown. This lesson includes an SQLite database file (`L5_astrofleet.sqlite`),
+shared across all tasks, which you can open using the [SQLite console client](https://www.sqlite.org/cli.html). Note that SQLite prints boolean values
+as `1` and `0`, and renders `NULL` as an empty cell.
 
 **Planet**
 
