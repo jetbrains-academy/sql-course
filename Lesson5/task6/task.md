@@ -1,9 +1,9 @@
-Aside from filters in the `WHERE` clause, which, as we know, are applied before grouping takes place, SQL allows for other filters,
-which are applied during or after the work of `GROUP BY` and aggregate functions.
+In addition to filters in the `WHERE` clause – which, as we know, are applied before grouping takes place – SQL supports filters
+that operate after `GROUP BY` and aggregate functions have processed the data.
 
 ### Selective aggregates
 
-When the grouping is done, we can additionally filter the rows, which are fed to each of the aggregate functions used in the query:
+Once grouping is complete, we can further filter which are passed to individual aggregate functions in the query:
 
 ```sql
 SELECT P.id,                                                      --
@@ -16,19 +16,19 @@ WHERE P.climate='mild'                                            -- 2. Filterin
 GROUP BY P.id                                                     --
 ```
 
-In the example above, we apply a filter in the `WHERE` clause to consider only the flights to the planets with a mild climate,
-then group by planet id, and calculate three aggregates within each group. 
-All three aggregate functions are `COUNT`; however, their values are different due to the additional filters defined 
-by the `FILTER` keyword and the filtering expression.
+In the example above, the `WHERE` clause filters rows to include only flights to planets with a mild climate,
+The query then groups the remaining rows by planet ID and computes three aggregates for each group. 
+Although all three use `COUNT`, their outputs differ due to the conditions specified 
+in their respective `FILTER` clauses.
 
-The filtering expression may use what is allowed in the `WHERE` clause, with some restrictions.
+The filtering expression supports most conditions allowed in a `WHERE` clause, with a few restrictions.
 
-Unfortunately, although `FILTER` has been in the SQL standard since 2003, it is an optional feature and is barely supported by  
+Although `FILTER` has been part of the SQL standard since 2003, it is an optional feature with limited native support across  
 database engines. 
-Basically, among the most popular databases, only PostgreSQL and SQLite support it out of the box. 
-However, `FILTER` is easy to emulate using case expressions, which are supported by nearly every database engine. 
+Among the most popular databases, only PostgreSQL and SQLite support it out of the box. 
+However, `FILTER` can easily be emulated using `CASE` expressions, which are supported by virtually every database engine. 
 
-Case expressions are similar to ternary expressions in C++ or Java and when-expressions in Kotlin. They look like this:
+`CASE` expressions are similar to ternary operators in C++ or Java, or `when` expressions in Kotlin. They look like this:
 
 ```sql
 CASE 
@@ -39,14 +39,14 @@ ELSE <default_result>
 END
 ```
 
-In case expressions, conditions are evaluated in the lexical order until one of them returns `true`. 
-If none of the conditions returns `true`, `default_result` is returned, if specified; otherwise, the expression returns 
+In `CASE` expressions, conditions are evaluated in lexical order until one of them evaluates to `true`. 
+If none of the conditions match, the specified `default_result` is returned; otherwise, the expression evaluates to 
 `NULL`.
 
-We can use a case expression with one `WHEN` branch as an aggregate function expression 
-and return the value to be aggregated if the condition evaluates to `true`, or `NULL` otherwise. 
-As we remember, aggregate functions skip `NULL` values, so returning `NULL` from a case expression 
-effectively filters out the input row. Our query can be rewritten using case expressions as follows:
+We can place a `CASE` expression with a single `WHEN` branch inside an aggregate function, 
+returning the value to be aggregated when the condition evaluates to `true` and `NULL` otherwise. 
+Recall that aggregate functions ignore `NULL` values, so returning `NULL` from a `CASE` expression 
+effectively filters out non-matching rows. Our query can be rewritten using `CASE` expressions as follows:
 
 ```sql
 SELECT P.id, 
@@ -59,11 +59,11 @@ WHERE P.climate='mild'
 GROUP BY P.id
 ```
 
-### Filtering the whole group
+### Filtering entire groups
 
-Sometimes we want to drop the whole group if it doesn't match some criteria. 
-For instance, what if we're looking for planets with a mild climate and the total count of flights not less than 3? 
-We can do it with the `HAVING` clause:
+Sometimes we want to exclude an entire group if it doesn't meet certain criteria. 
+For instance, what if we're looking for planets with a mild climate that have at least 3 total flights? 
+We can achieve this using the `HAVING` clause:
 
 ```sql
 SELECT P.id, P.name, COUNT(*)
@@ -74,12 +74,12 @@ GROUP BY P.id, P.name
 HAVING COUNT(*) >= 3
 ```
 
-Lexically, it comes in a query after the `GROUP BY` clause and is evaluated after `GROUP BY`. 
-It takes a boolean expression, which is applied to the entire group.
-If the expression returns `true` for a group, that group goes further to `SELECT`; otherwise, the group is filtered out.
+In a query, the `HAVING` clause appears after `GROUP BY` and is evaluated after `GROUP BY`. 
+It accepts a boolean expression that is applied to the entire group.
+If the expression evaluates to `true`, the group is passed to the `SELECT` clause; otherwise, it is filtered out.
 
-Since the expression applies to the entire group, it has the same restrictions as those in the `SELECT` clause: we can use 
-only the values of the grouping columns and aggregate functions.
+Because the condition applies to the entire group, it follows the same rules as `SELECT`: it can reference 
+only grouping columns and aggregate functions.
 
 
 
