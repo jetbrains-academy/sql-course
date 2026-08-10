@@ -1,4 +1,4 @@
-And that's a wrap — you've reached the end of your little space journey!
+And that's a wrap — you've reached the end of our little space journey!
 
 Along the way, you learned how to read data with `SELECT` and `WHERE`, work with numbers,
 text, and boolean expressions, combine tables with **joins**, summarize data using
