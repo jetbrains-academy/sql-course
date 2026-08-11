@@ -1,7 +1,7 @@
 In this task, we will write our first SQL code to calculate the value of several
 expressions. The smallest executable unit of code in SQL is called a _query_. The queries we write here will not access or modify any database tables.
 
-### `SELECT` clause
+### SELECT clause
 
 Every SQL query consists of structural components called _clauses_. The simplest possible query contains
 only a _select clause_. It starts with the keyword **`SELECT`**, followed by a comma-delimited
