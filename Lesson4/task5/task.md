@@ -1,4 +1,4 @@
-Let's recall the query where we joined planets and flights to find for each planet all the flights to that planet.
+Let's recall the query where we joined planets and flights to find all flights heading to each planet.
 
 ```sql
 SELECT *
@@ -6,28 +6,28 @@ FROM Planet JOIN Flight ON id = planet_id
 ```
 
 This query returns a planet in the results only if there was at least one flight to that planet. But what if we
-need *all* planets to be in the results, no matter if there were any flights or not, and just fill the flight
-column values with `NULL`s for those planets which have no matching flights? If we had no special operator, this
-task would be quite non-trivial. However, we're lucky because in the SQL join family, there are operators
-designed exactly for that. Those operators are called outer joins.
+want *all* planets included in the results, regardless of whether they have scheduled flights, and poopulate the flight
+column with `NULL` values for planets that have no matching flights? Without a dedicated operator, this
+task would be quite complex. Fortunately, SQL includes a family of operators
+designed specifically for this purpose: outer joins.
 
 ### LEFT JOIN and RIGHT JOIN
 
-The result of an outer join is a superset of an inner join, that is, it is always an inner join plus something
-that we will call the "outer part". The set of rows in the outer part depends on the outer join type.
+The result of an outer join is a superset of an inner join, that is, it always includes the inner join result plus an additional set of rows
+we call the "outer part". The exact rows in the outer part depend on the outer join type.
 
-`LEFT OUTER JOIN` adds those rows from its left operand which did not join with any row from the right operand.
-It adds every unmatched row just once and fills the values of the columns from the right operand with NULLs.
-Consider the query:
+A `LEFT OUTER JOIN` preserves all rows from its left operand that did not match any row in the right operand.
+It includes each unmatched row exactly once, filling the right-operand columns with NULL values.
+Consider the following query:
 
 ```sql
 SELECT *
 FROM Planet LEFT OUTER JOIN Flight ON id = planet_id
 ```
 
-Here, we output all rows from `Planet` with the joining flights, if there are any, and with `NULL`s if there are
-no joining flights. The result looks as follows (only the join-relevant columns are shown; SQLite prints
-booleans as `1`/`0` and empty cells for `NULL`):
+Here, we output all rows from `Planet` alongside their matching flights (if any), filling `NULL`s where
+no matching flights exist. The result is shown below (only the join-relevant columns are included). Note: SQLite displays
+booleans as `1`/`0` and renders `NULL` values as empty cells.
 
 | P.name  | P.id | P.is_inhabited | F.num | F.planet_id | F.flight_date |
 |---------|------|----------------|-------|-------------|---------------|
@@ -45,38 +45,38 @@ booleans as `1`/`0` and empty cells for `NULL`):
 | Zephyra | 12   | 0              | NULL  | NULL        | NULL          |
 | Answer  | 42   | 1              | AF305 | 42          | 2122-06-01    |
 
-The planets with flights appear with their flight data; the planets with no flights (Glacia, Dunar, Solmar,
+Planets with flights appear with their flight details. Planets without flights (Glacia, Dunar, Solmar,
 Mirren, Cobar, Frost, Zephyra) each appear once, with `NULL`s in the flight columns.
 
-Notice that left outer join is not commutative and its result is likely to be different if we swap the operands:
+Notice that `LEFT OUTER JOIN` is not commutative. Swapping the operands will likely produce a different result:
 
 ```sql
--- The result of this outer join will be the same as with inner join because there are no rows in Flight that
--- have no matching row in Planet.
+-- The result of this outer join is identical to an inner join because all rows in Flight
+-- have a matching row in Planet.
 SELECT *
 FROM Flight LEFT OUTER JOIN Planet ON id = planet_id
 ```
 
-Right outer join does the same thing, except that its outer part is built from the right operand rows with no
-matches on the left side. Basically, `T LEFT JOIN R` is the same as `R RIGHT JOIN T` with the same join
-condition. Right join may turn useful in some cases of join chains, as we will see in the next step.
+A `RIGHT OUTER JOIN` works the same way, except its outer part is built from the right-operand rows that have no
+matches on the left. In short, `T LEFT JOIN R` is functionally identical to `R RIGHT JOIN T` using the same join
+condition. As we will see in the next step, right joins may be particularly useful in some cases of join chains.
 
 ```sql
 SELECT *
 FROM Flight RIGHT OUTER JOIN Planet ON id = planet_id
 ```
 
-In the keywords `LEFT OUTER JOIN` and `RIGHT OUTER JOIN`, the word `OUTER` is optional, and it is okay to skip it.
+In `LEFT OUTER JOIN` and `RIGHT OUTER JOIN`, the `OUTER` keyword is optional and you can skip it.
 
-### Full outer join
+### FULL OUTER JOIN
 
-Full outer join adds both the "left" and the "right" outer parts to the inner join. In the results, we will have
-one row for each planet with no flights and one row for each flight with no matching planet, if such flights exist.
+A `FULL OUTER JOIN` adds both the "left" and "right" outer parts to the inner join result. Consequently, the output will include
+a row for each planet without flights, as well as a row for each flight without a matching planet (if any such flights exist).
 
 ```sql
 SELECT *
 FROM Planet FULL OUTER JOIN Flight ON id = planet_id
 ```
 
-In our data every flight has a matching planet, so this full outer join returns the same rows as the left outer
-join shown above.
+In our dataset, every flight has a matching destination planet. Therefore, in this specific case, a `FULL OUTER JOIN` produces the exact same output as the
+`LEFT OUTER JOIN` above.

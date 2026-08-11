@@ -1,64 +1,64 @@
-The standard way of finding pairs of matching rows from two tables in SQL is the operator called `INNER JOIN`, which
-can be used in a `FROM` clause. 
-It has a few variations, which all search for pairs matching a certain condition and differ only in the way the match
+The standard way to match rows from two tables in SQL is using the `INNER JOIN` operator
+inside the `FROM` clause. 
+It comes in a few variations, which all search for matching row pairs and differ only in how the match
 condition is formulated.
 
 ### JOIN ... ON
 
-The most common and widely used syntax of the join operator includes the keywords `INNER JOIN` and `ON`.
-The keywords `INNER JOIN` come between the names of the tables being joined, while the join condition, which
-defines whether two rows join or not, follows the pair of tables after the `ON` keyword: 
+The most common and flexible syntax uses the `INNER JOIN` and `ON` keywords.
+The `INNER JOIN` phrase goes between the names of the tables being joined, while the match condition
+following the `ON` keyword defines which row pairs should be combined: 
 
 ```sql
 SELECT * 
 FROM Planet INNER JOIN Flight ON Planet.id = Flight.planet_id
 ```
 
-The keyword `INNER` is optional and can be skipped. Just `JOIN` means `INNER JOIN`:
+The `INNER` keyword is optional. Writing just `JOIN` defaults to `INNER JOIN`:
 
 ```sql
 SELECT * 
 FROM Planet JOIN Flight ON Planet.id = Flight.planet_id
 ```
 
-Inner join is a commutative operation, so if we swap the table names, the result will
+An inner join is a commutative operation, so if we swap the table names, the result will
 be identical:
 
 ```sql
 SELECT * FROM Flight JOIN Planet ON Planet.id = Flight.planet_id
 ```
 
-Pay attention to the fact that commutativity is the property of inner join, while some other operators from the JOIN family are
-not commutative.
+Note: Commutativity is a property of inner joins. Other join types are
+non-commutative.
 
-We can use conditions other than equalities. What if we want to find for each flight all flights made at
-earlier dates, if there were any? We can easily do it like this:
+Join conditions are not limited to equality. Suppose you want to find all previous flights for each flight in the table.
+You can easily do it like this:
 
 ```sql
 SELECT * 
 FROM Flight AS F1 JOIN Flight AS F2 ON F1.flight_date > F2.flight_date
 ```
 
-Logically, this will work the same way as in the case of equality: for each row `f1` from the `Flight` table we will find all rows from the same
-`Flight` table such that their flight date is earlier than the flight date of `f1`. Notice that we used table aliases
-`F1` and `F2` to distinguish between two logical "copies" of the `Flight` table.
+Logically, this works just like an equality join: for each row `F1` from the `Flight` table we find all rows from the same
+table where flight date is earlier. Notice that we used table aliases
+`F1` and `F2` to distinguish between the two logical "copies" of the `Flight` table.
 
-In the join condition, we can use any expression as soon as it returns a boolean value. For instance, if we want  
-for each planet to find all planets with the same climate and a smaller radius, we can do it as follows:
+In a join condition, you can use any valid boolean expression. For instance, if we want  
+to find all pairs of planets with the same climate where the first planet is larger than the second, we can do it as follows:
 
 ```sql
 SELECT * 
 FROM Planet P1 JOIN Planet P2 ON P1.climate = P2.climate AND P1.radius > P2.radius
 ```
 
-Two rows will join if the join expression for them returns `true`. If it returns `false` or `unknown`, the rows 
+Two rows join only if the join expression for them returns `true`. If it returns `false` or `unknown`, the rows 
 will not join.
 
 ### JOIN ... USING
 
-If the join condition is the equality of columns and the joining columns have the same name,
-we can use the `JOIN..USING` variation. Let's assume that we renamed `Planet.id` to `Planet.planet_id`. With the keyword `USING`
-instead of `ON`, we can just write the name of the join column:
+When joining tables on equality between columns that share the exact same name,
+you can use the `JOIN...USING` variation. Let's assume that we renamed `Planet.id` to `Planet.planet_id`. With the `USING` keyword
+instead of `ON`, you can simply specify the name of the join column:
 
 ```sql
 -- This join query:
@@ -72,20 +72,20 @@ FROM Planet JOIN Flight USING(planet_id)
 
 ### NATURAL JOIN
 
-One more variation, which joins based on the equality of values in columns with the same names, is so-called _natural join_:
+Another variation that joins tables based on the equality of values in columns with the same names, is the so-called _natural join_:
 
 ```sql
 SELECT * FROM Flight NATURAL JOIN Planet
 ```
 
 This is equivalent to the `USING` keyword, which returns all columns with the same name from the joined tables. This 
-may render useful in some cases when we don't know the set of join columns in advance. However, one needs to be careful 
-when using `NATURAL JOIN` because it may suddenly start producing wrong results if the joining tables have columns with 
-the same name and data type but with different semantics. Imagine, for instance, that we added a column named `people_count` to 
-both `Flight` and `Planet` tables, assuming that it would mean "the number of flight crew members" in the former and 
-"the number of people living on a planet" in the latter. 
+can be convenient when you don't know the exact join columns in advance. However, you need to be cautious 
+when using `NATURAL JOIN`: it can yield incorrect results if the joining tables have columns with 
+the same name and data type but with different semantics. Imagine, for instance, adding a column named `people_count` to 
+both the `Flight` and `Planet` tables, representing "the number of crew members" in the former and 
+"population" in the latter. 
 Their semantics are different, and the sets of possible values are likely to be different as well,
-but natural join in this query will nevertheless use these columns in addition to `planet_id`:
+but a natural join will nevertheless match on `people_count` alongside `planet_id`:
 
 ```sql
 -- With additional people_count column in both tables, this query
@@ -95,10 +95,10 @@ SELECT * FROM Flight NATURAL JOIN Planet
 SELECT * FROM Flight F JOIN Planet P ON F.planet_id=P.planet_id AND F.people_count=P.people_count
 ```
 
-Most likely, we will always get an empty result because the number of flight crew members is unlikely to be equal
-to the number of people living on the destination planet.
+Most likely, we will always get an empty result because the number of crew members will almost never equal
+the total population of the destination planet.
 
 ----
 
-Some inner join variations are not supported by certain database engines; in particular, `NATURAL JOIN` and `JOIN...USING`
-are not supported by Microsoft SQL Server. However, the `JOIN...ON` syntax is likely to be supported by any engine.
+Some inner join variations are not supported by certain database engines. For example, Microsoft SQL Server does not support `NATURAL JOIN` and `JOIN...USING`.
+However, the `JOIN...ON` syntax is likely to be supported by any engine.

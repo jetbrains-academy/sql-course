@@ -8,33 +8,33 @@
 <img src="https://img.shields.io/badge/dynamic/yaml?query=%24.course_version&url=https://raw.githubusercontent.com/jetbrains-academy/sql-course/refs/heads/master/course-remote-info.yaml&logo=jetbrains&logoColor=FC801D&label=Marketplace&color=6b59fe&style=flat&prefix=v" alt="Marketplace"></a>
 
 > [!WARNING]
-> At the moment, to work with this course, the following feature flag should be enabled: `edu.course.sql`
+> At the moment, to work with this course, the following feature flag must be enabled: `edu.course.sql`
 
 # SQL Introduction
 **SQL** (Structured Query Language) is how you talk to databases —
-you ask a question, and the database gives you back the data that answers it. It's one
-of the most widely used skills in software and data analysis, and it's wonderfully
+you ask a question, and the database returns the data that answers it. It's one
+of the most widely used skills in software engineering and data analysis, and it's wonderfully
 approachable: you can write a genuinely useful query on your very first day.
 
-This course is a hands-on introduction to the fundamentals of SQL. Across the lessons
+This course is a hands-on introduction to the fundamentals of SQL. Across the lessons,
 you'll learn how to:
 
-- read data with `SELECT` and narrow it down with `WHERE`;
-- work with numbers, text, and boolean expressions;
-- combine data from several tables using **joins**;
-- summarize data with grouping and **aggregate** functions;
-- and build more powerful queries with **subqueries** and **CTEs** (Common Table Expressions).
+- Read data with `SELECT` and filter results using `WHERE`
+- Work with datatypes, including numbers, text, and boolean expressions
+- Combine data from multiple tables using **joins**
+- Summarize data with grouping and **aggregate** functions
+- Build advanced queries using **subqueries** and **CTEs** (Common Table Expressions)
 
 It's designed for complete beginners — no prior SQL knowledge is assumed. A little
-programming experience is helpful but not required.
+programming experience is helpful, but not required.
 
 ## Want to know more?
 If you have questions about the course or the tasks, or if you find any errors, 
-feel free to ask questions and participate in discussions within the repository 
-[issues](https://github.com/jetbrains-academy/sql-course/issues).
+feel free to ask questions and participate in discussions within the repository's 
+[issues](https://github.com/jetbrains-academy/sql-course/issues) section.
 
-## Contribution
-Please be sure to review the [project's contributing guidelines](https://github.com/jetbrains-academy/.github/blob/main/contributing_guidelines.md) to learn how to help the project.
+## Contributing
+Please be sure to review the [project's contributing guidelines](https://github.com/jetbrains-academy/.github/blob/main/contributing_guidelines.md) to learn how you can help improve the project.
 
 ## TODO lists
 ### Content
@@ -62,28 +62,28 @@ Please be sure to review the [project's contributing guidelines](https://github.
 - SQLite has no boolean type — boolean values are stored and returned as `1`/`0`. The keywords `TRUE`/`FALSE` are accepted in queries (since SQLite 3.23) but are just aliases for `1`/`0`.
 
 ### Database Tools and SQL
-For a seamless experience, we recommend using the feature built into the IDE [Database Tools and SQL](https://www.jetbrains.com/pages/intellij-idea-databases/).
-This [feature](https://www.jetbrains.com/help/idea/relational-databases.html) is only available in Ultimate subscription. 
+For a seamless experience, we recommend using the built-in IDE [Database Tools and SQL](https://www.jetbrains.com/pages/intellij-idea-databases/).
+This [feature](https://www.jetbrains.com/help/idea/relational-databases.html) requires an Ultimate subscription. 
 
 ### SQLite CLI
-All steps, including manual database initialization (_not required for the learner anymore_), can be performed using the CLI like:
+All steps, including manual database initialization (_not required for the learner anymore_), can be performed via the CLI:
 - `sqlite3 test.sqlite < init.sql`
 - `sqlite3 test.sqlite < init_data.sql`
 - `sqlite3 test.sqlite < src/task.sql`
 
 ### Other GUI apps
-If the learner is willing to use another application and navigate to the SQLite files within the course, 
+If learners prefer using another application to inspect the SQLite files within the course, 
 the following non-commercial GUI solutions can be used (the list is not exhaustive):
 - [DataGrip](https://www.jetbrains.com/datagrip)
 - [DB Browser for SQLite (DB4S)](https://sqlitebrowser.org/)
 
 ### Tasks architecture
-- Learner is provided with a shared sample database for the lesson (`LX_astrofleet.sqlite`).
-- Within the lesson all `example.sql` or `task.sql` can be executed on this database.
-- On Check, `Tests.kt` builds a fresh `test.sqlite` from `init.sql` + `init_data.sql` (in task folder -> isolated from the shared DB).
+- Learners are provided with a shared sample database for each lesson (`LX_astrofleet.sqlite`).
+- Within a lesson, all `example.sql` or `task.sql` can be executed against this database.
+- Upon clicking Check, `Tests.kt` builds a fresh `test.sqlite` instance from `init.sql` + `init_data.sql` (inside the task folder -> isolated from the shared DB).
 - It runs each query from `task.sql` and compares the rows against the expected result.
-- On a mismatch it shows the Full Feedback available on the **Show Full Feedback…** link.
-- `test.sqlite` is visible for learner – no need to hide it, actually.
+- On a mismatch, it shows the Full Feedback available on the **Show Full Feedback…** link.
+- `test.sqlite` is visible for the learner – no need to hide it, actually.
 
 ```text
 LessonX/                       

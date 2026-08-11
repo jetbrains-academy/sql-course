@@ -1,12 +1,12 @@
-If you work with data, you most likely need to search through it and process the search results. 
-No matter if you are a programmer or an accountant, there are lots of tasks
-that require careful processing of piles of data.
+If you work with data, you likely need to search through it and process your results. 
+Whether you're are a programmer or an accountant, there are plenty of tasks
+that require sifting through piles of information.
 
-Sometimes, your task can be solved with a simple `Search` (hit &shortcut:Find;) function in a text or spreadsheet editor,
-or just with a quick eye scan.
+Sometimes, a simple `Search` (hit &shortcut:Find;) function in a text editor or spreadsheet,
+or just with a quick eye scan, is all you need.
 
-Suppose that you are a transport engineer, and you're mining the airport traffic data measured 
-in movements, that is, the total numbers of landings and take-offs. If the amount of data is tiny, 
-you can easily find the busiest airport, the least busy one, the busiest airport in Asia, and so on.
+For instance, suppose you are a transport engineer analyzing airport traffic data measured 
+in "movements" (the total number of landings and take-offs). If the volume of data is small, 
+you can easily spot the busiest airport overall, the least busy one, or the top airport in Asia just by glancing at the list.
 
 Let's do a quick search in the next task!
