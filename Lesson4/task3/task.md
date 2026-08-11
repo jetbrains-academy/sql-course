@@ -1,6 +1,6 @@
 Aside from explicit `JOIN` clauses, SQL provides alternative ways to join tables. 
 
-### Cross-join and filters
+### CROSS JOIN and filters
 
 Let's recall what we do when we join two tables. 
 We evaluate all possible pairs of rows and keep only those that meet a specific condition, such as equality between attributes. 
