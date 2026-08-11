@@ -1,4 +1,4 @@
-### Subqueries and the `IN` operator
+### Subqueries and the IN operator
 Let's return to the `IN` operator, which checks if its left-hand operand exists within the set defined by its 
 right-hand operand:
 
@@ -26,7 +26,7 @@ whether its `climate` value appears in the list.
 Naturally, the subquery must return a single column whose data type matches the  
 left-hand operand. 
 
-### Subqueries and the `EXISTS` operator
+### Subqueries and the EXISTS operator
 
 Another useful operator that takes a subquery as an argument is `EXISTS`. 
 It returns `true` if the subquery result is not empty.  Consider this basic example:
@@ -57,7 +57,7 @@ This query's `WHERE` clause finds all uninhabited planets for which a matching i
 Thus, it solves our target Problem. Notice the alias `P` introduced in the `FROM` clause to distinguish between the two references to the 
 `Planet` table. 
 
-### Subqueries and the operators `SOME`, `ANY`, and `ALL`
+### Subqueries and the SOME, ANY, and ALL operators
 
 One more case of using subqueries in the `WHERE` clause involves logical operators `ANY` (or `SOME`) and `ALL`. 
 These operators compare a scalar value against a list of values item-by-item.
