@@ -5,7 +5,7 @@ example queries — no external program required.
 > **Prerequisite:** Database tools are bundled with **IntelliJ IDEA Ultimate**. 
 > They are not available in **IntelliJ IDEA**. If you don't have them,
 > you can use the `sqlite3` [command-line client](https://www.sqlite.org/cli.html) instead.
-> Alternatively, you can apply for the **JetBrains Student Pack** to get free access to IntelliJ IDEA Ultimate.
+> Alternatively, you can apply for the [**JetBrains Student Pack**](https://www.jetbrains.com/academy/student-pack/) to get free access to IntelliJ IDEA Ultimate.
 
 
 To work with the database, first create a **data source** (a saved connection to the database file):
