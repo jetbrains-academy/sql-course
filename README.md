@@ -37,24 +37,6 @@ feel free to ask questions and participate in discussions within the repository'
 Please be sure to review the [project's contributing guidelines](https://github.com/jetbrains-academy/.github/blob/main/contributing_guidelines.md) to learn how you can help improve the project.
 
 ## TODO lists
-### Content
-- [x] Move `astrofleet.sqlite` in each lesson to the lesson-level; update all references to use same DB for all tasks
-- [x] Add instructions for learners how to use in-IDE database tool to work with DB in this course
-- [x] Add a guide about integrated into IDE CSV-data tools
-- [x] Add images for lesson1 (?)
-- [x] Add guide about checking system into `Arithmetic expression practice` task
-- [x] Rename Lesson2 tasks to use the same prefixes
-- [x] Remove Prototype lesson
-- [x] Get rid of the appendix lesson
-- [x] Check are SQL requests make write to the lessons' .sqlite files → no, the entire curriculum is read-only.
-- [x] Update gradle-everything in the Kotlin-onboarding way and add propper files to the repository and course files
-- [x] Add intro lesson "how to use the course" -- same as Kotlin Onboarding 1 have
-- [x] Test the course by someone available
-- [x] Add a link to the EDU licenses page
-- [ ] Plugin team -> enable sql course feature flag in prod
-
-### Publication
-- [ ] Finalize course name and description
 - [ ] Update Readme to match style and links
 
 ## Course technical details

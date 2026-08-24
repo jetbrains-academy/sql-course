@@ -1,16 +1,18 @@
 type: marketplace
-title: SQL 101
+title: Introduction to SQL
 language: English
-summary: "This is a short introduction into the fundamentals of SQL query language.\n\
+summary: "<p>This is a short introduction into the fundamentals of SQL query language.\n\
   \nIt covers the very basic SQL constructs, such as data types and operations, search\
   \ filters, \ntable joins, rows grouping and calculation of aggregated values. It\
   \ is designed for\nthe absolute newbies with no prior knowledge of SQL but probably\
-  \ with some programming experience."
+  \ with some programming experience.</p>\n<p>We recommend using IntelliJ IDEA Ultimate\
+  \ for the best experience. You can apply for the JetBrains Student Pack to get free\
+  \ access to it.</p>"
 vendor:
   name: JetBrains s.r.o.
   email: support@jetbrains.com
   url: https://www.jetbrains.com/
-programming_language: SQL
+programming_language: Kotlin
 content:
   - Lesson0
   - Lesson1
