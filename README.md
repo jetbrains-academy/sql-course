@@ -2,10 +2,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Gradle Build](https://github.com/jetbrains-academy/sql-course/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/jetbrains-academy/sql-course/actions/workflows/gradle-build.yml)
 [![Gradle Test](https://github.com/jetbrains-academy/sql-course/actions/workflows/gradle-test.yml/badge.svg)](https://github.com/jetbrains-academy/sql-course/actions/workflows/gradle-test.yml)
+<a href="https://academy.jetbrains.com/course/33864?=fromGitHub" target="_blank">
+<img src="https://img.shields.io/static/v1?logo=jetbrains&logoColor=1bd58e&label=&message=Course%20catalog&color=5a5a5a&style=flat" alt="Course%20catalog"></a>
 <a href="https://plugins.jetbrains.com/plugin/33864/versions" target="_blank">
 <img src="https://img.shields.io/badge/dynamic/yaml?query=%24.course_version&url=https://raw.githubusercontent.com/jetbrains-academy/sql-course/refs/heads/master/course-remote-info.yaml&logo=jetbrains&logoColor=FC801D&label=Marketplace&color=6b59fe&style=flat&prefix=v" alt="Marketplace"></a>
-<!-- <a href="https://academy.jetbrains.com/course/33864?=fromGitHub" target="_blank"> -->
-<!-- <img src="https://img.shields.io/static/v1?logo=jetbrains&logoColor=1bd58e&label=&message=Course%20catalog&color=5a5a5a&style=flat" alt="Course%20catalog"></a> -->
 
 # SQL Introduction
 **SQL** (Structured Query Language) is how you talk to databases —
