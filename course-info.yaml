@@ -1,13 +1,12 @@
 type: marketplace
 title: Introduction to SQL
 language: English
-summary: "<p>This is a short introduction into the fundamentals of SQL query language.\n\
-  \nIt covers the very basic SQL constructs, such as data types and operations, search\
-  \ filters, \ntable joins, rows grouping and calculation of aggregated values. It\
-  \ is designed for\nthe absolute newbies with no prior knowledge of SQL but probably\
-  \ with some programming experience.</p>\n<p>We recommend using IntelliJ IDEA Ultimate\
-  \ for the best experience. You can apply for the JetBrains Student Pack to get free\
-  \ access to it.</p>"
+summary: "<p>A fast-paced introduction to SQL fundamentals. You’ll learn the core\
+  \ essentials: data types, filtering results, joining tables, and aggregating data.\
+  \ Designed for complete SQL beginners (some programming experience helps, but isn’\
+  t required).</p><br><p>Note: We recommend IntelliJ IDEA Ultimate (free for students\
+  \ via the <a href=\"https://www.jetbrains.com/academy/student-pack/\">JetBrains\
+  \ Student Pack</a>).</p>"
 vendor:
   name: JetBrains s.r.o.
   email: support@jetbrains.com
